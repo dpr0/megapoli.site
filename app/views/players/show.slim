@@ -1,0 +1,90 @@
+section#pole.about-section.text-center
+  .container
+    .row
+      .col-sm-1
+        br
+        br
+        = link_to player_path(@player.id == 1 ? Player.count : @player.id - 1) do
+          = image_tag "left.png", size: "100x100"
+      .col-sm-9
+        .row
+          .col-sm-1
+          .col-sm-4
+            br
+              = image_tag @player.jpg, class: 'img-thumbnail'
+          .col-sm-1
+          .col-sm-6
+            / br
+            / .row
+            /   .input-group.mb-6
+            /     .input-group-prepend
+            /       span.input-group-text Команды
+            /     .form-control.text-right
+            /       - @player.dp_tally(@player.day_players_by_season(Season.last.id)).each do |team_id, count|
+            /         - team = Team.cached_by_id[team_id]
+            /         = image_tag "colors/#{team.code}.png", size: "25x30"
+            /         = count
+            br
+            .row
+              .input-group.mb-6
+                .input-group-prepend
+                  span.input-group-text Номер
+                = text_field_tag '', @player.code, class: 'form-control text-right', disabled: true
+            br
+            .row
+              .input-group.mb-6
+                .input-group-prepend
+                  span.input-group-text Текущий ELO
+                = text_field_tag '', @player.elo.to_i, class: 'form-control text-right text-bold', disabled: true
+            br
+            .row
+              .input-group.mb-6
+                .input-group-prepend
+                  span.input-group-text ФИО
+                = text_field_tag '', @player.full_name, class: 'form-control text-right', disabled: true
+            br
+            .row
+              .input-group.mb-6
+                .input-group-prepend
+                  span.input-group-text Дата рождения
+                = text_field_tag '', @player.birthday&.strftime("%d.%m.%Y"), class: 'form-control text-right', disabled: true
+            br
+            .row
+              .input-group.mb-6
+                .input-group-prepend
+                  span.input-group-text Телефон
+                = text_field_tag '', current_player ? @player.text_phone : @player.text_xxx_phone, class: 'form-control text-right', disabled: true
+            - if @player.lfl.present?
+              br
+              .row
+                .input-group.mb-6
+                  .input-group-prepend
+                    span.input-group-text ЛФЛ
+                  - str = "<a href='http://lfl.ru/person#{@player.lfl}'>http://lfl.ru/person#{@player.lfl}</a>".html_safe
+                  = text_field_tag '', "http://lfl.ru/person#{@player.lfl}", class: 'form-control text-right', disabled: true
+      .col-sm-1
+        br
+        br
+        = link_to player_path(@player.id == Player.count ? 1 : @player.id + 1) do
+          = image_tag "right.png", size: "100x100"
+    br
+    - @player.day_players.group_by(&:season_id).sort.reverse.each do |season_id, rates|
+      - stat = @stat[season_id]
+      - next unless stat
+      .row
+        .input-group.mb-6
+          .input-group-prepend
+            span.input-group-text = "Сезон: #{Season.cached_by_id[season_id].name}"
+          - goals   = stat[:goals_count]  > 0 ? " ⚽#{stat[:goals_count]}"  : ''
+          - assists = stat[:assist_count] > 0 ? " 🦶#{stat[:assist_count]}" : ''
+          = text_field_tag '', "ELO: #{rates.last.elo.to_i}#{goals}#{assists}", class: 'form-control text-right', disabled: true
+
+      .row
+        - stat[:teams].each do |t|
+          .col-sm-3
+            = "за #{Team.color_text(t[:team_id])} (дней: #{t[:team_days]}):"
+            - t[:vs].each do |vs|
+              div= "#{Team.color(vs[:team_id])} +#{vs[:win]} =#{vs[:draw]} -#{vs[:lose]}"
+      .row
+        .col-sm-12
+          = area_chart rates.map { |dp| [dp.day_id, dp.elo] }, width: "93%", min: 800, max: 2800, xmin: 1, download: {background: "#ffffff"}, dataset: {borderWidth: 3}

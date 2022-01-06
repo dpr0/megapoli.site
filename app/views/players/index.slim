@@ -1,0 +1,25 @@
+/ - (0..100).each do |x|
+/   = image_tag "https://futhead.cursecdn.com/static/img/20/nations/#{x}.png"
+.row#pole
+  - @players.each do |player|
+    .col-sm-3.mt-4
+      .card.profile-card
+        .card-img-block
+          .info-box
+            = player.birthday&.strftime("%d.%m.%Y")
+        .card-body
+          = image_tag player.jpg, class: 'profile', height: '50%'
+          h5.card-title.text-center        = player.code
+          .card-text.text-center.text-dark = player.lastname.present?   ? player.lastname   : '-'
+          .card-text.text-center.text-dark = player.name.present?       ? player.name       : '-'
+          .card-text.text-center.text-dark = player.middlename.present? ? player.middlename : '-'
+          .card-text.text-center.text-dark = current_player ? player.text_phone : player.text_xxx_phone
+          .icon-block.text-center
+            a href="#"
+              i = player.code
+            a href="#"
+              i &#9917;
+            a href="#"
+              i = player.elo.to_i
+            p
+              img src="https://futhead.cursecdn.com/static/img/20/nations/40.png" height="18" width="30"

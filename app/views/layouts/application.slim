@@ -1,0 +1,122 @@
+doctype html
+html
+  head
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag 'application', 'data-turbo-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbo-track': 'reload', defer: true
+    = favicon_link_tag asset_path('favicon.ico')
+
+    title Megapolis football site
+    link href="https://megapoli.site" rel="canonical"
+    meta name="yandex-verification" content="b8209de9862994b1"
+    meta name="viewport"            content="width=device-width,initial-scale=1"
+    meta name="description"         content="megapoli.site"
+    meta name="twitter:card"        content="summary_large_image"
+    meta property="og:url"          content="https://megapoli.site/"
+    meta property="og:site_name"    content="megapoli.site"
+    meta property="og:type"         content="website"
+    meta property="og:title"        content="megapoli.site"
+    meta property="og:locale"       content="ru_RU"
+    meta property="og:description"  content="megapoli.site"
+    meta property="og:image"        content="#{asset_path('og-image.png')}"
+    meta charset="utf-8"
+    meta content="IE=edge" http-equiv="X-UA-Compatible"
+
+    link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;800&display=swap" rel="stylesheet"
+    script crossorigin="anonymous" src="https://kit.fontawesome.com/15181efa86.js"
+
+  body
+    = render 'layouts/topbar'
+    = yield
+    section#parallax-1.hero.is-large
+      .hero-body
+        .container
+          .columns
+            .column.is-6.is-offset-6
+              h1.title.is-1 Lorem Ipsum
+              hr.content-divider
+              h2.subtitle Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit explicabo amet magni illum eum voluptate! Eveniet voluptatem nam magnam necessitatibus.
+              a.button.is-white.is-inverted href="#"
+                | Next&ensp;
+                i.fad.fa-chevron-right
+
+    section#parallax-2.hero.is-large
+      .hero-body
+        .container
+          .columns
+            .column.is-6
+              h1.title.is-1 Dolor Sit
+              hr.content-divider
+              h2.subtitle Lorem ipsum dolor, sit amet consectetur adipisicing elit. Doloremque veritatis sequi natus minima distinctio ullam deleniti quasi quisquam autem deserunt.
+              a.button.is-white.is-inverted href="#"
+                | Next&ensp;
+                i.fad.fa-chevron-right
+    section#parallax-3.hero.is-large
+      .hero-body
+        .container
+          .columns
+            .column.is-6.is-offset-6
+              h1.title.is-1 Amet Consectetur
+              hr.content-divider
+              h2.subtitle Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iure minus nam necessitatibus neque in perferendis eveniet dolorum assumenda dolores accusamus.
+              a.button.is-white.is-inverted href="#"
+                | Next&ensp;
+                i.fad.fa-chevron-right
+    / section.cta.va
+    /   .container
+    /     .columns
+    /       .column.is-6
+    /         h1.title.is-1 Adipisicing Elit
+    /         hr.content-divider
+    /         h2.subtitle Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quas ut nulla maiores, beatae voluptas sunt excepturi deserunt vero. Beatae est ratione quia neque molestias, cum asperiores quibusdam rem illum, debitis dolorem natus, eos fuga eveniet numquam ab officia reiciendis inventore. Tempore repudiandae exercitationem quisquam? Fugiat!
+    /       .column.is-6
+    /         .field
+    /           label.label Name
+    /           .control
+    /             input.input.is-medium placeholder=("Jon Snow") type="text"
+    /         br
+    /         .field
+    /           label.label Email
+    /           .control
+    /             input.input.is-medium placeholder="jon@winterfell.com" type="email"
+    /         br
+    /         .field.is-grouped
+    /           .control
+    /             button.button.is-white.is-rounded.is-outlined Submit
+    /         br
+    /         br
+
+    footer.footer
+      .content.has-text-centered
+        p
+          | megapoli.site
+          | &nbsp
+          | by
+          | &nbsp
+          strong dvitvitskiy
+        p
+          a href='https://t.me/dvitvitskiy' Telegram
+          | &nbsp; || &nbsp;
+          a href="mailto:dvitvitskiy.pro@gmail.com" Email
+        p
+          - Common.sites.each do |name, str|
+            = link_to "https://#{name}", class: 'mx-2' do
+              i class="#{str}"
+        p
+          | The source code is licensed
+          a href="http://opensource.org/licenses/mit-license.php"  MIT
+          | &nbsp
+          | Copyright &copy;
+          = " 2019-#{Time.now.year}"
+
+javascript:
+    if ("#{Rails.env}" == 'production') {
+        (function (m, e, t, r, i, k, a) {
+            m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
+            m[i].l = 1 * new Date();
+            k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+        })
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+        ym(56435119, "init", {clickmap: true, trackLinks: true, accurateTrackBounce: true, webvisor: true});
+    }

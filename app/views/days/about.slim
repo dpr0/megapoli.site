@@ -1,0 +1,13 @@
+.content
+  .container-fluid
+    br
+    .row
+      .col-sm-3
+        .card-dark.text-white
+          .card-header Stack
+          .card-body
+            p.card-text
+              .small= "Ruby #{RUBY_VERSION}"
+              .small= "Ruby on Rails #{Rails::VERSION::STRING}"
+              .small= "Puma #{@gems["puma"].version}"
+              .small= "Webpacker #{@gems["webpacker"].version}"

@@ -1,0 +1,27 @@
+header.masthead
+  .container
+    .mx-auto.text-center
+      .row
+        .col-sm-12.mx-auto
+          .row.align-items-center
+            .col-sm-12.text-center
+              h1.mx-auto.my-0 MEGAPOLIS
+          h2.mx-auto.mt-2.mb-5
+            a href="http://megapolisfit.ru/" megapolisfit.ru
+      .row
+        .col-sm-12
+          #messages.direct-chat-messages style="height: 500px"
+            - @messages.each do |message|
+              - player = @players.find { |z| z.uid == message.uid.to_s }
+              = render 'message', message: message, player: player
+
+        .col-sm-12
+          br
+          form action="#" method="post"
+            .input-group
+              input.form-control name="message" placeholder=("Type Message ...") type="text" /
+              span.input-group-append
+                button.btn.btn-primary type="button"  Send
+
+javascript:
+    $('.direct-chat-messages').animate({scrollTop: 2000});

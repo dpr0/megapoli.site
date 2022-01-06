@@ -46,6 +46,9 @@ Rails.application.configure do
   # config.action_cable.mount_path = nil
   # config.action_cable.url = "wss://example.com/cable"
   # config.action_cable.allowed_request_origins = [ "http://example.com", /http:\/\/example.*/ ]
+  config.action_cable.url = 'wss://megapoli.site/cable'
+  config.action_cable.allowed_request_origins = ['*']
+  config.action_cable.disable_request_forgery_protection = true
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
@@ -92,4 +95,8 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  routes.default_url_options = { host: 'megapoli.site', protocol: 'https' }
+
+  config.telegram_updates_controller.session_store = :file_store, Rails.root.join('tmp', 'session_store')
 end

@@ -1,0 +1,18 @@
+- if player
+  - pl = request.env['warden'] && current_player && current_player.uid == player.uid
+  .direct-chat-msg class="#{ pl ? 'right' : 'left' }"
+    .direct-chat-infos.clearfix
+      span.direct-chat-name class="#{ pl ? 'float-right' : 'float-left'}" = player.short_name
+      span.direct-chat-timestamp class="#{ pl ? 'float-left' : 'float-right'}"
+        - if self.respond_to?(:local_time)
+          = local_time(message.date, '%e.%m.%Y %H:%M')
+    = image_tag player.jpg, class: 'direct-chat-img'
+    .direct-chat-text
+      - if message.reply_message_id
+        span.direct-chat-msg.direct-chat-text.text-secondary
+          = @messages.find { |m| m.message_id == message.reply_message_id }&.text
+      - if message.message_file.attached?
+        = image_tag message.message_file, width: 80
+        br
+      div= message.text
+      / span.material-icons.md-18 face
