@@ -7,7 +7,7 @@ section#parallax-pole.hero.is-large
             = link_to day_path(@day.id - 1, to: -1) do
               = image_tag 'left.png', size: '100x100'
         .column.is-6.is-center
-          h1.title.is-1 = l(@day.date)
+          h2.subtitle.is-1 = l(@day.date)
         .column.is-3.is-left
           - if @day.id != Day.last.id
             = link_to day_path(@day.id + 1, to: 1) do
@@ -76,32 +76,26 @@ section#parallax-pole.hero.is-large
 
 section#parallax-football.hero.is-large
   .hero-body
-    - @day.day_players_by_season(@day.season_id).group_by(&:team_id).sort.each do |team_id, day_players|
-      .row.justify-content-center.no-gutters.mb-5.mb-0
-        .col-sm-6.text-right
-          = image_tag "colors/#{Team.cached_by_id[team_id].code}.png", size: "200x275"
-          .event-details.text-dark
+    .container
+      - @day.day_players_by_season(@day.season_id).group_by(&:team_id).sort.each do |team_id, day_players|
+        .columns.is-centered
+          .column.has-text-centered class="footballka-#{Team.cached_by_id[team_id].code}"
             h2 = day_players.map(&:elo).sum.to_i / day_players.count
-        .col-sm-6
-          .bg-black.text-center.h-100.project
-            .d-flex.h-100
-              .project-text.w-100.my-auto.text-left
-                p.mb-0.text-white-50
-                  - day_players.each do |day_player|
-                    - player = @players.find { |p| p[:id] == day_player.player_id }
-                    div
-                      span.badge.badge-primary.badge-pill
-                        = day_player.elo.to_i
-                      | &nbsp;
-                      = link_to player.name, player_path(player)
-                      | &nbsp;
-                      span
-                        - if @player_goals[player.code]
-                          - @player_goals[player.code].times do
-                            | ⚽️
-                        - if @player_assists[player.code]
-                          - @player_assists[player.code].times do
-                            | 🦶
+            - day_players.each do |day_player|
+              - player = @players.find { |p| p[:id] == day_player.player_id }
+              div
+                span.badge.badge-primary.badge-pill
+                  = day_player.elo.to_i
+                | &nbsp;
+                = link_to player.name, player_path(player)
+                | &nbsp;
+                span
+                  - if @player_goals[player.code]
+                    - @player_goals[player.code].times do
+                      | ⚽️
+                  - if @player_assists[player.code]
+                    - @player_assists[player.code].times do
+                      | 🦶
 
 section#parallax-computers.hero.is-large
   .hero-body
@@ -139,23 +133,7 @@ section#parallax-cars.hero.is-large
   .hero-body
     .container
       .columns.is-mobile
-        - if @day
-          .row
-            .col-sm-1
-              a.carousel-control-prev data-slide="prev" href="#carousel-videos" role="button"
-                span.carousel-control-prev-icon aria-hidden="true"
-            .col-sm-10
-              #carousel-videos.carousel.slide
-                - if @day.videos
-                  - videos = @day.videos.split(",")
-                  ol.carousel-indicators
-                    - videos.each_with_index do |link, index|
-                      li class="#{'active' if index.zero?}" data-slide-to="#{index}" data-target="#carousel-videos"
-                  .carousel-inner
-                    - videos.each_with_index do |link, index|
-                      .carousel-item class="#{'active' if index.zero?}"
-                        .embed-responsive.embed-responsive-16by9
-                          iframe.embed-responsive-item src="https://www.youtube.com/embed/#{link}" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="true"
-            .col-sm-1
-              a.carousel-control-next data-slide="next" href="#carousel-videos" role="button"
-                span.carousel-control-next-icon aria-hidden="true"
+        .column.is-3.is-right
+          - if @day && @day.videos
+            - @day.videos.split(",").each_with_index do |link, index|
+              iframe.embed-responsive-item src="https://www.youtube.com/embed/#{link}" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="true"

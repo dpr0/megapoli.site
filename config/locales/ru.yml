@@ -1,7 +1,7 @@
 ru:
   date:
     formats:
-      default: "%d.%m.%Y %A"
+      default: "%d.%m.%Y"
     day_names:
       - Вс
       - Пн

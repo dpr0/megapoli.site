@@ -93,6 +93,39 @@ hr.content-divider {
     border-top: 10px solid hotpink;
 }
 
+.footballka-purple {
+    background: url(colors/purple.png);
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    /*background-size: cover;*/
+    /*border-top: 10px solid #d31edc;*/
+}
+.footballka-green {
+    background: url(colors/green.png);
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    /*background-size: cover;*/
+    /*border-top: 10px solid #35eb3a;*/
+}
+.footballka-white {
+    background: url(colors/white.png);
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    /*background-size: cover;*/
+    /*border-top: 10px solid #fefefe;*/
+}
+.footballka-color1 {
+    background: url(colors/color1.png);
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    /*background-size: cover;*/
+    /*border-top: 10px solid blue;*/
+}
+
 #parallax-cars hr {
     background: hotpink;
 }
