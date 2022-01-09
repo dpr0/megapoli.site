@@ -14,7 +14,7 @@ gem 'omniauth'
 gem 'omniauth-rails_csrf_protection'
 gem 'omniauth-telegram'
 gem 'pg'
-gem 'puma'
+gem 'puma', '4.3.10'
 gem 'rails'
 gem 'redis'
 gem 'slim-rails'
@@ -30,8 +30,8 @@ gem 'turbo-rails'
 
 group :development do
   gem 'bcrypt_pbkdf'
+  gem 'capistrano3-puma', '4.0.0', require: false
   gem 'capistrano',         require: false
-  gem 'capistrano3-puma',   require: false
   gem 'capistrano-bundler', require: false
   gem 'capistrano-nvm',     require: false
   gem 'capistrano-rails',   require: false
