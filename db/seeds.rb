@@ -15,6 +15,7 @@ season1 = Season.create(code: 'season1',  name: '2020/1')
 season2 = Season.create(code: 'season2',  name: '2020/2')
 season3 = Season.create(code: 'season3',  name: '2021/1')
 season4 = Season.create(code: 'season4',  name: '2021/2')
+season5 = Season.create(code: 'season5',  name: '2022/1')
 
 [season1, season2, season3, season4].each do |season|
   Player.all.each do |pl|

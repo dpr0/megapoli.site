@@ -9,7 +9,9 @@ section#parallax-pole.hero
         .column.is-6.is-center
           h1.title.is-1 = @season.name
           hr.content-divider
-          h2.subtitle = "#{@days.last.date.strftime("%d.%m.%Y")} - #{@days.first.date.strftime("%d.%m.%Y")}"
+          h2.subtitle
+            - if !@days.size.zero?
+              = "#{@days.last.date.strftime("%d.%m.%Y")} - #{@days.first.date.strftime("%d.%m.%Y")}"
         .column.is-3.is-left
           - if @season.id != Season.all_cached.last.id
             = link_to days_path(season_id: @season.id + 1) do
