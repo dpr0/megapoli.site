@@ -18,11 +18,6 @@ Rails.application.routes.draw do
     post :filter, on: :collection
   end
   resources :days do
-    member do
-      get :teams
-      get :videos
-      get :games
-    end
     collection do
       get :next
       get :about

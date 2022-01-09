@@ -1,4 +1,15 @@
 ru:
+  date:
+    formats:
+      default: "%d.%m.%Y %A"
+    day_names:
+      - Вс
+      - Пн
+      - Вт
+      - Ср
+      - Чт
+      - Пт
+      - Сб
   telegram_webhooks:
     action_missing:
       command: Can not perform %{command}

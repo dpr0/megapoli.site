@@ -1,76 +1,161 @@
-section#results.about-section.text-center
-  .container
-    .row
-      .col-sm-8.mx-auto
-        .row.align-items-center
-          .col-sm-2.text-right
-            - if @day.id != 1
-              = link_to day_path(@day.id - 1, to: -1) do
-                = image_tag "left.png", size: "100x100"
-          .col-sm-8.text-center
-            h2.text-white.mb-4 = @day.date.strftime("%d.%m.%Y")
-          .col-sm-2.text-left
-            - if @day.id != Day.last.id
-              = link_to day_path(@day.id + 1, to: 1) do
-                = image_tag "right.png", size: "100x100"
-  .container
-    .row
-      table.table.table-dark.table-bordered.hoverTable
-        tr
-          th Команда
-          th.text-center Матчи
-          th.text-center Победа
-          th.text-center Ничья
-          th.text-center Поражение
-          th.text-center Голов
-          th.text-center points per game
-        - @main_table.each do |table|
-          tr data-link='' data-toggle='modal' data-target="#gamesModalCenter_#{table[:team_code]}"
-            td.text-center = image_tag "colors/#{table[:team_code]}.png", size: "25x30"
-            td.text-center = table[:games_count]
-            td.text-center
-              = table[:win_count]
-              .small
-                - if table[:opps_win]
-                  - table[:opps_win].sort.reverse.each do |code, count|
-                    div
-                      - count.count.times do
-                        = image_tag "colors/#{code}.png", size: "10x15"
-                        | &nbsp;
-            td.text-center
-              = table[:draw_count]
-              .small
-                - if table[:opps_draw]
-                  - table[:opps_draw].sort.reverse.each do |code, count|
-                    div
-                      - count.count.times do
-                        = image_tag "colors/#{code}.png", size: "10x15"
-                        | &nbsp;
-            td.text-center
-              = table[:lose_count]
-              .small
-                - if table[:opps_lose]
-                  - table[:opps_lose].sort.reverse.each do |code, count|
-                    div
-                      - count.count.times do
-                        = image_tag "colors/#{code}.png", size: "10x15"
-                        | &nbsp;
-            td.text-center = table[:goals]
-            td.text-center = table[:ppg]
-          .modal.fade aria-hidden="true" role="dialog" tabindex="-1" id="gamesModalCenter_#{table[:team_code]}"
-            .modal-dialog.modal-dialog-centered role="document"
-              .modal-content.text-black-50
-                .modal-header
-                  h5.modal-title Сыгранные игры
-                  button.close aria-label="Close" data-dismiss="modal" type="button"
-                    span aria-hidden="true"  &times;
-                .modal-body
-                  - {opps_win: 'Победы', opps_draw: 'Ничьи', opps_lose: 'Поражения'}.each do |key, value|
-                    - next if table[key].nil? || table[key].count.zero?
-                    .row
-                      .col-sm-3
-                        | #{value}:
-                      - table[key].each do |code, count|
+section#parallax-pole.hero.is-large
+  .hero-body
+    .container
+      .columns.is-mobile
+        .column.is-3.is-right
+          - if @day.id != 1
+            = link_to day_path(@day.id - 1, to: -1) do
+              = image_tag 'left.png', size: '100x100'
+        .column.is-6.is-center
+          h1.title.is-1 = l(@day.date)
+        .column.is-3.is-left
+          - if @day.id != Day.last.id
+            = link_to day_path(@day.id + 1, to: 1) do
+              = image_tag 'right.png', size: '100x100'
+    .container
+      .row
+        table.table.is-bordered
+          tr
+            th Команда
+            th.text-center Матчи
+            th.text-center Победа
+            th.text-center Ничья
+            th.text-center Поражение
+            th.text-center Голов
+            th.text-center points per game
+          - @main_table.each do |table|
+            tr data-link='' data-toggle='modal' data-target="#gamesModalCenter_#{table[:team_code]}"
+              td.text-center = image_tag "colors/#{table[:team_code]}.png", size: '25x30'
+              td.text-center = table[:games_count]
+              td.text-center
+                = table[:win_count]
+                .small
+                  - if table[:opps_win]
+                    - table[:opps_win].sort.reverse.each do |code, count|
+                      div
+                        - count.count.times do
+                          = image_tag "colors/#{code}.png", size: '10x15'
+                          | &nbsp;
+              td.text-center
+                = table[:draw_count]
+                .small
+                  - if table[:opps_draw]
+                    - table[:opps_draw].sort.reverse.each do |code, count|
+                      div
+                        - count.count.times do
+                          = image_tag "colors/#{code}.png", size: '10x15'
+                          | &nbsp;
+              td.text-center
+                = table[:lose_count]
+                .small
+                  - if table[:opps_lose]
+                    - table[:opps_lose].sort.reverse.each do |code, count|
+                      div
+                        - count.count.times do
+                          = image_tag "colors/#{code}.png", size: '10x15'
+                          | &nbsp;
+              td.text-center = table[:goals]
+              td.text-center = table[:ppg]
+            .modal.fade aria-hidden="true" role="dialog" tabindex="-1" id="gamesModalCenter_#{table[:team_code]}"
+              .modal-dialog.modal-dialog-centered role="document"
+                .modal-content.text-black-50
+                  .modal-header
+                    h5.modal-title Сыгранные игры
+                    button.close aria-label="Close" data-dismiss="modal" type="button"
+                      span aria-hidden="true"  &times;
+                  .modal-body
+                    - {opps_win: 'Победы', opps_draw: 'Ничьи', opps_lose: 'Поражения'}.each do |key, value|
+                      - next if table[key].nil? || table[key].count.zero?
+                      .row
                         .col-sm-3
-                          = "#{count.count} x "
-                          = image_tag "colors/#{code}.png", size: "25x30"
+                          | #{value}:
+                        - table[key].each do |code, count|
+                          .col-sm-3
+                            = "#{count.count} x "
+                            = image_tag "colors/#{code}.png", size: '25x30'
+
+section#parallax-football.hero.is-large
+  .hero-body
+    - @day.day_players_by_season(@day.season_id).group_by(&:team_id).sort.each do |team_id, day_players|
+      .row.justify-content-center.no-gutters.mb-5.mb-0
+        .col-sm-6.text-right
+          = image_tag "colors/#{Team.cached_by_id[team_id].code}.png", size: "200x275"
+          .event-details.text-dark
+            h2 = day_players.map(&:elo).sum.to_i / day_players.count
+        .col-sm-6
+          .bg-black.text-center.h-100.project
+            .d-flex.h-100
+              .project-text.w-100.my-auto.text-left
+                p.mb-0.text-white-50
+                  - day_players.each do |day_player|
+                    - player = @players.find { |p| p[:id] == day_player.player_id }
+                    div
+                      span.badge.badge-primary.badge-pill
+                        = day_player.elo.to_i
+                      | &nbsp;
+                      = link_to player.name, player_path(player)
+                      | &nbsp;
+                      span
+                        - if @player_goals[player.code]
+                          - @player_goals[player.code].times do
+                            | ⚽️
+                        - if @player_assists[player.code]
+                          - @player_assists[player.code].times do
+                            | 🦶
+
+section#parallax-computers.hero.is-large
+  .hero-body
+    .container
+      .row
+        table.table.table-dark.table-striped.table-bordered
+          tr
+            th colspan="8" Игры
+          - @games.each_with_index do |game, i|
+            - z = game.goals.map(&:player_id).map do |player_id|
+              - next unless player_id
+              - @players.find { |pl| pl.id == player_id }.name
+            tr
+              td.text-left
+                = i + 1
+              td.text-right
+                sup class="#{game.rated_class('left')}"
+                  = game.rated('left')
+                = game.left_team_elo.to_i
+              td.text-left
+                - t = @teams.find { |t| t.id == game['team_left_id'] }
+                = image_tag "colors/#{t.code}.png", size: "25x30"
+              td.text-center.CellWithComment
+                = "#{game.goals_left} : #{game.goals_right}"
+                span.CellComment = z.compact.join(', ')
+              td.text-right
+                - t = @teams.find { |t| t.id == game['team_right_id'] }
+                = image_tag "colors/#{t.code}.png", size: "25x30"
+              td.text-left
+                = game.right_team_elo.to_i
+                sup class="#{game.rated_class('right')}"
+                  = game.rated('right')
+
+section#parallax-cars.hero.is-large
+  .hero-body
+    .container
+      .columns.is-mobile
+        - if @day
+          .row
+            .col-sm-1
+              a.carousel-control-prev data-slide="prev" href="#carousel-videos" role="button"
+                span.carousel-control-prev-icon aria-hidden="true"
+            .col-sm-10
+              #carousel-videos.carousel.slide
+                - if @day.videos
+                  - videos = @day.videos.split(",")
+                  ol.carousel-indicators
+                    - videos.each_with_index do |link, index|
+                      li class="#{'active' if index.zero?}" data-slide-to="#{index}" data-target="#carousel-videos"
+                  .carousel-inner
+                    - videos.each_with_index do |link, index|
+                      .carousel-item class="#{'active' if index.zero?}"
+                        .embed-responsive.embed-responsive-16by9
+                          iframe.embed-responsive-item src="https://www.youtube.com/embed/#{link}" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="true"
+            .col-sm-1
+              a.carousel-control-next data-slide="next" href="#carousel-videos" role="button"
+                span.carousel-control-next-icon aria-hidden="true"

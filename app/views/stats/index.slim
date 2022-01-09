@@ -1,122 +1,132 @@
-section#section1.about-section.text-center
-  .container
-    .row
-      .col-sm-8.mx-auto
-        .row.align-items-center
-          .col-sm-2.text-right
-            - if @season.id != 1
-              = link_to sport_season_stats_path(sport_id: 1, season_id: @season.id - 1) + '#tournment' do
-                = image_tag "left.png", size: "100x100"
-          .col-sm-8.text-center
-            h2.text-white.mb-4 = @season.name
-          .col-sm-2.text-left
-            - if @season.id != Season.count
-              = link_to sport_season_stats_path(sport_id: 1, season_id: @season.id + 1) + '#tournment' do
-                = image_tag "right.png", size: "100x100"
-  .container
-    .row
-      table.table.table-dark.table-striped.table-bordered
-        tr
-          th
-          th Игрок
-          th
-            div = link_to 'Дней', sport_season_stats_path(sort: :days)
-            - Team.all_cached.each do |team|
-              = link_to sport_season_stats_path(sport_id: 1, season_id: @season.id, sort: :days, team: team.code) + '#tournment' do
-                = image_tag "colors/#{team.code}.png", size: "15x20"
-                | &nbsp
-          th Пн / Ср
-          th = link_to 'Игр',  sport_season_stats_path(sort: :games)
-          th = link_to 'ELO',  sport_season_stats_path(sort: :elo)
-          th = link_to '⚽️', sport_season_stats_path(sort: :goals_count)
-          th = link_to '🦶', sport_season_stats_path(sort: :assists_count)
-          th
-            = link_to '⚽', sport_season_stats_path(sort: :goals_day_count)
-            | /
-            = link_to '🦶', sport_season_stats_path(sort: :assists_day_count)
-            div
-              sup = ' в день '
-        - @arr_by_days.each do |arr|
-          - if arr.is_a? String
-            tr
-              td.text-center colspan='12' = arr
-          - else
-            - arr.each_with_index do |player, i|
-              - dp = player.day_players_by_season(@season.id)
+section#parallax-pole.hero.is-large
+  .hero-body
+    .container
+      .columns.is-mobile
+        .column.is-3.is-right
+          - if @season.id != 1
+            = link_to sport_season_stats_path(sport_id: 1, season_id: @season.id - 1) + '#tournment' do
+              = image_tag "left.png", size: "100x100"
+        .column.is-6.is-center
+          h1.title.is-1 = @season.name
+          hr.content-divider
+          / h2.subtitle = "#{@days.last.date.strftime("%d.%m.%Y")} - #{@days.first.date.strftime("%d.%m.%Y")}"
+        .column.is-3.is-left
+          - if @season.id != Season.count
+            = link_to sport_season_stats_path(sport_id: 1, season_id: @season.id + 1) + '#tournment' do
+              = image_tag "right.png", size: "100x100"
+    .container
+      .columns.is-mobile
+        .table-container
+          table.table.is-bordered
+            thead
               tr
-                td = i + 1
-                td = link_to player.short_name, player_path(player)
-                td
-                  - player.dp_tally(dp).each do |team_id, count|
-                    | &nbsp;
-                    = image_tag "colors/#{Team.cached_by_id[team_id].code}.png", size: "15x20"
-                    sup
-                      | &nbsp;
-                      = count
-                td
-                  = (dp.map(&:day_id) - @days_by_wday[3].uniq.map(&:id)).size if @days_by_wday[3]
-                  = ' / '
-                  = (dp.map(&:day_id) - @days_by_wday[1].uniq.map(&:id)).size if @days_by_wday[1]
-                td.text-right = player.games
-                td.text-right = player.stats_elo.to_i
-                td.text-right = player.goals_count
-                td.text-right = player.assists_count
-                td.text-right
-                  = ((player.goals_day_count.to_f * 100).to_i / 100.0).to_s.ljust(4, '0')
-                  span
-                    | (
-                    = ((player.assists_day_count.to_f * 100).to_i / 100.0).to_s.ljust(4, '0')
-                    | )
-    .row
-      .col-sm-12.mb-3.mb-md-0
-        .card.py-4.h-100
-          .card-body.text-center.text-dark
-            b Рейтинг Эло
-            hr.my-4
-            .small.text-black-50
-              div.text-left
+                th
+                th Игрок
+                th
+                  div = link_to 'Дней', sport_season_stats_path(sort: :days)
+                  - Team.all_cached.each do |team|
+                    = link_to sport_season_stats_path(sport_id: 1, season_id: @season.id, sort: :days, team: team.code) + '#tournment' do
+                      = image_tag "colors/#{team.code}.png", size: "15x20"
+                      | &nbsp
+                th Пн / Ср
+                th = link_to 'Игр',  sport_season_stats_path(sort: :games)
+                th = link_to 'ELO',  sport_season_stats_path(sort: :elo)
+                th = link_to '⚽️', sport_season_stats_path(sort: :goals_count)
+                th = link_to '🦶', sport_season_stats_path(sort: :assists_count)
+                th
+                  = link_to '⚽', sport_season_stats_path(sort: :goals_day_count)
+                  | /
+                  = link_to '🦶', sport_season_stats_path(sort: :assists_day_count)
+                  div
+                    sup = ' в день '
+            - @arr_by_days.each do |arr|
+              - if arr.is_a? String
+                tr
+                  td.text-center colspan='12' = arr
+              - else
+                - arr.each_with_index do |player, i|
+                  - dp = player.day_players_by_season(@season.id)
+                  tr
+                    td = i + 1
+                    td = link_to player.short_name, player_path(player)
+                    td
+                      - player.dp_tally(dp).each do |team_id, count|
+                        | &nbsp;
+                        = image_tag "colors/#{Team.cached_by_id[team_id].code}.png", size: "15x20"
+                        sup
+                          | &nbsp;
+                          = count
+                    td
+                      = (dp.map(&:day_id) - @days_by_wday[3].uniq.map(&:id)).size if @days_by_wday[3]
+                      = ' / '
+                      = (dp.map(&:day_id) - @days_by_wday[1].uniq.map(&:id)).size if @days_by_wday[1]
+                    td.text-right = player.games
+                    td.text-right = player.stats_elo.to_i
+                    td.text-right = player.goals_count
+                    td.text-right = player.assists_count
+                    td.text-right
+                      = ((player.goals_day_count.to_f * 100).to_i / 100.0).to_s.ljust(4, '0')
+                      span
+                        | (
+                        = ((player.assists_day_count.to_f * 100).to_i / 100.0).to_s.ljust(4, '0')
+                        | )
+
+section#parallax-football.hero.is-large
+  .hero-body
+    .container
+      .columns.is-mobile
+        .table-container
+          table.table
+            thead
+              tr
+                th Рейтинг Эло
+            tr
+              td
                 div Все игроки начинают с рейтинга 1500
                 div Вычисляется математическое ожидание количества очков рейтинга, которое получит команда A в матче с командой B (оно равно сумме вероятности выигрыша команды A и половины вероятности ничьей):
-                .row
-                  .col-sm-3
-                    = image_tag "kk2.svg"
-                  .col-sm-9
-                    div
-                      | E
-                      sub A
-                      = " - математическое ожидание количества очков, которое наберёт команда A в игре с командой B;"
-                    div
-                      | R
-                      sub A
-                      = " — рейтинг команды A;"
-                    div
-                      | R
-                      sub B
-                      = " — рейтинг команды B;"
-                .row
-                  .col-sm-8 Новый рейтинг команды A рассчитывается по формуле:
-                  .col-sm-4
-                    = image_tag "kk1.svg"
-                .row
-                  .col-sm-12
-                    div
-                      | S
-                      sub A
-                      = " - фактически набранное командой A количество очков (1 очко за победу, 0,5 — за ничью и 0 — за поражение);"
-                    div
-                      | R^
-                      sub A
-                      = " - новый рейтинг команды A."
-                    div
-                      = "K - коэффициент:"
-                      ul
-                        li 5 для сильнейших комманд (рейтинг 2100 и выше)
-                        li 10 для команд с рейтингом 2000-2099
-                        li 15 для команд с рейтингом 1900-1999
-                        li 20 для команд с рейтингом 1800-1899
-                        li 25 для команд с рейтингом 1700-1799
-                        li 30 для команд с рейтингом 1600-1699
-                        li 35 для команд с рейтингом 1500-1599
-                        li 40 для команд с рейтингом 1400-1499
-                        li 45 для команд с рейтингом 1300-1399
-                        li 50 для команд с рейтингом ниже 1300
+            tr
+              td
+                .col-sm-3
+                  = image_tag "kk2.svg"
+                .col-sm-9
+                  div
+                    | E
+                    sub A
+                    = " - математическое ожидание количества очков, которое наберёт команда A в игре с командой B;"
+                  div
+                    | R
+                    sub A
+                    = " — рейтинг команды A;"
+                  div
+                    | R
+                    sub B
+                    = " — рейтинг команды B;"
+            tr
+              td
+                .col-sm-8 Новый рейтинг команды A рассчитывается по формуле:
+                .col-sm-4
+                  = image_tag "kk1.svg"
+            tr
+              td
+                .col-sm-12
+                  div
+                    | S
+                    sub A
+                    = " - фактически набранное командой A количество очков (1 очко за победу, 0,5 — за ничью и 0 — за поражение);"
+                  div
+                    | R^
+                    sub A
+                    = " - новый рейтинг команды A."
+                  div
+                    = "K - коэффициент:"
+                    ul
+                      li 5 для сильнейших комманд (рейтинг 2100 и выше)
+                      li 10 для команд с рейтингом 2000-2099
+                      li 15 для команд с рейтингом 1900-1999
+                      li 20 для команд с рейтингом 1800-1899
+                      li 25 для команд с рейтингом 1700-1799
+                      li 30 для команд с рейтингом 1600-1699
+                      li 35 для команд с рейтингом 1500-1599
+                      li 40 для команд с рейтингом 1400-1499
+                      li 45 для команд с рейтингом 1300-1399
+                      li 50 для команд с рейтингом ниже 1300

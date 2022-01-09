@@ -45,8 +45,8 @@ hr.content-divider {
     height: 5px;
 }
 
-#parallax-1 {
-    background: url(https://source.unsplash.com/featured/?nature);
+#parallax-pole {
+    background: url(pole.jpg);
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
@@ -54,12 +54,12 @@ hr.content-divider {
     border-top: 10px solid coral;
 }
 
-#parallax-1 hr {
+#parallax-pole hr {
     background: coral;
 }
 
-#parallax-2 {
-    background: url(https://source.unsplash.com/featured/?computers);
+#parallax-football {
+    background: url(https://source.unsplash.com/featured/?football);
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
@@ -67,12 +67,12 @@ hr.content-divider {
     border-top: 10px solid yellow;
 }
 
-#parallax-2 hr {
+#parallax-football hr {
     background: yellow;
 }
 
-#parallax-3 {
-    background: url(https://source.unsplash.com/featured/?city);
+#parallax-computers {
+    background: url(https://source.unsplash.com/featured/?computers);
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
@@ -80,12 +80,25 @@ hr.content-divider {
     border-top: 10px solid hotpink;
 }
 
-#parallax-3 hr {
+#parallax-computers hr {
+    background: hotpink;
+}
+
+#parallax-cars {
+    background: url(https://source.unsplash.com/featured/?cars);
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-top: 10px solid hotpink;
+}
+
+#parallax-cars hr {
     background: hotpink;
 }
 
 .label {
-    color: white;
+    color: turquoise;
 }
 
 input {
@@ -96,4 +109,8 @@ input {
 
 input::placeholder {
     color: white !important;
+}
+
+table, tbody, tr, th, td{
+    background-color: rgba(255, 255, 255, 0.1) !important;
 }

@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class DaysController < ApplicationController
-  before_action :load_players, only: [:teams, :edit, :new, :games, :next]
-  before_action :players_list, only: [:edit, :new]
-  before_action :find_day, only: [:show, :edit, :update, :teams, :games, :videos]
-  before_action :find_games, only: [:show, :edit, :teams, :games]
+  before_action :load_players, only: [:edit, :new, :next, :show]
+  before_action :players_list, only: [:edit, :new, :show]
+  before_action :find_day, only: [:show, :edit, :update]
+  before_action :find_games, only: [:show, :edit]
   before_action :authenticate_player!, only: :next
 
   def index
@@ -16,17 +16,12 @@ class DaysController < ApplicationController
   def show
     @breadcrumbs = { '' => root_path }
     @main_table = TeamStat.new(@teams, @games).data
-  end
 
-  def teams
     @goals = Goal.where(game_id: @games.ids)
     @player_goals = sorted_hash(@goals.group_by(&:player_id))
     @player_assists = sorted_hash(@goals.group_by(&:assist_player_id))
+
   end
-
-  def videos; end
-
-  def games; end
 
   def new; end
 
@@ -62,6 +57,7 @@ class DaysController < ApplicationController
 
   def about
     @gems = Gem.loaded_specs
+    @libs = JSON.parse(File.read('package.json'))['dependencies']
   end
 
   private
