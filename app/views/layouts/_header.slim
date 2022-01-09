@@ -5,7 +5,7 @@ section.hero.is-lower-alpha
         | megapoli.site
       h2.subtitle
         | Megapolis Football Site
-        | &nbsp
+      h2.subtitle
         a href="https://megapolisfit.ru/" megapolisfit.ru
       h2.subtitle
         - if current_player
@@ -14,26 +14,27 @@ section.hero.is-lower-alpha
           = link_to destroy_player_session_path, class: 'nav-link', method: :delete do
             i.fas.fa-sign-out-alt
 
-      = link_to next_days_path, class: 'button is-link is-outlined is-fullwidth' do
+      - mobile = request.user_agent =~ /Mobile/
+      = link_to next_days_path, class: "button is-link is-outlined #{ 'is-fullwidth' if mobile }" do
         i.fad.fa-chevron-left
         | &nbspЧат&nbsp
         i.fad.fa-chevron-right
-      = link_to day_path(Day.last.id), class: 'button is-link is-outlined is-fullwidth' do
+      = link_to day_path(Day.last.id), class: "button is-link is-outlined #{ 'is-fullwidth' if mobile }" do
         i.fad.fa-chevron-left
         | &nbspСтатистика&nbsp
         i.fad.fa-chevron-right
         // teams_day_path(Day.last.id)
         // games_day_path(Day.last.id)
         // videos_day_path(Day.last.id)
-      = link_to sport_season_stats_path(sport_id: 1, season_id: Season.last.id), class: 'button is-link is-outlined is-fullwidth' do
+      = link_to sport_season_stats_path(sport_id: 1, season_id: Season.last.id), class: "button is-link is-outlined #{ 'is-fullwidth' if mobile }" do
         i.fad.fa-chevron-left
         | &nbspИгроки&nbsp
         i.fad.fa-chevron-right
-      = link_to days_path, class: 'button is-link is-outlined is-fullwidth' do
+      = link_to days_path, class: "button is-link is-outlined #{ 'is-fullwidth' if mobile }" do
         i.fad.fa-chevron-left
         | &nbspСезон&nbsp
         i.fad.fa-chevron-right
-      = link_to about_days_path, class: 'button is-link is-outlined is-fullwidth' do
+      = link_to about_days_path, class: "button is-link is-outlined #{ 'is-fullwidth' if mobile }" do
         i.fad.fa-chevron-left
         | &nbspИнфо&nbsp
         i.fad.fa-chevron-right

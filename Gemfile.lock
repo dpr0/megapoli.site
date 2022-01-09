@@ -99,6 +99,7 @@ GEM
       capistrano (~> 3.7)
       capistrano-bundler
       puma (~> 4.0)
+    chartkick (4.1.2)
     cocoon (1.2.15)
     concurrent-ruby (1.1.9)
     crass (1.0.6)
@@ -279,6 +280,7 @@ DEPENDENCIES
   capistrano-rbenv
   capistrano-yarn
   capistrano3-puma (= 4.0.0)
+  chartkick
   cocoon
   cssbundling-rails
   debug
