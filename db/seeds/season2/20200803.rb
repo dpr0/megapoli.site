@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 s2d5 = Day.create(sport_id: 1, season_id: 2, date: '03.08.2020'.to_date)
 s2d5t1p1 = s2d5.day_players.create(season_id: 2, team_id: 1, player_id: 23) # врач
-s2d5t1p2 = s2d5.day_players.create(season_id: 2, team_id: 1, player_id:  5) # алихан
+s2d5t1p2 = s2d5.day_players.create(season_id: 2, team_id: 1, player_id: 5) # алихан
 s2d5t1p3 = s2d5.day_players.create(season_id: 2, team_id: 1, player_id: 18) # дима
-s2d5t1p4 = s2d5.day_players.create(season_id: 2, team_id: 1, player_id:  2) # коля
+s2d5t1p4 = s2d5.day_players.create(season_id: 2, team_id: 1, player_id: 2) # коля
 s2d5t1p5 = s2d5.day_players.create(season_id: 2, team_id: 1, player_id: 33) # макс а
 
 s2d5t2p1 = s2d5.day_players.create(season_id: 2, team_id: 2, player_id: 41) # мага
 s2d5t2p2 = s2d5.day_players.create(season_id: 2, team_id: 2, player_id: 13) # араз
 s2d5t2p3 = s2d5.day_players.create(season_id: 2, team_id: 2, player_id:  3) # ден
 s2d5t2p4 = s2d5.day_players.create(season_id: 2, team_id: 2, player_id: 12) # саня
-s2d5t2p5 = s2d5.day_players.create(season_id: 2, team_id: 2, player_id:  7) # сандро
+s2d5t2p5 = s2d5.day_players.create(season_id: 2, team_id: 2, player_id: 7) # сандро
 s2d5t2p5 = s2d5.day_players.create(season_id: 2, team_id: 2, player_id: 10) # виталик
 
 s2d5t3p1 = s2d5.day_players.create(season_id: 2, team_id: 3, player_id: 17) # андр

@@ -1,6 +1,6 @@
 ActiveRecord::Base.transaction do
   s4d26 = Day.create(sport_id: 1, season_id: 4, date: '06.12.2021'.to_date)
-                                                                    #         |  гол | асист| удар |  фол | сейв |привоз|
+                                                                    
   s4d26.day_players.create(season_id: 4, team_id: 1, player_id:  5) # алихан  
   s4d26.day_players.create(season_id: 4, team_id: 1, player_id:  6) # тигран  
   s4d26.day_players.create(season_id: 4, team_id: 1, player_id: 18) # дима    

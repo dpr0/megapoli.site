@@ -1,26 +1,28 @@
+# frozen_string_literal: true
+
 ActiveRecord::Base.transaction do
   s4d21 = Day.create(sport_id: 1, season_id: 4, date: '17.11.2021'.to_date)
-                                                                    #         |  гол | асист| удар |  фол | сейв |привоз|
-  s4d21.day_players.create(season_id: 4, team_id: 1, player_id:  2) # коля    
-  s4d21.day_players.create(season_id: 4, team_id: 1, player_id:  5) # алихан  
-  s4d21.day_players.create(season_id: 4, team_id: 1, player_id:  6) # тигран  
-  s4d21.day_players.create(season_id: 4, team_id: 1, player_id: 18) # дима    
-  s4d21.day_players.create(season_id: 4, team_id: 1, player_id: 38) # миша    
-  s4d21.day_players.create(season_id: 4, team_id: 1, player_id:  1) # гарик   
 
-  s4d21.day_players.create(season_id: 4, team_id: 2, player_id:  4) # шах     
-  s4d21.day_players.create(season_id: 4, team_id: 2, player_id: 11) # саша    
-  s4d21.day_players.create(season_id: 4, team_id: 2, player_id: 24) # эл      
-  s4d21.day_players.create(season_id: 4, team_id: 2, player_id: 10) # виталик 
-  s4d21.day_players.create(season_id: 4, team_id: 2, player_id: 54) # тарасов 
-  s4d21.day_players.create(season_id: 4, team_id: 2, player_id:  9) # вова    
+  s4d21.day_players.create(season_id: 4, team_id: 1, player_id:  2) # коля
+  s4d21.day_players.create(season_id: 4, team_id: 1, player_id:  5) # алихан
+  s4d21.day_players.create(season_id: 4, team_id: 1, player_id:  6) # тигран
+  s4d21.day_players.create(season_id: 4, team_id: 1, player_id: 18) # дима
+  s4d21.day_players.create(season_id: 4, team_id: 1, player_id: 38) # миша
+  s4d21.day_players.create(season_id: 4, team_id: 1, player_id:  1) # гарик
 
-  s4d21.day_players.create(season_id: 4, team_id: 3, player_id: 21) # я       
-  s4d21.day_players.create(season_id: 4, team_id: 3, player_id: 42) # серега  
-  s4d21.day_players.create(season_id: 4, team_id: 3, player_id: 48) # макс    
-  s4d21.day_players.create(season_id: 4, team_id: 3, player_id: 50) # миша    
-  s4d21.day_players.create(season_id: 4, team_id: 3, player_id: 57) # денис   
-  s4d21.day_players.create(season_id: 4, team_id: 3, player_id: 61) # коля    
+  s4d21.day_players.create(season_id: 4, team_id: 2, player_id:  4) # шах
+  s4d21.day_players.create(season_id: 4, team_id: 2, player_id: 11) # саша
+  s4d21.day_players.create(season_id: 4, team_id: 2, player_id: 24) # эл
+  s4d21.day_players.create(season_id: 4, team_id: 2, player_id: 10) # виталик
+  s4d21.day_players.create(season_id: 4, team_id: 2, player_id: 54) # тарасов
+  s4d21.day_players.create(season_id: 4, team_id: 2, player_id: 9) # вова
+
+  s4d21.day_players.create(season_id: 4, team_id: 3, player_id: 21) # я
+  s4d21.day_players.create(season_id: 4, team_id: 3, player_id: 42) # серега
+  s4d21.day_players.create(season_id: 4, team_id: 3, player_id: 48) # макс
+  s4d21.day_players.create(season_id: 4, team_id: 3, player_id: 50) # миша
+  s4d21.day_players.create(season_id: 4, team_id: 3, player_id: 57) # денис
+  s4d21.day_players.create(season_id: 4, team_id: 3, player_id: 61) # коля
 
   g2408 = Game.create(day_id: s4d21.id, team_left_id: 1, goals_left: 1, goals_right: 2, team_right_id: 3)
   g2408.goals.create(season_id: 4, team_id: 3, player_id: 57, assist_player_id: nil)

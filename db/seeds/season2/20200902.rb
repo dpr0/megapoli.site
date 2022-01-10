@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 s2d14 = Day.create(sport_id: 1, season_id: 2, date: '02.09.2020'.to_date)
-s2d14.day_players.create(season_id: 2, team_id: 1, player_id:  2) # коля
+s2d14.day_players.create(season_id: 2, team_id: 1, player_id: 2) # коля
 s2d14.day_players.create(season_id: 2, team_id: 1, player_id: 18) # дима
 s2d14.day_players.create(season_id: 2, team_id: 1, player_id: 14) # красн
-s2d14.day_players.create(season_id: 2, team_id: 1, player_id:  6) # тигран
+s2d14.day_players.create(season_id: 2, team_id: 1, player_id: 6) # тигран
 s2d14.day_players.create(season_id: 2, team_id: 1, player_id: 29) # камыш
 
 s2d14.day_players.create(season_id: 2, team_id: 2, player_id: 13) # араз
 s2d14.day_players.create(season_id: 2, team_id: 2, player_id: 12) # саня
-s2d14.day_players.create(season_id: 2, team_id: 2, player_id:  7) # сандро
+s2d14.day_players.create(season_id: 2, team_id: 2, player_id: 7) # сандро
 s2d14.day_players.create(season_id: 2, team_id: 2, player_id: 10) # виталик
 s2d14.day_players.create(season_id: 2, team_id: 2, player_id: 42) # спартак
 

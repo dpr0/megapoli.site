@@ -1,21 +1,23 @@
+# frozen_string_literal: true
+
 s2d4 = Day.create(sport_id: 1, season_id: 2, date: '27.07.2020'.to_date)
 s2d4t1p1 = s2d4.day_players.create(season_id: 2, team_id: 1, player_id: 18) # дима
 s2d4t1p2 = s2d4.day_players.create(season_id: 2, team_id: 1, player_id:  5) # алихан
 s2d4t1p3 = s2d4.day_players.create(season_id: 2, team_id: 1, player_id:  6) # тигран
 s2d4t1p4 = s2d4.day_players.create(season_id: 2, team_id: 1, player_id:  2) # коля
 s2d4t1p5 = s2d4.day_players.create(season_id: 2, team_id: 1, player_id: 33) # макс а
-s2d4t1p6 = s2d4.day_players.create(season_id: 2, team_id: 1, player_id:  9) # вова
+s2d4t1p6 = s2d4.day_players.create(season_id: 2, team_id: 1, player_id: 9) # вова
 s2d4t1p7 = s2d4.day_players.create(season_id: 2, team_id: 1, player_id: 23) # врач
 
-s2d4t2p1 = s2d4.day_players.create(season_id: 2, team_id: 2, player_id:  1) # гарик
+s2d4t2p1 = s2d4.day_players.create(season_id: 2, team_id: 2, player_id: 1) # гарик
 s2d4t2p2 = s2d4.day_players.create(season_id: 2, team_id: 2, player_id: 13) # араз
 s2d4t2p3 = s2d4.day_players.create(season_id: 2, team_id: 2, player_id:  3) # ден
 s2d4t2p4 = s2d4.day_players.create(season_id: 2, team_id: 2, player_id: 12) # саня
-s2d4t2p5 = s2d4.day_players.create(season_id: 2, team_id: 2, player_id:  7) # сандро
+s2d4t2p5 = s2d4.day_players.create(season_id: 2, team_id: 2, player_id: 7) # сандро
 s2d4t2p6 = s2d4.day_players.create(season_id: 2, team_id: 2, player_id: 10) # виталик
 
 s2d4t3p1 = s2d4.day_players.create(season_id: 2, team_id: 3, player_id: 17) # андр
-s2d4t3p2 = s2d4.day_players.create(season_id: 2, team_id: 3, player_id:  8) # арг
+s2d4t3p2 = s2d4.day_players.create(season_id: 2, team_id: 3, player_id: 8) # арг
 s2d4t3p3 = s2d4.day_players.create(season_id: 2, team_id: 3, player_id: 22) # илья
 s2d4t3p4 = s2d4.day_players.create(season_id: 2, team_id: 3, player_id: 41) # мага
 s2d4t3p5 = s2d4.day_players.create(season_id: 2, team_id: 3, player_id: 14) # красн

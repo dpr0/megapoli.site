@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-d5  = Day.create(sport_id: 1, season_id: 1, date: '13.11.2019'.to_date)
+d5 = Day.create(sport_id: 1, season_id: 1, date: '13.11.2019'.to_date)
 d5t1p1 = d5.day_players.create(season_id: 1, team_id: 1, player_id: 2)  # Коля Н
 d5t1p2 = d5.day_players.create(season_id: 1, team_id: 1, player_id: 33) # Макс А
 d5t1p3 = d5.day_players.create(season_id: 1, team_id: 1, player_id: 29) # Макс К
@@ -23,30 +23,30 @@ d5t4p3 = d5.day_players.create(season_id: 1, team_id: 4, player_id: 3)  # Ден
 d5t4p4 = d5.day_players.create(season_id: 1, team_id: 4, player_id: 14) # Саша П
 d5t4p5 = d5.day_players.create(season_id: 1, team_id: 4, player_id: 16) # Вася
 d5t4p6 = d5.day_players.create(season_id: 1, team_id: 4, player_id: 31) # Миша
-h1  = Game.create(day_id: d5.id, team_left_id: 2, goals_left: 0, goals_right: 2, team_right_id: 3)
+h1 = Game.create(day_id: d5.id, team_left_id: 2, goals_left: 0, goals_right: 2, team_right_id: 3)
 h1.goals.create(season_id: 1, team_id: 3, player_id: 19)
 h1.goals.create(season_id: 1, team_id: 3, player_id: 21)
-h2  = Game.create(day_id: d5.id, team_left_id: 1, goals_left: 1, goals_right: 2, team_right_id: 3)
+h2 = Game.create(day_id: d5.id, team_left_id: 1, goals_left: 1, goals_right: 2, team_right_id: 3)
 h2.goals.create(season_id: 1, team_id: 1, player_id: 29)
 h2.goals.create(season_id: 1, team_id: 3, player_id: 7)
 h2.goals.create(season_id: 1, team_id: 3, player_id: 22)
-h3  = Game.create(day_id: d5.id, team_left_id: 2, goals_left: 2, goals_right: 0, team_right_id: 3)
+h3 = Game.create(day_id: d5.id, team_left_id: 2, goals_left: 2, goals_right: 0, team_right_id: 3)
 h3.goals.create(season_id: 1, team_id: 2, player_id: 25)
 h3.goals.create(season_id: 1, team_id: 2, player_id: 25)
-h4  = Game.create(day_id: d5.id, team_left_id: 2, goals_left: 2, goals_right: 1, team_right_id: 1)
+h4 = Game.create(day_id: d5.id, team_left_id: 2, goals_left: 2, goals_right: 1, team_right_id: 1)
 h4.goals.create(season_id: 1, team_id: 2, player_id: 25)
 h4.goals.create(season_id: 1, team_id: 2, player_id: 13)
 h4.goals.create(season_id: 1, team_id: 1, player_id: 29)
-h5  = Game.create(day_id: d5.id, team_left_id: 2, goals_left: 1, goals_right: 0, team_right_id: 3)
+h5 = Game.create(day_id: d5.id, team_left_id: 2, goals_left: 1, goals_right: 0, team_right_id: 3)
 h5.goals.create(season_id: 1, team_id: 2, player_id: 4)
 h6  = Game.create(day_id: d5.id, team_left_id: 2, goals_left: 0, goals_right: 0, team_right_id: 1)
 h7  = Game.create(day_id: d5.id, team_left_id: 4, goals_left: 0, goals_right: 2, team_right_id: 1)
 h7.goals.create(season_id: 1, team_id: 1, player_id: 2)
 h7.goals.create(season_id: 1, team_id: 1, player_id: 18)
-h8  = Game.create(day_id: d5.id, team_left_id: 3, goals_left: 0, goals_right: 2, team_right_id: 1)
+h8 = Game.create(day_id: d5.id, team_left_id: 3, goals_left: 0, goals_right: 2, team_right_id: 1)
 h8.goals.create(season_id: 1, team_id: 1, player_id: 2)
 h8.goals.create(season_id: 1, team_id: 1, player_id: 29)
-h9  = Game.create(day_id: d5.id, team_left_id: 2, goals_left: 0, goals_right: 2, team_right_id: 1)
+h9 = Game.create(day_id: d5.id, team_left_id: 2, goals_left: 0, goals_right: 2, team_right_id: 1)
 h9.goals.create(season_id: 1, team_id: 1, player_id: 2)
 h9.goals.create(season_id: 1, team_id: 1, player_id: 18)
 h10 = Game.create(day_id: d5.id, team_left_id: 4, goals_left: 0, goals_right: 2, team_right_id: 1)

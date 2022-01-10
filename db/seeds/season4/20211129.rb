@@ -1,6 +1,6 @@
 ActiveRecord::Base.transaction do
   s4d24 = Day.create(sport_id: 1, season_id: 4, date: '29.11.2021'.to_date)
-                                                                    #         |  гол | асист| удар |  фол | сейв |привоз|
+                                                                    
   s4d24.day_players.create(season_id: 4, team_id: 1, player_id:  2) # коля    
   s4d24.day_players.create(season_id: 4, team_id: 1, player_id:  9) # вова    
   s4d24.day_players.create(season_id: 4, team_id: 1, player_id:  5) # алихан  

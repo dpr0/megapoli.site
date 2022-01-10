@@ -1,14 +1,6 @@
 # frozen_string_literal: true
 
 class CallbacksController < Devise::OmniauthCallbacksController
-  def github
-    upsert_player('GITHUB')
-  end
-
-  def yandex
-    upsert_player('YANDEX')
-  end
-
   def telegram
     upsert_player('TELEGRAM')
   end

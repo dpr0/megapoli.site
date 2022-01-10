@@ -3,10 +3,10 @@ section#parallax-pole.is-large
     .container
       .columns
         .div
-          - if devise_mapping.omniauthable?
-            - resource_class.omniauth_providers.each do |provider|
-              = link_to omniauth_authorize_path(resource_name, provider), class: 'button is-info is-large', data: { "turbo-method": :post } do
-                | Войти через&nbsp
-                i.fab.fa-telegram-plane
-                | &nbsp
-                span = provider.capitalize
+          / - if devise_mapping.omniauthable?
+          /   - resource_class.omniauth_providers.each do |provider|
+          /     = link_to omniauth_authorize_path(resource_name, provider), class: 'button is-info is-large', data: { "turbo-method": :post } do
+          = link_to player_telegram_omniauth_authorize_path, class: 'button is-info is-large', data: { "turbo-method": :post } do
+            | Войти через&nbsp
+            i.fab.fa-telegram-plane
+            | &nbsp Telegram

@@ -1,4 +1,4 @@
-section#parallax-pole.hero.is-large
+section#parallax-football.hero.is-large
   .hero-body
     .container
       .columns.is-mobile
@@ -14,7 +14,7 @@ section#parallax-pole.hero.is-large
               = image_tag 'right.png', size: '100x100'
     .container
       .row
-        table.table.is-bordered
+        table.table.has-text-white.is-bordered
           tr
             th Команда
             th.text-center Матчи
@@ -74,7 +74,7 @@ section#parallax-pole.hero.is-large
                             = "#{count.count} x "
                             = image_tag "colors/#{code}.png", size: '25x30'
 
-section#parallax-football.hero.is-large
+section#parallax-pole.hero.is-large
   .hero-body
     .container
       - @day.day_players_by_season(@day.season_id).group_by(&:team_id).sort.each do |team_id, day_players|
@@ -101,7 +101,7 @@ section#parallax-computers.hero.is-large
   .hero-body
     .container
       .row
-        table.table.table-dark.table-striped.table-bordered
+        table.table.has-text-white.table-dark.table-striped.table-bordered
           tr
             th colspan="8" Игры
           - @games.each_with_index do |game, i|

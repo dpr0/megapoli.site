@@ -1,4 +1,4 @@
-section#parallax-pole.hero.is-large
+section#parallax-football.hero.is-large
   .hero-body
     .container
       .columns.is-mobile
@@ -17,15 +17,15 @@ section#parallax-pole.hero.is-large
     .container
       .columns.is-mobile
         .table-container
-          table.table.is-bordered
+          table.table.has-text-white.is-bordered
             thead
-              tr
+              tr.has-text-white
                 th
                 th Игрок
                 th
                   div = link_to 'Дней', sport_season_stats_path(sort: :days)
                   - Team.all_cached.each do |team|
-                    = link_to sport_season_stats_path(sport_id: 1, season_id: @season.id, sort: :days, team: team.code) + '#tournment' do
+                    = link_to sport_season_stats_path(sport_id: 1, season_id: @season.id, sort: :days, team: team.code) do
                       = image_tag "colors/#{team.code}.png", size: "15x20"
                       | &nbsp
                 th Пн / Ср
@@ -71,12 +71,12 @@ section#parallax-pole.hero.is-large
                         = ((player.assists_day_count.to_f * 100).to_i / 100.0).to_s.ljust(4, '0')
                         | )
 
-section#parallax-football.hero.is-large
+section#parallax-pole.hero.is-large
   .hero-body
     .container
       .columns.is-mobile
         .table-container
-          table.table
+          table.table.has-text-white
             thead
               tr
                 th Рейтинг Эло

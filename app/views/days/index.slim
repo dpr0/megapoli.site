@@ -1,4 +1,4 @@
-section#parallax-pole.hero
+section#parallax-football.hero
   .hero-body
     .container
       .columns.is-mobile
@@ -19,7 +19,7 @@ section#parallax-pole.hero
       .columns
         .column.is-6.is-offset-3
           .table-container
-            table.table.is-bordered
+            table.table.has-text-white.is-bordered
               thead
                 tr
                   th.is-center
@@ -36,11 +36,11 @@ section#parallax-pole.hero
                   td.is-center = @places.select { |p| p[:third_place]  == team.id }.count
                   td.is-center = @places.select { |p| p[:fourth_place] == team.id }.count
 
-section#parallax-football.hero.is-large
+section#parallax-pole.hero.is-large
   .hero-body
     .container
       .columns
-        table.table.is-bordered
+        table.table.has-text-white.is-bordered
           tr
             th Дата
             th 1

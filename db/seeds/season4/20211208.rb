@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ActiveRecord::Base.transaction do
   s4d27 = Day.create(sport_id: 1, season_id: 4, date: '08.12.2021'.to_date)
   s4d27.day_players.create(season_id: 4, team_id: 1, player_id:  2)
@@ -18,7 +20,7 @@ ActiveRecord::Base.transaction do
   s4d27.day_players.create(season_id: 4, team_id: 3, player_id: 48)
   s4d27.day_players.create(season_id: 4, team_id: 3, player_id: 50)
   s4d27.day_players.create(season_id: 4, team_id: 3, player_id: 61)
-  s4d27.day_players.create(season_id: 4, team_id: 3, player_id:  8)
+  s4d27.day_players.create(season_id: 4, team_id: 3, player_id: 8)
   s4d27.day_players.create(season_id: 4, team_id: 3, player_id: 21)
 
   g2525 = Game.create(day_id: s4d27.id, team_left_id: 3, goals_left: 2, goals_right: 0, team_right_id: 2)

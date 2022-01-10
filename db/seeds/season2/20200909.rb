@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 s2d16 = Day.create(sport_id: 1, season_id: 2, date: '09.09.2020'.to_date)
-                                                                  #         |  гол | асист| удар |  фол | сейв |привоз|
+
 s2d16.day_players.create(season_id: 2, team_id: 1, player_id:  2) # коля    |   3  |   4  |   5  |      |   1  |   1  |
 s2d16.day_players.create(season_id: 2, team_id: 1, player_id:  5) # алихан  |      |   3  |   1  |      |   1  |   1  |
 s2d16.day_players.create(season_id: 2, team_id: 1, player_id: 14) # саша    |   1  |      |      |      |   7  |      |
-s2d16.day_players.create(season_id: 2, team_id: 1, player_id:  6) # тигран  |   6  |   1  |   3  |      |   2  |   1  |
+s2d16.day_players.create(season_id: 2, team_id: 1, player_id: 6) # тигран  |   6  |   1  |   3  |      |   2  |   1  |
 s2d16.day_players.create(season_id: 2, team_id: 1, player_id: 29) # макс    |   7  |      |   3  |      |      |      |
 
 s2d16.day_players.create(season_id: 2, team_id: 2, player_id: 13) # араз    |   2  |   2  |   4  |   1  |   1  |      |
@@ -12,7 +14,7 @@ s2d16.day_players.create(season_id: 2, team_id: 2, player_id:  7) # сандро
 s2d16.day_players.create(season_id: 2, team_id: 2, player_id:  9) # вова    |      |      |      |      |   3  |      |
 s2d16.day_players.create(season_id: 2, team_id: 2, player_id: 41) # мага    |   2  |      |   1  |   2  |   2  |      |
 
-s2d16.day_players.create(season_id: 2, team_id: 3, player_id:  3) # ден     |   1  |      |      |   1  |      |   1  |
+s2d16.day_players.create(season_id: 2, team_id: 3, player_id: 3) # ден     |   1  |      |      |   1  |      |   1  |
 s2d16.day_players.create(season_id: 2, team_id: 3, player_id: 42) # серега  |   1  |      |      |      |      |   1  |
 s2d16.day_players.create(season_id: 2, team_id: 3, player_id: 22) # илья    |   1  |   4  |   4  |      |   2  |   2  |
 s2d16.day_players.create(season_id: 2, team_id: 3, player_id: 21) # дима    |   4  |   1  |   3  |      |   4  |      |

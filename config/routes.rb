@@ -6,7 +6,8 @@ Rails.application.routes.draw do
   mount ActionCable.server => '/cable'
   default_url_options only_path: true
 
-  root 'days#next'
+  # root 'days#next'
+  root 'days#show'
 
   resources :players, only: [:index, :show]
   resources :sports do
