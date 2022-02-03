@@ -80,54 +80,56 @@ section#parallax-pole.hero.is-large
       - @day.day_players_by_season(@day.season_id).group_by(&:team_id).sort.each do |team_id, day_players|
         .columns.is-centered
           .column.has-text-centered class="footballka-#{Team.cached_by_id[team_id].code}"
-            h2 = day_players.map(&:elo).sum.to_i / day_players.count
+            h2.subtitle = day_players.map(&:elo).sum.to_i / day_players.count
             - day_players.each do |day_player|
               - player = @players.find { |p| p[:id] == day_player.player_id }
-              div
-                span.badge.badge-primary.badge-pill
+              .columns.is-mobile
+                .column.is-3.has-text-centered
+                .column.is-1.has-text-centered
                   = day_player.elo.to_i
-                | &nbsp;
-                = link_to player.name, player_path(player)
-                | &nbsp;
-                span
+                .column.is-2.has-text-centered
+                  = link_to player.name, player_path(player)
+                .column.is-4
                   - if @player_goals[player.code]
                     - @player_goals[player.code].times do
                       | ⚽️
                   - if @player_assists[player.code]
                     - @player_assists[player.code].times do
                       | 🦶
+                .column.is-2.has-text-centered
 
 section#parallax-computers.hero.is-large
   .hero-body
     .container
-      .row
-        table.table.has-text-white.table-dark.table-striped.table-bordered
-          tr
-            th colspan="8" Игры
-          - @games.each_with_index do |game, i|
-            - z = game.goals.map(&:player_id).map do |player_id|
-              - next unless player_id
-              - @players.find { |pl| pl.id == player_id }.name
+      .columns.is-centered
+        .column.is-6
+          table.table.has-text-white.table-dark.table-striped.table-bordered
             tr
-              td.text-left
-                = i + 1
-              td.text-right
-                sup class="#{game.rated_class('left')}"
-                  = game.rated('left')
-                = game.left_team_elo.to_i
-              td.text-left
-                - t = @teams.find { |t| t.id == game['team_left_id'] }
-                = image_tag "colors/#{t.code}.png", size: "25x30"
-              td.text-center.CellWithComment
-                = "#{game.goals_left} : #{game.goals_right}"
-                span.CellComment = z.compact.join(', ')
-              td.text-right
-                - t = @teams.find { |t| t.id == game['team_right_id'] }
-                = image_tag "colors/#{t.code}.png", size: "25x30"
-              td.text-left
-                = game.right_team_elo.to_i
-                sup class="#{game.rated_class('right')}"
-                  = game.rated('right')
+              th colspan="8" Игры
+            - @games.each_with_index do |game, i|
+              - z = game.goals.map(&:player_id).map do |player_id|
+                - next unless player_id
+                - @players.find { |pl| pl.id == player_id }.name
+              tr
+                td.text-left
+                  = i + 1
+                td.text-right
+                  sup class="#{game.rated_class('left')}"
+                    = game.rated('left')
+                  = game.left_team_elo.to_i
+                td.text-left
+                  - t = @teams.find { |t| t.id == game['team_left_id'] }
+                  = image_tag "colors/#{t.code}.png", size: "25x30"
+                td.text-center.CellWithComment
+                  = "#{game.goals_left} : #{game.goals_right}"
+                  span.CellComment = z.compact.join(', ')
+                td.text-right
+                  - t = @teams.find { |t| t.id == game['team_right_id'] }
+                  = image_tag "colors/#{t.code}.png", size: "25x30"
+                td.text-left
+                  = game.right_team_elo.to_i
+                  sup class="#{game.rated_class('right')}"
+                    = game.rated('right')
 
 section#parallax-cars.hero.is-large
   .hero-body

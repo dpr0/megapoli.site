@@ -17,7 +17,7 @@ season3 = Season.create(code: 'season3',  name: '2021/1')
 season4 = Season.create(code: 'season4',  name: '2021/2')
 season5 = Season.create(code: 'season5',  name: '2022/1')
 
-[season1, season2, season3, season4].each do |season|
+[season1, season2, season3, season4, season5].each do |season|
   Player.all.each do |pl|
     pl.stats.create(sport_id: sport.id, season_id: season.id)
     pl.update(elo: 1500)
