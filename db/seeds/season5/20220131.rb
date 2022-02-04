@@ -77,4 +77,3 @@ ActiveRecord::Base.transaction do
   s5d7.day_rates!
   Day.last.update!(videos: 'Hu-M2S5IQCU,2thlczzaWjw,QwU91mOzwSE,1N8awew-QNI,5hkbdm7fJCY,2Q6YVXmQQe8')
 end
-Player.update_stats!(5)

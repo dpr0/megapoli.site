@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 2021_09_30_185426) do
   end
 
   create_table "authorizations", force: :cascade do |t|
-    t.bigint "player_id"
+    t.integer "player_id"
     t.string "provider"
     t.string "uid"
     t.datetime "created_at", precision: 6, null: false
@@ -54,9 +54,9 @@ ActiveRecord::Schema.define(version: 2021_09_30_185426) do
   end
 
   create_table "day_players", force: :cascade do |t|
-    t.bigint "day_id"
-    t.bigint "player_id"
-    t.bigint "team_id"
+    t.integer "day_id"
+    t.integer "player_id"
+    t.integer "team_id"
     t.float "elo", default: 0.0
     t.integer "season_id"
     t.index ["day_id"], name: "index_day_players_on_day_id"
@@ -76,9 +76,9 @@ ActiveRecord::Schema.define(version: 2021_09_30_185426) do
   end
 
   create_table "games", force: :cascade do |t|
-    t.bigint "day_id"
-    t.bigint "team_left_id"
-    t.bigint "team_right_id"
+    t.integer "day_id"
+    t.integer "team_left_id"
+    t.integer "team_right_id"
     t.integer "goals_left", default: 0
     t.integer "goals_right", default: 0
     t.integer "left_team_elo", default: 0
@@ -94,9 +94,9 @@ ActiveRecord::Schema.define(version: 2021_09_30_185426) do
   end
 
   create_table "goals", force: :cascade do |t|
-    t.bigint "player_id"
-    t.bigint "game_id"
-    t.bigint "team_id"
+    t.integer "player_id"
+    t.integer "game_id"
+    t.integer "team_id"
     t.integer "season_id"
     t.integer "assist_player_id"
     t.index ["game_id"], name: "index_goals_on_game_id"
@@ -146,7 +146,7 @@ ActiveRecord::Schema.define(version: 2021_09_30_185426) do
     t.integer "height"
     t.integer "weight"
     t.date "birthday"
-    t.bigint "role_id"
+    t.integer "role_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "encrypted_password", default: ""

@@ -136,6 +136,10 @@ input::placeholder {
     color: white !important;
 }
 
+table, tbody, tr, th {
+    color: white !important;
+}
+
 table, tbody, tr, th, td{
     background-color: rgba(0, 0, 0, 0.2) !important;
 }
