@@ -18,8 +18,8 @@ ActiveRecord::Base.transaction do
   s5d8.day_players.create(season_id: 5, team_id: 4, player_id:  3)
   s5d8.day_players.create(season_id: 5, team_id: 4, player_id: 14)
   s5d8.day_players.create(season_id: 5, team_id: 4, player_id:  8)
-  # s5d8.day_players.create(season_id: 5, team_id: 4, player_id: 65)
-  # s5d8.day_players.create(season_id: 5, team_id: 4, player_id: 66)
+  s5d8.day_players.create(season_id: 5, team_id: 4, player_id: 65)
+  s5d8.day_players.create(season_id: 5, team_id: 4, player_id: 66)
 
   g = Game.create(day_id: s5d8.id, team_left_id: 3, goals_left: 8, goals_right: 4, team_right_id: 1)
   g.goals.create(season_id: 5, team_id: 3, player_id: 21, assist_player_id: nil)
@@ -84,4 +84,3 @@ ActiveRecord::Base.transaction do
   s5d8.day_rates!
   Day.last.update!(videos: 'J1dB3ytxDQ0,CO_LWprqbB4,7r91yKCzjwc,gU3BNN9Qxbc,vl4mtj4uD0M,fXJBv5SnELA,IGGHmfp91-U,ADcNqM0p9rM,dE4DsRGB888')
 end
-Player.update_stats!(5)
