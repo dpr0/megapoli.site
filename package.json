@@ -6,7 +6,7 @@
     "@hotwired/turbo-rails": "^7.1.1",
     "bulma": "^0.9.3",
     "bulma-extensions": "^6.2.7",
-    "esbuild": "^0.14.18",
+    "esbuild": "^0.14.20",
     "esbuild-plugin-import-glob": "^0.1.1",
     "esbuild-rails": "^1.0.3",
     "sass": "^1.49.7"
