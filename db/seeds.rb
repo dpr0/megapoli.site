@@ -9,15 +9,16 @@ Role.create(code: 'admin',   name: 'Администратор')
 Role.create(code: 'captain', name: 'Капитан команды')
 Role.create(code: 'player',  name: 'Игрок')
 
-Dir[File.join(Rails.root, 'db', 'seeds', 'players.rb')].each { |seed| load seed }
-sport = Sport.create(code: 'football',  name: 'Футбол')
-season1 = Season.create(code: 'season1',  name: '2020/1')
-season2 = Season.create(code: 'season2',  name: '2020/2')
-season3 = Season.create(code: 'season3',  name: '2021/1')
-season4 = Season.create(code: 'season4',  name: '2021/2')
-season5 = Season.create(code: 'season5',  name: '2022/1')
+load File.join(Rails.root, 'db', 'seeds', 'players.rb')
+seasons = []
+sport   =   Sport.create(code: 'football', name: 'Футбол')
+seasons << Season.create(code: 'season1',  name: '2020/1')
+seasons << Season.create(code: 'season2',  name: '2020/2')
+seasons << Season.create(code: 'season3',  name: '2021/1')
+seasons << Season.create(code: 'season4',  name: '2021/2')
+seasons << Season.create(code: 'season5',  name: '2022/1')
 
-[season1, season2, season3, season4, season5].each do |season|
+seasons.each do |season|
   Player.all.each do |pl|
     pl.stats.create(sport_id: sport.id, season_id: season.id)
     pl.update(elo: 1500)

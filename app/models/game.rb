@@ -51,15 +51,19 @@ class Game < ApplicationRecord
   end
 
   def team_elo(players)
-    avg = players.map { |dp| dp.player.elo }.sum(0.0) / players.count
-    players.map do |dp|
-      if dp.player.day_players.count == 1
-        dp.player.update(elo: avg)
-        avg
-      else
-        dp.player.elo
-      end
-    end.sum(0.0) / players.count
+    if ENV['AVG_NEW_PLAYER_ELO'] == 1
+      avg = players.map { |dp| dp.player.elo }.sum(0.0) / players.count
+      players.map do |dp|
+        if dp.player.day_players.count == 1
+          dp.player.update(elo: avg)
+          avg
+        else
+          dp.player.elo
+        end
+      end.sum(0.0) / players.count
+    else
+      players.map { |dp| dp.player.elo }.sum(0.0) / players.count
+    end
   end
 
   def calc_k(rate)
