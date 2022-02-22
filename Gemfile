@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.2'
+ruby '3.0.3'
 gem 'bootsnap', require: false
 gem 'chartkick'
 gem 'cocoon'
@@ -15,11 +15,11 @@ gem 'omniauth'
 gem 'omniauth-rails_csrf_protection'
 gem 'omniauth-telegram'
 gem 'pg'
+gem 'propshaft'
 gem 'puma', '4.3.10'
 gem 'rails'
 gem 'redis'
 gem 'slim-rails'
-gem 'sprockets-rails'
 gem 'stimulus-rails'
 gem 'telegram-bot', git: 'git@github.com:dpr0/telegram-bot.git'
 gem 'turbo-rails'

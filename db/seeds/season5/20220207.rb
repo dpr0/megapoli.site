@@ -70,8 +70,8 @@ ActiveRecord::Base.transaction do
   g.goals.create(season_id: 5, team_id: 2, player_id: 1, assist_player_id: nil)
   g.goals.create(season_id: 5, team_id: 3, player_id: 22, assist_player_id: nil)
   g = Game.create(day_id: s5d9.id, team_left_id: 1, goals_left: 2, goals_right: 0, team_right_id: 2)
-   g.goals.create(season_id: 5, team_id: 1, player_id: 18, assist_player_id: nil)
-   g.goals.create(season_id: 5, team_id: 1, player_id: 18, assist_player_id: 2)
+  g.goals.create(season_id: 5, team_id: 1, player_id: 18, assist_player_id: nil)
+  g.goals.create(season_id: 5, team_id: 1, player_id: 18, assist_player_id: 2)
   g = Game.create(day_id: s5d9.id, team_left_id: 1, goals_left: 2, goals_right: 1, team_right_id: 3)
   g.goals.create(season_id: 5, team_id: 1, player_id: 6, assist_player_id: 2)
   g.goals.create(season_id: 5, team_id: 1, player_id: 29, assist_player_id: 5)
@@ -83,4 +83,3 @@ ActiveRecord::Base.transaction do
   s5d9.day_rates!
   Day.last.update!(videos: '5i8-GzUeSUE,5-Uy_t0H7Gw,z5BlyC8Ctdo,4o8o3kmIS44,3zWdg91nz_0,JPkYr3bqDF8,8bpbGsgTCW0,wR0DYt8EE6U,_1vZHB11KoM')
 end
-# Player.update_stats!(5)
