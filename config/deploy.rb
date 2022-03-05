@@ -38,6 +38,8 @@ set :ssh_options, {
     port: 2222
 }
 
+Rake::Task['deploy:assets:backup_manifest'].clear_actions
+
 namespace :deploy do
   desc 'deploy about:3001 fractal:3002 webcam:3003'
   task :services do

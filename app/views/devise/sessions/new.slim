@@ -10,3 +10,8 @@ section#parallax-pole.is-large
             | Войти через&nbsp
             i.fab.fa-telegram-plane
             | &nbsp Telegram
+
+          = link_to omniauth_authorize_path(resource_name, :telegram), class: 'button is-info is-large' do
+            | Войти через&nbsp
+            i.fab.fa-telegram-plane
+            | &nbsp Telegram
