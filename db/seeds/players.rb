@@ -65,9 +65,10 @@ players = [
   { code: 62, provider: 'telegram', uid: '',           lastname: 'Костенко',    name: 'Владимир',  middlename: '',               birthday: '',           phone: '+79288250105', height:   0, weight:  0, role_id: 3, lfl: '' },
   { code: 63, provider: 'telegram', uid: '',           lastname: 'Токаев',      name: 'Валерий',   middlename: '',               birthday: '',           phone: '+79267227431', height:   0, weight:  0, role_id: 3, lfl: '' },
   { code: 64, provider: 'telegram', uid: '',           lastname: 'Кузнецов',    name: 'Иван',      middlename: '',               birthday: '',           phone: '+79776020336', height:   0, weight:  0, role_id: 3, lfl: '' },
-  { code: 65, provider: 'telegram', uid: '',           lastname: '',            name: 'Руиси1',    middlename: '',               birthday: '',           phone: nil,            height:   0, weight:  0, role_id: 3, lfl: '' },
-  { code: 66, provider: 'telegram', uid: '',           lastname: '',            name: 'Руиси2',    middlename: '',               birthday: '',           phone: nil,            height:   0, weight:  0, role_id: 3, lfl: '' },
-  # { code: 67, provider: 'telegram', uid: '',           lastname: '',  name: '',       middlename: '',      birthday: '04.12.199',      phone: '+79645732923', height:   0, weight:  0, role_id: 3, lfl: ''},
+  { code: 65, provider: 'telegram', uid: '',           lastname: 'Ндонг',       name: 'Росендо',   middlename: '',               birthday: '',           phone: '+79777037622', height:   0, weight:  0, role_id: 3, lfl: '' },
+  { code: 66, provider: 'telegram', uid: '',           lastname: '',            name: 'Русендо',   middlename: '',               birthday: '',           phone: nil,            height:   0, weight:  0, role_id: 3, lfl: '' },
+  { code: 67, provider: 'telegram', uid: '',           lastname: 'Шарипов',     name: 'шахо',      middlename: '',               birthday: '',           phone: '+79099955915', height:   0, weight:  0, role_id: 3, lfl: '' },
+  # { code: 68, provider: 'telegram', uid: '',           lastname: '',  name: '',       middlename: '',      birthday: '04.12.199',      phone: '+79645732923', height:   0, weight:  0, role_id: 3, lfl: '' },
 ]
 players.each { |player| print "#{Player.create(player).id}." }
 puts '!'

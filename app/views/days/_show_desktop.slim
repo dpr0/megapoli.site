@@ -138,10 +138,9 @@ section#parallax-computers.hero.is-large
 section#parallax-cars.hero.is-large
   .hero-body
     .container
-      section.section
-        .container
-          #carousel-demo.carousel
-            - if @day && @day.videos
-              - @day.videos.split(",").each_with_index do |link, index|
-                div class="item-#{index + 1}"
-                  iframe.embed-responsive-item src="https://www.youtube.com/embed/#{link}" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="true"
+      - if @day && @day.videos
+        - @day.videos.split(",").each_slice(3) do |videos|
+          .columns
+            - videos.each do |link|
+              .column.is-4
+                iframe.embed-responsive-item src="https://www.youtube.com/embed/#{link}" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="true"
