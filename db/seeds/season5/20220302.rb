@@ -61,7 +61,6 @@ ActiveRecord::Base.transaction do
   g.goals.create(season_id: 5, team_id: 4, player_id: nil, assist_player_id: 4)
   g = Game.create(day_id: s5d15.id, team_left_id: 1, goals_left: 1, goals_right: 0, team_right_id: 3)
   g.goals.create(season_id: 5, team_id: 1, player_id: 44, assist_player_id: 6)
-
   g = Game.create(day_id: s5d15.id, team_left_id: 1, goals_left: 1, goals_right: 0, team_right_id: 4)
   g.goals.create(season_id: 5, team_id: 1, player_id: 18, assist_player_id: 6)
   g = Game.create(day_id: s5d15.id, team_left_id: 1, goals_left: 0, goals_right: 2, team_right_id: 3)
@@ -97,4 +96,3 @@ ActiveRecord::Base.transaction do
   s5d15.day_rates!
   Day.last.update!(videos: 'eeRFKrw3GKk,7FlVe8Gtegc,eqrsni7Yiyw,p0yCkdvs8bI,94JED7sMjLY,2NqI9-_JoKk,h2tJbVZasUA,pngXlIaDKac,pij6KmluNx8')
 end
-# Player.update_stats!(5)
