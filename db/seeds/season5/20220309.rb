@@ -95,6 +95,5 @@ ActiveRecord::Base.transaction do
   g.goals.create(season_id: 5, team_id: 3, player_id: 48, assist_player_id: 44)
 
   s5d15.day_rates!
-  Day.last.update!(videos: '')
+  Day.last.update!(videos: 'zswvC1WxXy8,iQitQu5DGLQ,mg4xkJWSXUQ,v-LR8rPWg6Y,Mg8XDCB0dEA,Yhw-nA9A7TU,VhKZAHaAmyE,kyrSP8CErnY,1HJqHNEVSXQ')
 end
-Player.update_stats!(5)
