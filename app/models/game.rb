@@ -12,7 +12,7 @@ class Game < ApplicationRecord
   end
 
   def rated_class(side)
-    "text-#{%w[muted success danger][attributes["#{side}_team_elo_change"] <=> 0]}"
+    "has-text-#{%w[grey primary danger][attributes["#{side}_team_elo_change"] <=> 0]}"
   end
 
   private
