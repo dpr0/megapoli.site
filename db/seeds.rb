@@ -21,7 +21,7 @@ s4 =  megapolis.seasons.create(code: 'megapolis4',  name: '2021/2')
 s5 =  megapolis.seasons.create(code: 'megapolis5',  name: '2022/1')
 s6 = sbermarket.seasons.create(code: 'sbermarket1', name: '2022/1')
 
-Season.all[4..].each do |season|
+Season.all.each do |season|
   puts "\n< #{season.code.capitalize}: #{season.name} > ==================================================="
   @season_id = season.id
   Dir[File.join(Rails.root, 'db', 'seeds', season.code, '*.rb')].each { |seed| load(seed) }
