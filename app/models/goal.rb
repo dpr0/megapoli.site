@@ -3,6 +3,7 @@
 class Goal < ApplicationRecord
   belongs_to :team
   belongs_to :game
+  belongs_to :season
   belongs_to :player, optional: true
 
   after_create :rate!

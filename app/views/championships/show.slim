@@ -1,0 +1,11 @@
+section#parallax-football
+  .hero-body
+    .container
+      - sport = @championship.sport
+      .box
+        h4.title.is-3 = link_to sport.name, sport_path(sport.id)
+        article.message.is-link
+          .message-body
+            h4.subtitle = link_to @championship.name, sport_championship_path(@championship.id, sport_id: sport.id)
+            - @championship.seasons.each do |season|
+              = link_to season.name, sport_championship_season_path(season.id, championship_id: @championship.id, sport_id: sport.id), class: "button is-link is-outlined"

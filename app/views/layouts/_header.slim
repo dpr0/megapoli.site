@@ -1,92 +1,53 @@
-- if false # request.user_agent =~ /Mobile|webOS/
-  section.hero.is-lower-alpha
-    .hero-body
-      .container
-        h1.title.is-1
-          | megapoli.site
-        p.subtitle
-          | Megapolis Football Site
+/ if request.user_agent =~ /Mobile|webOS/
+section.hero.is-lower-alpha
+  .hero-body
+    .container
+      h1.title.is-1
+        | megapoli.site
+      h2.subtitle
+        a href="" статистика спортивных мероприятий
+      - unless current_player
+        = link_to omniauth_authorize_path(devise_mapping.name, :telegram), class: "button is-link is-outlined" do
+          i.fad.fa-chevron-left
+          | &nbsp Войти &nbsp
+          i.fab.fa-telegram-plane
+          | &nbsp Telegram &nbsp
+          i.fad.fa-chevron-right
+      - else
+        = link_to next_sport_championship_season_days_path(championship_id: 1, season_id: 1, sport_id: 1), class: "button is-link is-outlined" do
+          i.fad.fa-chevron-left
+          | &nbspЧат&nbsp
+          i.fad.fa-chevron-right
+        = link_to player_path(current_player.id), class: "button is-link is-outlined" do
+          i.fad.fa-chevron-left
           | &nbsp
-          a href="https://megapolisfit.ru/" megapolisfit.ru
-        h2.subtitle
-          - if current_player
-            = link_to player_path(current_player.id), class: 'nav-link' do
-              i.far.fa-user
-            = link_to destroy_player_session_path, class: 'nav-link', method: :delete do
-              i.fas.fa-sign-out-alt
-        = link_to next_days_path, class: "button is-link is-outlined is-fullwidth" do
-          i.fad.fa-chevron-left
-          | &nbspЧат&nbsp
+          i.far.fa-user
+          | &nbsp
           i.fad.fa-chevron-right
-        = link_to day_path(Day.last.id), class: "button is-link is-outlined is-fullwidth" do
+        = link_to destroy_player_session_path, class: "button is-link is-outlined", method: :delete do
           i.fad.fa-chevron-left
-          | &nbspСтатистика&nbsp
-          i.fad.fa-chevron-right
-            // teams_day_path(Day.last.id)
-            // games_day_path(Day.last.id)
-            // videos_day_path(Day.last.id)
-        = link_to sport_season_stats_path(sport_id: 1, season_id: Season.last.id), class: "button is-link is-outlined is-fullwidth" do
-          i.fad.fa-chevron-left
-          | &nbspИгроки&nbsp
-          i.fad.fa-chevron-right
-        = link_to days_path, class: "button is-link is-outlined is-fullwidth" do
-          i.fad.fa-chevron-left
-          | &nbspСезон&nbsp
-          i.fad.fa-chevron-right
-        = link_to about_days_path, class: "button is-link is-outlined is-fullwidth" do
-          i.fad.fa-chevron-left
-          | &nbspИнфо&nbsp
-          i.fad.fa-chevron-right
-- else
-  section.hero.is-lower-alpha
-    .hero-body
-      .container
-        h1.title.is-1
-          | megapoli.site
-        h2.subtitle
-          | Megapolis Football Site
-        h2.subtitle
-          a href="https://megapolisfit.ru/" megapolisfit.ru
-        h2.subtitle
-          - if current_player
-            = link_to player_path(current_player.id), class: 'nav-link' do
-              i.far.fa-user
-            = link_to destroy_player_session_path, class: 'nav-link', method: :delete do
-              i.fas.fa-sign-out-alt
-        = link_to next_days_path, class: "button is-link is-outlined" do
-          i.fad.fa-chevron-left
-          | &nbspЧат&nbsp
-          i.fad.fa-chevron-right
-        = link_to day_path(Day.last.id), class: "button is-link is-outlined" do
-          i.fad.fa-chevron-left
-          | &nbspСтатистика&nbsp
-          i.fad.fa-chevron-right
-          // teams_day_path(Day.last.id)
-          // games_day_path(Day.last.id)
-          // videos_day_path(Day.last.id)
-        = link_to sport_season_stats_path(sport_id: 1, season_id: Season.last.id), class: "button is-link is-outlined" do
-          i.fad.fa-chevron-left
-          | &nbspИгроки&nbsp
-          i.fad.fa-chevron-right
-        = link_to days_path, class: "button is-link is-outlined" do
-          i.fad.fa-chevron-left
-          | &nbspСезон&nbsp
-          i.fad.fa-chevron-right
-        = link_to about_days_path, class: "button is-link is-outlined" do
-          i.fad.fa-chevron-left
-          | &nbspИнфо&nbsp
+          | &nbsp
+          i.fas.fa-sign-out-alt
+          | &nbsp
           i.fad.fa-chevron-right
 
-  / - next_and_last = Day.last.next_and_last
-  / li.nav-item
-  /   = link_to next_days_path, class: 'nav-link' do
-  /     i.nav-icon.fas.fa-th
-  /     p
-  /       = next_and_last.first
-  /       span.right.badge.badge-danger След.
-  / li.nav-item.has-treeview.menu-open
-  /   a.nav-link.active href="#"
-  /     i.nav-icon.far.fa-futbol
-  /     p
-  /       = next_and_last.last
-  /       i.right.fas.fa-angle-down
+      = link_to sports_path, class: "button is-link is-outlined" do
+        i.fad.fa-chevron-left
+        | &nbsp Чемпионаты &nbsp
+        i.fad.fa-chevron-right
+      / = link_to sport_championship_season_day_path(Day.last.id, championship_id: 1, season_id: 1, sport_id: 1), class: "button is-link is-outlined" do
+      /   i.fad.fa-chevron-left
+      /   | &nbspСтатистика&nbsp
+      /   i.fad.fa-chevron-right
+      / = link_to sport_championship_season_stats_path(sport_id: 1, championship_id: 1, season_id: 1), class: "button is-link is-outlined" do
+      /   i.fad.fa-chevron-left
+      /   | &nbspИгроки&nbsp
+      /   i.fad.fa-chevron-right
+      / = link_to sport_championship_season_days_path(championship_id: 1, season_id: 1, sport_id: 1), class: "button is-link is-outlined" do
+      /   i.fad.fa-chevron-left
+      /   | &nbspСезон&nbsp
+      /   i.fad.fa-chevron-right
+      = link_to about_index_path, class: "button is-link is-outlined" do
+        i.fad.fa-chevron-left
+        | &nbspИнфо&nbsp
+        i.fad.fa-chevron-right

@@ -1,10 +1,10 @@
-section#parallax-football.hero
+section id="parallax-#{@season.championship.code}"
   .hero-body
     .container
       .columns.is-mobile
         .column.is-3.is-right
-          - if @season.id != 1
-            = link_to days_path(season_id: @season.id - 1) do
+          - if @season.id != @season.championship.seasons.first.id
+            = link_to sport_championship_season_days_path(season_id: @season.id - 1, championship_id: @season.championship.id, sport_id: @season.championship.sport.id) do
               = image_tag "left.png", size: "100x100"
         .column.is-6.is-center
           h1.title.is-1 = @season.name
@@ -13,8 +13,8 @@ section#parallax-football.hero
             - if !@days.size.zero?
               = "#{@days.last.date.strftime("%d.%m.%Y")} - #{@days.first.date.strftime("%d.%m.%Y")}"
         .column.is-3.is-left
-          - if @season.id != Season.all_cached.last.id
-            = link_to days_path(season_id: @season.id + 1) do
+          - if @season.id != @season.championship.seasons.last.id
+            = link_to sport_championship_season_days_path(season_id: @season.id + 1, championship_id: @season.championship.id, sport_id: @season.championship.sport.id) do
               = image_tag "right.png", size: "100x100"
       .columns
         .column.is-6.is-offset-3
@@ -31,12 +31,12 @@ section#parallax-football.hero
                 - next if @places.select { |p| [p[:first_place], p[:second_place], p[:third_place], p[:fourth_place]].include? team.id }.count.zero?
                 tr
                   td.is-center = image_tag "colors/#{team.code}.png", size: '25x30'
-                  td.is-center = @places.select { |p| p[:first_place]  == team.id }.count
+                  td.is-center = @places.select { |p| p[ :first_place] == team.id }.count
                   td.is-center = @places.select { |p| p[:second_place] == team.id }.count
-                  td.is-center = @places.select { |p| p[:third_place]  == team.id }.count
+                  td.is-center = @places.select { |p| p[ :third_place] == team.id }.count
                   td.is-center = @places.select { |p| p[:fourth_place] == team.id }.count
 
-section#parallax-pole.hero.is-large
+section#parallax-football
   .hero-body
     .container
       .columns
@@ -52,7 +52,7 @@ section#parallax-pole.hero.is-large
           - @days.each do |day|
             tr
               - g = day.games.to_a
-              td = link_to l(day.date), day_path(day)
+              td = link_to l(day.date), sport_championship_season_day_path(day.id, season_id: day.season.id, championship_id: day.season.championship.id, sport_id: day.season.championship.sport.id)
               / td = link_to day.date.strftime('%d.%m.%Y %A'), day_path(day)
               - array = [day.first_place, day.second_place, day.third_place]
               - array.each do |place|
@@ -70,3 +70,115 @@ section#parallax-pole.hero.is-large
                     = g.select { |x| x.team_left_id == t || x.team_right_id == t }.count
               td = dp.count
               td = g.size
+
+section#parallax-cars
+  .hero-body
+    .container
+      .columns.is-mobile
+        .table-container
+          table.table.has-text-white.is-bordered
+            thead
+              tr.has-text-white
+                th
+                th Игрок
+                th
+                  div = link_to 'Дней', sport_championship_season_stats_path(sort: :days)
+                  - Team.all_cached.each do |team|
+                    = link_to sport_championship_season_stats_path(sport_id: 1, season_id: @season.id, sort: :days, team: team.code) do
+                      = image_tag "colors/#{team.code}.png", size: "15x20"
+                      | &nbsp
+                th = link_to 'Игр',  sport_championship_season_stats_path(sort: :games)
+                th = link_to 'ELO',  sport_championship_season_stats_path(sort: :elo)
+                th = link_to '⚽️', sport_championship_season_stats_path(sort: :goals_count)
+                th = link_to '🦶', sport_championship_season_stats_path(sort: :assists_count)
+                th
+                  = link_to '⚽', sport_championship_season_stats_path(sort: :goals_day_count)
+                  | /
+                  = link_to '🦶', sport_championship_season_stats_path(sort: :assists_day_count)
+                  div
+                    sup = ' в день '
+            - @arr_by_days.each do |arr|
+              - if arr.is_a? String
+                tr
+                  td.text-center colspan='12' = arr
+              - else
+                - arr.each_with_index do |player, i|
+                  - dp = player.day_players_by_season(@season.id)
+                  tr
+                    td = i + 1
+                    td = link_to player.short_name, player_path(player)
+                    td
+                      - player.dp_tally(dp).each do |team_id, count|
+                        | &nbsp;
+                        = image_tag "colors/#{Team.cached_by_id[team_id].code}.png", size: "15x20"
+                        sup
+                          | &nbsp;
+                          = count
+                    td.text-right = player.games
+                    td.text-right = player.stats_elo.to_i
+                    td.text-right = player.goals_count
+                    td.text-right = player.assists_count
+                    td.text-right
+                      = ((player.goals_day_count.to_f * 100).to_i / 100.0).to_s.ljust(4, '0')
+                      span
+                        | (
+                        = ((player.assists_day_count.to_f * 100).to_i / 100.0).to_s.ljust(4, '0')
+                        | )
+
+section#parallax-football
+  .hero-body
+    .container
+      .columns.is-mobile
+        .table-container
+          table.table.has-text-white
+            thead
+              tr
+                th Рейтинг Эло
+            tr
+              td
+                div Все игроки начинают с рейтинга 1500
+                div Вычисляется математическое ожидание количества очков рейтинга, которое получит команда A в матче с командой B (оно равно сумме вероятности выигрыша команды A и половины вероятности ничьей):
+            tr
+              td
+                .col-sm-3
+                  = image_tag "kk2.svg"
+                .col-sm-9
+                  div
+                    | E
+                    sub A
+                    = " - математическое ожидание количества очков, которое наберёт команда A в игре с командой B;"
+                  div
+                    | R
+                    sub A
+                    = " — рейтинг команды A;"
+                  div
+                    | R
+                    sub B
+                    = " — рейтинг команды B;"
+            tr
+              td
+                .col-sm-8 Новый рейтинг команды A рассчитывается по формуле:
+                .col-sm-4
+                  = image_tag "kk1.svg"
+            tr
+              td
+                .col-sm-12
+                  div
+                    | S
+                    sub A
+                    = " - фактически набранное командой A количество очков (1 очко за победу, 0,5 — за ничью и 0 — за поражение);"
+                  div
+                    | R^
+                    sub A
+                    = " - новый рейтинг команды A."
+                  div
+                    = "K - коэффициент:"
+                    ul
+                      li 5 для сильнейших комманд (рейтинг 1900 и выше)
+                      li 10 для команд с рейтингом 1800-1899
+                      li 20 для команд с рейтингом 1700-1799
+                      li 30 для команд с рейтингом 1600-1699
+                      li 40 для команд с рейтингом 1500-1599
+                      li 50 для команд с рейтингом 1400-1499
+                      li 60 для команд с рейтингом 1300-1399
+                      li 70 для команд с рейтингом ниже 1300

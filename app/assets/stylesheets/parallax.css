@@ -45,8 +45,17 @@ hr.content-divider {
     height: 5px;
 }
 
-#parallax-pole {
-    background: url(pole.jpg);
+#parallax-info {
+    background: url(info.png);
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-top: 10px solid coral;
+}
+
+#parallax-megapolis {
+    background: url(megapolis.jpg);
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
@@ -54,7 +63,20 @@ hr.content-divider {
     border-top: 10px solid coral;
 }
 
-#parallax-pole hr {
+#parallax-megapolis hr {
+    background: coral;
+}
+
+#parallax-sbermarket {
+    background: url(sbermarket.png);
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-top: 10px solid coral;
+}
+
+#parallax-sbermarket hr {
     background: coral;
 }
 
@@ -124,6 +146,10 @@ hr.content-divider {
 
 .label {
     color: turquoise;
+}
+
+.box {
+    opacity: 0.8;
 }
 
 input {

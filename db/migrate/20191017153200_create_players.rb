@@ -12,13 +12,12 @@ class CreatePlayers < ActiveRecord::Migration[6.0]
       t.string :lfl
       t.string :token
       t.string :email, null: true, default: ''
-      t.float :elo, default: 1500
       t.integer :code
       t.integer :height
       t.integer :weight
       t.date :birthday
+      t.float :elo, default: 1500
       t.references :role
-      t.timestamps
       t.string :encrypted_password, null: true, default: ''
       t.string :reset_password_token
       t.datetime :reset_password_sent_at
@@ -28,6 +27,7 @@ class CreatePlayers < ActiveRecord::Migration[6.0]
       t.datetime :last_sign_in_at
       t.string :current_sign_in_ip
       t.string :last_sign_in_ip
+      t.timestamps
     end
   end
 end

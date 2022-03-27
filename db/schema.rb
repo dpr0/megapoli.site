@@ -52,26 +52,35 @@ ActiveRecord::Schema[7.0].define(version: 2021_09_30_185426) do
     t.index ["provider", "uid"], name: "index_authorizations_on_provider_and_uid"
   end
 
+  create_table "championships", force: :cascade do |t|
+    t.bigint "sport_id"
+    t.string "code"
+    t.string "name"
+    t.string "description"
+    t.index ["sport_id"], name: "index_championships_on_sport_id"
+  end
+
   create_table "day_players", force: :cascade do |t|
+    t.integer "season_id"
     t.integer "day_id"
     t.integer "player_id"
     t.integer "team_id"
-    t.float "elo", default: 0.0
-    t.integer "season_id"
+    t.float "elo", default: 1500.0
     t.index ["day_id"], name: "index_day_players_on_day_id"
     t.index ["player_id"], name: "index_day_players_on_player_id"
+    t.index ["season_id"], name: "index_day_players_on_season_id"
     t.index ["team_id"], name: "index_day_players_on_team_id"
   end
 
   create_table "days", force: :cascade do |t|
+    t.integer "season_id"
     t.date "date"
     t.integer "first_place"
     t.integer "second_place"
     t.integer "third_place"
     t.integer "fourth_place"
-    t.integer "sport_id"
-    t.integer "season_id"
-    t.string "videos"
+    t.string "videos", default: ""
+    t.index ["season_id"], name: "index_days_on_season_id"
   end
 
   create_table "games", force: :cascade do |t|
@@ -85,11 +94,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_09_30_185426) do
     t.integer "left_team_elo_change", default: 0
     t.integer "right_team_elo_change", default: 0
     t.string "comment"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.index ["day_id"], name: "index_games_on_day_id"
-    t.index ["team_left_id"], name: "index_games_on_team_left_id"
-    t.index ["team_right_id"], name: "index_games_on_team_right_id"
   end
 
   create_table "goals", force: :cascade do |t|
@@ -100,6 +105,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_09_30_185426) do
     t.integer "assist_player_id"
     t.index ["game_id"], name: "index_goals_on_game_id"
     t.index ["player_id"], name: "index_goals_on_player_id"
+    t.index ["season_id"], name: "index_goals_on_season_id"
     t.index ["team_id"], name: "index_goals_on_team_id"
   end
 
@@ -140,14 +146,12 @@ ActiveRecord::Schema[7.0].define(version: 2021_09_30_185426) do
     t.string "lfl"
     t.string "token"
     t.string "email", default: ""
-    t.float "elo", default: 1500.0
     t.integer "code"
     t.integer "height"
     t.integer "weight"
     t.date "birthday"
+    t.float "elo", default: 1500.0
     t.integer "role_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "encrypted_password", default: ""
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at", precision: nil
@@ -157,6 +161,8 @@ ActiveRecord::Schema[7.0].define(version: 2021_09_30_185426) do
     t.datetime "last_sign_in_at", precision: nil
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["role_id"], name: "index_players_on_role_id"
   end
 
@@ -166,41 +172,34 @@ ActiveRecord::Schema[7.0].define(version: 2021_09_30_185426) do
   end
 
   create_table "seasons", force: :cascade do |t|
+    t.integer "championship_id"
     t.string "code"
     t.string "name"
     t.string "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.index ["championship_id"], name: "index_seasons_on_championship_id"
   end
 
   create_table "sports", force: :cascade do |t|
     t.string "code"
     t.string "name"
     t.string "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "stats", force: :cascade do |t|
-    t.integer "sport_id"
-    t.integer "season_id"
     t.integer "player_id"
+    t.integer "season_id"
     t.integer "days"
     t.integer "games"
     t.integer "win"
     t.integer "draw"
     t.integer "lose"
     t.float "elo", default: 1500.0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "teams", force: :cascade do |t|
     t.string "code"
     t.string "name"
     t.integer "num"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

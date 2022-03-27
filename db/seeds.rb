@@ -9,22 +9,21 @@ Role.create(code: 'admin',   name: 'Администратор')
 Role.create(code: 'captain', name: 'Капитан команды')
 Role.create(code: 'player',  name: 'Игрок')
 
+sport      = Sport.create(code: 'football', name: 'Футбол')
+megapolis  = sport.championships.create(code: 'megapolis',  name: 'Мегаполис')
+sbermarket = sport.championships.create(code: 'sbermarket', name: 'Сбермаркет')
+
 load File.join(Rails.root, 'db', 'seeds', 'players.rb')
-seasons = []
-sport   =   Sport.create(code: 'football', name: 'Футбол')
-seasons << Season.create(code: 'season1',  name: '2020/1')
-seasons << Season.create(code: 'season2',  name: '2020/2')
-seasons << Season.create(code: 'season3',  name: '2021/1')
-seasons << Season.create(code: 'season4',  name: '2021/2')
-seasons << Season.create(code: 'season5',  name: '2022/1')
+s1 =  megapolis.seasons.create(code: 'megapolis1',  name: '2020/1')
+s2 =  megapolis.seasons.create(code: 'megapolis2',  name: '2020/2')
+s3 =  megapolis.seasons.create(code: 'megapolis3',  name: '2021/1')
+s4 =  megapolis.seasons.create(code: 'megapolis4',  name: '2021/2')
+s5 =  megapolis.seasons.create(code: 'megapolis5',  name: '2022/1')
+s6 = sbermarket.seasons.create(code: 'sbermarket1', name: '2022/1')
 
-seasons.each do |season|
-  Player.all.each do |pl|
-    pl.stats.create(sport_id: sport.id, season_id: season.id)
-    pl.update(elo: 1500)
-  end
-
+Season.all[4..].each do |season|
   puts "\n< #{season.code.capitalize}: #{season.name} > ==================================================="
+  @season_id = season.id
   Dir[File.join(Rails.root, 'db', 'seeds', season.code, '*.rb')].each { |seed| load(seed) }
   Player.update_stats!(season.id)
 end

@@ -6,23 +6,24 @@ Rails.application.routes.draw do
   mount ActionCable.server => '/cable'
   default_url_options only_path: true
 
-  # root 'days#next'
-  root 'days#show'
+  root 'sports#index'
+
+  resources :about, only: :index
 
   resources :players, only: [:index, :show]
-  resources :sports do
-    resources :seasons do
-      resources :stats, only: [:index]
+
+  resources :sports, only: [:index, :show] do
+    resources :championships, only: [:index, :show] do
+      resources :seasons, only: [:index, :show] do
+        resources :stats, only: :index
+        resources :days do
+          get :next, on: :collection
+          resources :day_players
+          resources :games do
+            resources :goals
+          end
+        end
+      end
     end
-  end
-  resources :bombers, only: [:index] do
-    post :filter, on: :collection
-  end
-  resources :days do
-    collection do
-      get :next
-      get :about
-    end
-    resources :day_players
   end
 end

@@ -1,4 +1,4 @@
-section#parallax-football.hero.is-large
+section#parallax-football
   .hero-body
     .container
       .columns.is-mobile
@@ -43,7 +43,7 @@ section#parallax-football.hero.is-large
           = link_to player_path(@player.id == Player.count ? 1 : @player.id + 1) do
             = image_tag "right.png", size: "100x100"
 
-section#parallax-pole.hero.is-large
+section#parallax-computers
   .hero-body
     .container
       - @player.day_players.group_by(&:season_id).sort.reverse.each do |season_id, rates|

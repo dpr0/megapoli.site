@@ -6,8 +6,6 @@ class CreateTeams < ActiveRecord::Migration[6.0]
       t.string :code
       t.string :name
       t.integer :num
-
-      t.timestamps
     end
   end
 end

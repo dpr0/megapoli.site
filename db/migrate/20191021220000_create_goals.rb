@@ -6,7 +6,7 @@ class CreateGoals < ActiveRecord::Migration[6.0]
       t.references :player
       t.references :game
       t.references :team
-      t.integer :season_id
+      t.references :season
       t.integer :assist_player_id
     end
   end

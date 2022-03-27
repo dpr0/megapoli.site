@@ -1,4 +1,2 @@
-- if false # request.user_agent =~ /Mobile|webOS/
-  = render 'show_mobile'
-- else
-  = render 'show_desktop'
+/ if request.user_agent =~ /Mobile|webOS/
+= render 'show_desktop'

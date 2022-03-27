@@ -1,23 +1,22 @@
 class TeamStat
 
-  def initialize(teams, games)
-    @teams = teams
+  def initialize(games)
     @games = games
     @gl = StatService::GL
     @gr = StatService::GR
   end
 
   def data
+    @teams = @games.map { |x| [x['team_left_id'], x['team_right_id']] }.flatten.uniq.sort.map { |team_id| Team.cached_by_id[team_id] }
     @teams.map do |team|
       games = @games.select { |x| [x['team_left_id'], x['team_right_id']].include? team.id }
-      data = row(team)
-      games.blank? ? data : games(team, games, data)
+      games(team, games)
     end
   end
 
   private
 
-  def games(team, games, data)
+  def games(team, games)
     left_games         =       games.select { |x| x['team_left_id']  == team.id }
     right_games        =       games.select { |x| x['team_right_id'] == team.id }
     left_win           =  left_games.select { |x| x[@gl] >  x[@gr] }
@@ -28,30 +27,17 @@ class TeamStat
     goals1             =     left_games.map { |x| x[@gl] }.sum + right_games.map { |x| x[@gr] }.sum
     goals2             =     left_games.map { |x| x[@gr] }.sum + right_games.map { |x| x[@gl] }.sum
     win_count          = left_win.count + right_win.count
-    data[:games_count] = games.count
-    data[:opps_win]    = opps_map(left_win, right_win).group_by(&:itself)
-    data[:opps_draw]   = opps_map(draw, draw).reject { |n| n == team.code }.group_by(&:itself)
-    data[:opps_lose]   = opps_map(left_lose, right_lose).group_by(&:itself)
-    data[:win_count]   = win_count
-    data[:draw_count]  = draw.count
-    data[:lose_count]  = left_lose.count + right_lose.count
-    data[:goals]       = "#{goals1} : #{goals2}"
-    data[:ppg]         = (((win_count * 3 + draw.count * 1).to_f / games.count) * 100).to_i.to_f / 100
-    data
-  end
-
-  def row(team)
     {
-        games_count: '-',
-        opps_win:    nil,
-        opps_draw:   nil,
-        opps_lose:   nil,
-        win_count:   '-',
-        draw_count:  '-',
-        lose_count:  '-',
-        goals:       '-',
-        ppg:         '-',
-        team_code:   team.code
+      games_count: games.count,
+      opps_win:    opps_map(left_win, right_win).group_by(&:itself),
+      opps_draw:   opps_map(draw, draw).reject { |n| n == team.code }.group_by(&:itself),
+      opps_lose:   opps_map(left_lose, right_lose).group_by(&:itself),
+      win_count:   win_count,
+      draw_count:  draw.count,
+      lose_count:  left_lose.count + right_lose.count,
+      goals:       "#{goals1} : #{goals2}",
+      ppg:         (((win_count * 3 + draw.count * 1).to_f / games.count) * 100).to_i.to_f / 100,
+      team_code:   team.code
     }
   end
 

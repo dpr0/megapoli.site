@@ -3,10 +3,11 @@
 class Day < ApplicationRecord
   has_many :games,       dependent: :destroy
   has_many :day_players, dependent: :destroy
-  belongs_to :sport
   belongs_to :season
   accepts_nested_attributes_for :games,       reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :day_players, reject_if: :all_blank, allow_destroy: true
+
+  after_create :create_stat! # create players stats for season
 
   def day_players_by_season(season_id)
     day_players.where(season_id: season_id)
@@ -38,5 +39,9 @@ class Day < ApplicationRecord
 
   def week_str(day)
     "#{%w[Пн Вт Ср Чт Пт Сб Вс][day.wday - 1]} #{day.strftime('%e.%m.%Y')}"
+  end
+
+  def create_stat!
+    day_players.each { |x| x.player.stats.find_or_initialize_by(season_id: season.id).save }
   end
 end

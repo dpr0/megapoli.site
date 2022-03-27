@@ -1,16 +1,16 @@
-section#parallax-football.hero.is-large
+section id="parallax-#{@day.season.championship.code}"
   .hero-body
     .container
       .columns.is-mobile
         .column.is-3.is-right
-          - if @day.id != 1
-            = link_to day_path(@day.id - 1, to: -1) do
+          - if @day.id != @day.season.days.first.id
+            = link_to sport_championship_season_day_path(@day.id - 1, to: -1, season_id: @day.season.id, championship_id: @day.season.championship.id, sport_id: @day.season.championship.sport.id) do
               = image_tag 'left.png', size: '100x100'
         .column.is-6.is-center
           h2.subtitle.is-1 = l(@day.date)
         .column.is-3.is-left
-          - if @day.id != Day.last.id
-            = link_to day_path(@day.id + 1, to: 1) do
+          - if @day.id != @day.season.days.last.id
+            = link_to sport_championship_season_day_path(@day.id + 1, to: 1, season_id: @day.season.id, championship_id: @day.season.championship.id, sport_id: @day.season.championship.sport.id) do
               = image_tag 'right.png', size: '100x100'
     .container
       .row
@@ -24,6 +24,7 @@ section#parallax-football.hero.is-large
             th.text-center Голов
             th.text-center points per game
           - @main_table.each do |table|
+            - next if table[:games_count].zero?
             tr data-link='' data-toggle='modal' data-target="#gamesModalCenter_#{table[:team_code]}"
               td.text-center = image_tag "colors/#{table[:team_code]}.png", size: '25x30'
               td.text-center = table[:games_count]
@@ -74,7 +75,7 @@ section#parallax-football.hero.is-large
                             = "#{count.count} x "
                             = image_tag "colors/#{code}.png", size: '25x30'
 
-section#parallax-pole.hero.is-large
+section#parallax-football
   .hero-body
     .container
       - @day.day_players_by_season(@day.season_id).group_by(&:team_id).sort.each do |team_id, day_players|
@@ -102,7 +103,7 @@ section#parallax-pole.hero.is-large
                                 | 🦶
               .column.is-4.has-text-centered
 
-section#parallax-computers.hero.is-large
+section#parallax-computers
   .hero-body
     .container
       .columns.is-centered
@@ -135,7 +136,7 @@ section#parallax-computers.hero.is-large
                   sup class="#{game.rated_class('right')}"
                     = game.rated('right')
 
-section#parallax-cars.hero.is-large
+section#parallax-cars
   .hero-body
     .container
       - if @day && @day.videos
