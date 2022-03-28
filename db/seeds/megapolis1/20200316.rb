@@ -14,6 +14,7 @@ d37t2p3 = d37.day_players.new(season_id: @season_id, team_id: 2, player_id: 10) 
 d37t2p4 = d37.day_players.new(season_id: @season_id, team_id: 2, player_id: 30) # коля
 d37t2p5 = d37.day_players.new(season_id: @season_id, team_id: 2, player_id:  7) # сандро
 d37t2p6 = d37.day_players.new(season_id: @season_id, team_id: 2, player_id:  3) # ден
+d37t4p4 = d37.day_players.new(season_id: @season_id, team_id: 4, player_id: 39)
 
 d37t3p1 = d37.day_players.new(season_id: @season_id, team_id: 3, player_id: 17) # андр
 d37t3p2 = d37.day_players.new(season_id: @season_id, team_id: 3, player_id: 22) # илья

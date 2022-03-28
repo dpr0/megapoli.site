@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreatePlayers < ActiveRecord::Migration[6.0]
+class CreatePlayers < ActiveRecord::Migration[7.0]
   def change
     create_table :players do |t|
       t.string :name
@@ -16,7 +16,6 @@ class CreatePlayers < ActiveRecord::Migration[6.0]
       t.integer :height
       t.integer :weight
       t.date :birthday
-      t.float :elo, default: 1500
       t.references :role
       t.string :encrypted_password, null: true, default: ''
       t.string :reset_password_token

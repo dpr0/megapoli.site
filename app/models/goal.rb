@@ -12,14 +12,16 @@ class Goal < ApplicationRecord
 
   def rate!
     if !player_id.nil? && !assist_player_id.nil?
-      player.update(elo: player.elo + Stat::K_ELO)
-      pl = Player.find(assist_player_id)
-      pl.update(elo: pl.elo + Stat::K_ELO)
+      stat = Stat.find_by(season_id: season_id, player_id: player_id)
+      stat.update(elo: stat.elo + Stat::K_ELO)
+      stat = Stat.find_by(season_id: season_id, player_id: assist_player_id)
+      stat.update(elo: stat.elo + Stat::K_ELO)
     elsif !player_id.nil?
-      player.update(elo: Stat::K_ELO * 2 + player.elo)
+      stat = Stat.find_by(season_id: season_id, player_id: player_id)
+      stat.update(elo: Stat::K_ELO * 2 + stat.elo)
     elsif !assist_player_id.nil?
-      pl = Player.find(assist_player_id)
-      pl.update(elo: Stat::K_ELO * 2 + pl.elo)
+      stat = Stat.find_by(season_id: season_id, player_id: assist_player_id)
+      stat.update(elo: Stat::K_ELO * 2 + stat.elo)
     end
   end
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateDayPlayers < ActiveRecord::Migration[6.0]
+class CreateDayPlayers < ActiveRecord::Migration[7.0]
   def change
     create_table :day_players do |t|
       t.references :season

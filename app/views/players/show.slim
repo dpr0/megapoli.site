@@ -17,10 +17,11 @@ section#parallax-football
                 label.label Номер
                 .control
                   = text_field_tag '', @player.code, class: 'input is-medium', disabled: true
-              .field
-                label.label Текущий ELO
-                .control
-                  = text_field_tag '', @player.elo.to_i, class: 'input is-medium', disabled: true
+              - @player.stats.where(season_id: Season.where(active: true)).each do |stat|
+                .field
+                  label.label = "ELO: (#{stat.season_id})"
+                  .control
+                    = text_field_tag '', stat.elo.to_i, class: 'input is-medium', disabled: true
               .field
                 label.label ФИО
                 .control

@@ -27,6 +27,7 @@ s2d34.day_players.new(season_id: @season_id, team_id: 4, player_id: 18) # дим
 s2d34.day_players.new(season_id: @season_id, team_id: 4, player_id:  3) # ден
 s2d34.day_players.new(season_id: @season_id, team_id: 4, player_id:  1) # гарик
 s2d34.day_players.new(season_id: @season_id, team_id: 4, player_id:  9) # вова
+s2d34.day_players.new(season_id: @season_id, team_id: 4, player_id: 17)
 s2d34.save
 
 g1544 = Game.create(day_id: s2d34.id, team_left_id: 1, goals_left: 0, goals_right: 1, team_right_id: 3)

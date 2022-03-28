@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateMessageFiles < ActiveRecord::Migration[6.0]
+class CreateMessageFiles < ActiveRecord::Migration[7.0]
   def change
     create_table :message_files do |t|
       t.integer :message_id

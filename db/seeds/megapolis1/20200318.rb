@@ -86,3 +86,4 @@ n22.goals.create(season_id: @season_id, team_id: 3, player_id: 28)
 n22.goals.create(season_id: @season_id, team_id: 2, player_id: 4)
 
 d38.day_rates!
+d38.season.update(active: false)

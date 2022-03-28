@@ -24,6 +24,7 @@ s6 = sbermarket.seasons.create(code: 'sbermarket1', name: '2022/1')
 Season.all.each do |season|
   puts "\n< #{season.code.capitalize}: #{season.name} > ==================================================="
   @season_id = season.id
-  Dir[File.join(Rails.root, 'db', 'seeds', season.code, '*.rb')].each { |seed| load(seed) }
-  Player.update_stats!(season.id)
+  Dir[File.join(Rails.root, 'db', 'seeds', season.code, '*.rb')][-2..-1].each { |seed| load(seed) }
+  season.update(active: false)
+  Player.update_stats!(season)
 end

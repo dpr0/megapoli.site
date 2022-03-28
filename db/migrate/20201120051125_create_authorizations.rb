@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateAuthorizations < ActiveRecord::Migration[6.0]
+class CreateAuthorizations < ActiveRecord::Migration[7.0]
   def change
     create_table :authorizations do |t|
       t.references :player, index: true, foreign_key: true

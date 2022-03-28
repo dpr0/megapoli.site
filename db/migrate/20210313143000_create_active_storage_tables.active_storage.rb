@@ -1,4 +1,4 @@
-class CreateActiveStorageTables < ActiveRecord::Migration[5.2]
+class CreateActiveStorageTables < ActiveRecord::Migration[7.0]
   def change
     create_table :active_storage_blobs do |t|
       t.string   :key,          null: false

@@ -85,4 +85,5 @@ g1609.goals.create(season_id: @season_id, team_id: 3, player_id: 17, assist_play
 g1609.goals.create(season_id: @season_id, team_id: 2, player_id: 4, assist_player_id: nil)
 
 s2d36.day_rates!
+s2d36.season.update(active: false)
 Day.last.update!(videos: 'tVuHaHt0hUM,6DcTxw3wIiQ,Arxt-gTSZl8,5ozIsLOmuOU,EgJzV6Rcuqw,oqzQgevpXmI,IXN0NeQdeLo')

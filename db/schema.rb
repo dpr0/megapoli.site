@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2021_09_30_185426) do
+ActiveRecord::Schema[7.0].define(version: 2022_03_28_000000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,7 +19,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_09_30_185426) do
     t.string "record_type", null: false
     t.bigint "record_id", null: false
     t.bigint "blob_id", null: false
-    t.datetime "created_at", precision: nil, null: false
+    t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
@@ -32,7 +32,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_09_30_185426) do
     t.string "service_name", null: false
     t.bigint "byte_size", null: false
     t.string "checksum", null: false
-    t.datetime "created_at", precision: nil, null: false
+    t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
@@ -43,7 +43,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_09_30_185426) do
   end
 
   create_table "authorizations", force: :cascade do |t|
-    t.integer "player_id"
+    t.bigint "player_id"
     t.string "provider"
     t.string "uid"
     t.datetime "created_at", null: false
@@ -61,10 +61,10 @@ ActiveRecord::Schema[7.0].define(version: 2021_09_30_185426) do
   end
 
   create_table "day_players", force: :cascade do |t|
-    t.integer "season_id"
-    t.integer "day_id"
-    t.integer "player_id"
-    t.integer "team_id"
+    t.bigint "season_id"
+    t.bigint "day_id"
+    t.bigint "player_id"
+    t.bigint "team_id"
     t.float "elo", default: 1500.0
     t.index ["day_id"], name: "index_day_players_on_day_id"
     t.index ["player_id"], name: "index_day_players_on_player_id"
@@ -73,7 +73,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_09_30_185426) do
   end
 
   create_table "days", force: :cascade do |t|
-    t.integer "season_id"
+    t.bigint "season_id"
     t.date "date"
     t.integer "first_place"
     t.integer "second_place"
@@ -84,7 +84,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_09_30_185426) do
   end
 
   create_table "games", force: :cascade do |t|
-    t.integer "day_id"
+    t.bigint "day_id"
     t.integer "team_left_id"
     t.integer "team_right_id"
     t.integer "goals_left", default: 0
@@ -98,10 +98,10 @@ ActiveRecord::Schema[7.0].define(version: 2021_09_30_185426) do
   end
 
   create_table "goals", force: :cascade do |t|
-    t.integer "player_id"
-    t.integer "game_id"
-    t.integer "team_id"
-    t.integer "season_id"
+    t.bigint "player_id"
+    t.bigint "game_id"
+    t.bigint "team_id"
+    t.bigint "season_id"
     t.integer "assist_player_id"
     t.index ["game_id"], name: "index_goals_on_game_id"
     t.index ["player_id"], name: "index_goals_on_player_id"
@@ -130,7 +130,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_09_30_185426) do
     t.text "text"
     t.integer "message_id"
     t.bigint "chat_id"
-    t.datetime "date", precision: nil
+    t.datetime "date"
     t.integer "reply_message_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -150,15 +150,14 @@ ActiveRecord::Schema[7.0].define(version: 2021_09_30_185426) do
     t.integer "height"
     t.integer "weight"
     t.date "birthday"
-    t.float "elo", default: 1500.0
-    t.integer "role_id"
+    t.bigint "role_id"
     t.string "encrypted_password", default: ""
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at", precision: nil
-    t.datetime "remember_created_at", precision: nil
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
     t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at", precision: nil
-    t.datetime "last_sign_in_at", precision: nil
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
@@ -172,10 +171,11 @@ ActiveRecord::Schema[7.0].define(version: 2021_09_30_185426) do
   end
 
   create_table "seasons", force: :cascade do |t|
-    t.integer "championship_id"
+    t.bigint "championship_id"
     t.string "code"
     t.string "name"
     t.string "description"
+    t.boolean "active", default: true
     t.index ["championship_id"], name: "index_seasons_on_championship_id"
   end
 

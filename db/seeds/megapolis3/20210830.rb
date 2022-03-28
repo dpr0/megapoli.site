@@ -88,5 +88,6 @@ ActiveRecord::Base.transaction do
   g2733.goals.create(season_id: @season_id, team_id: 2, player_id: 4, assist_player_id: nil)
 
   s3d48.day_rates!
+  s3d48.season.update(active: false)
   Day.last.update!(videos: '0LpRKF7H26Q,sCBqIgxEJSc,nDLRx9cikl8,PoKapMgwJfE,UoMaT8VSa28,wW_CIc1LW8o,QMUyfpYKsOo')
 end

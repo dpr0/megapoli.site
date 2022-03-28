@@ -56,7 +56,7 @@ ActiveRecord::Base.transaction do
   g.goals.create(season_id: @season_id, team_id: 2, player_id: 11, assist_player_id: 58)
   g = Game.create(day_id: s5d16.id, team_left_id: 3, goals_left: 0, goals_right: 2, team_right_id: 2)
   g.goals.create(season_id: @season_id, team_id: 2, player_id: 58, assist_player_id: nil)
-  g.goals.create(season_id: @season_id, team_id: 2, player_id: 11, assist_player_id: 10)
+  g.goals.create(season_id: @season_id, team_id: 2, player_id: 11, assist_player_id: 12)
   g = Game.create(day_id: s5d16.id, team_left_id: 4, goals_left: 0, goals_right: 2, team_right_id: 2)
   g.goals.create(season_id: @season_id, team_id: 2, player_id: 4, assist_player_id: 1)
   g.goals.create(season_id: @season_id, team_id: 2, player_id: 11, assist_player_id: 4)
