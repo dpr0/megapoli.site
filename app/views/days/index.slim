@@ -82,19 +82,19 @@ section#parallax-cars
                 th
                 th Игрок
                 th
-                  div = link_to 'Дней', sport_championship_season_stats_path(sort: :days)
+                  div = link_to 'Дней', sport_championship_season_days_path(sort: :days)
                   - Team.all_cached.each do |team|
-                    = link_to sport_championship_season_stats_path(sport_id: 1, season_id: @season.id, sort: :days, team: team.code) do
+                    = link_to sport_championship_season_days_path(sport_id: 1, season_id: @season.id, sort: :days, team: team.code) do
                       = image_tag "colors/#{team.code}.png", size: "15x20"
                       | &nbsp
-                th = link_to 'Игр',  sport_championship_season_stats_path(sort: :games)
-                th = link_to 'ELO',  sport_championship_season_stats_path(sort: :elo)
-                th = link_to '⚽️', sport_championship_season_stats_path(sort: :goals_count)
-                th = link_to '🦶', sport_championship_season_stats_path(sort: :assists_count)
+                th = link_to 'Игр',  sport_championship_season_days_path(sort: :games)
+                th = link_to 'ELO',  sport_championship_season_days_path(sort: :elo)
+                th = link_to '⚽️', sport_championship_season_days_path(sort: :goals_count)
+                th = link_to '🦶', sport_championship_season_days_path(sort: :assists_count)
                 th
-                  = link_to '⚽', sport_championship_season_stats_path(sort: :goals_day_count)
+                  = link_to '⚽', sport_championship_season_days_path(sort: :goals_day_count)
                   | /
-                  = link_to '🦶', sport_championship_season_stats_path(sort: :assists_day_count)
+                  = link_to '🦶', sport_championship_season_days_path(sort: :assists_day_count)
                   div
                     sup = ' в день '
             - @arr_by_days.each do |arr|
