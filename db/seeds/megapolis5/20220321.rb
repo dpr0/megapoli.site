@@ -100,4 +100,4 @@ ActiveRecord::Base.transaction do
   s5d16.day_rates!
   Day.last.update!(videos: 'paOZQndtuxM,CRMGXLVKt3I,FBL5KU2uf3E,7wypW8DinxI,qsCKCDtSqZw,CWZqxRLaC4I,tn8lqzxMBDY,G9Zo-1vz1B0,PrQRYlCnNGY')
 end
-# Player.update_stats!(5)
+# Player.update_stats!(@season)
