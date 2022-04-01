@@ -6,9 +6,14 @@ class Goal < ApplicationRecord
   belongs_to :season
   belongs_to :player, optional: true
 
+  after_initialize :init_season
   after_create :rate!
 
   private
+
+  def init_season
+    self.season_id = game.day.season_id
+  end
 
   def rate!
     if !player_id.nil? && !assist_player_id.nil?

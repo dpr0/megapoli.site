@@ -29,7 +29,7 @@
 # s3d35.day_players.new(season_id: @season_id, team_id: 4, player_id: 45) # санин
 
 # g2388 = Game.create(day_id: s3d35.id, team_left_id: 1, goals_left: 1, goals_right: 0, team_right_id: 2)
-# g2388.goals.create(season_id: @season_id, team_id: 1, player_id: 38, assist_player_id: 6)
+# g2388.goals.create(team_id: 1, player_id: 38, assist_player_id: 6)
 
 # s3d35.day_rates!
 # Day.last.update!(videos: '')
