@@ -8,6 +8,7 @@ class DaysController < ApplicationController
   before_action :authenticate_player!, only: :next
 
   def index
+    # @teams = Team.all_cached.sort
     @season = params[:season_id] ? Season.find(params[:season_id]) : Season.last
     @days = Day.where(season_id: @season.id).joins(:day_players).eager_load!(:day_players).order(id: :desc)
     @places = @days.select(:first_place, :second_place, :third_place, :fourth_place, :season_id)

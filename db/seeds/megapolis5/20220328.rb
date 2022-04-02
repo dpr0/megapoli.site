@@ -6,7 +6,7 @@ ActiveRecord::Base.transaction do
   {
     1 => [ 5,  2, 29, 38, 18,  6],
     2 => [ 1, 10, 11,  4,  9, 58],
-    3 => [21, 22, 17, 45, 57,  8],
+    3 => [21, 22, 17, 44, 57,  8],
     4 => [     3, 23, 14, 67, 68]
   }.each do |key, val|
     val.map { |x| {team_id: key, player_id: x, season_id: day.season_id} }

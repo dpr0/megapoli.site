@@ -48,7 +48,7 @@ ActiveRecord::Base.transaction do
   g.goals.create(team_id: 1, player_id: 18, assist_player_id: nil)
   g = day.games.create(team_left_id: 1, goals_left: 2, goals_right: 0, team_right_id: 2)
   g.goals.create(team_id: 1, player_id: 38, assist_player_id: 2)
-  g.goals.create(team_id: 1, player_id: 38, assist_player_id: 6)
+  g.goals.create(team_id: 1, player_id: 6, assist_player_id: 38)
 
   g = day.games.create(team_left_id: 1, goals_left: 0, goals_right: 2, team_right_id: 4)
   g.goals.create(team_id: 4, player_id: 65, assist_player_id: nil)
