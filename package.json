@@ -8,11 +8,11 @@
     "bulma-extensions": "^6.2.7",
     "chart.js": "^3.7.1",
     "chartkick": "^4.1.1",
-    "esbuild": "^0.14.28",
+    "esbuild": "^0.14.30",
     "esbuild-plugin-import-glob": "^0.1.1",
     "esbuild-rails": "^1.0.3",
     "jquery": "^3.6.0",
-    "sass": "^1.49.9"
+    "sass": "^1.49.11"
   },
   "scripts": {
     "build": "node esbuild.config.js",
