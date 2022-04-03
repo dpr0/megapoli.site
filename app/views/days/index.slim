@@ -1,10 +1,10 @@
-section id="parallax-#{@season.championship.code}"
+section id="parallax-#{@championship.code}"
   .hero-body
     .container
       .columns.is-mobile
         .column.is-3.is-right
-          - if @season.id != @season.championship.seasons.first.id
-            = link_to sport_championship_season_days_path(season_id: @season.id - 1, championship_id: @season.championship.id, sport_id: @season.championship.sport.id) do
+          - if @season.id != @championship.seasons.first.id
+            = link_to sport_championship_season_days_path(season_id: @season.id - 1, championship_id: @championship.id, sport_id: @sport.id) do
               = image_tag "left.png", size: "100x100"
         .column.is-6.is-center
           h1.title.is-1 = @season.name
@@ -13,8 +13,8 @@ section id="parallax-#{@season.championship.code}"
             - if !@days.size.zero?
               = "#{@days.last.date.strftime("%d.%m.%Y")} - #{@days.first.date.strftime("%d.%m.%Y")}"
         .column.is-3.is-left
-          - if @season.id != @season.championship.seasons.last.id
-            = link_to sport_championship_season_days_path(season_id: @season.id + 1, championship_id: @season.championship.id, sport_id: @season.championship.sport.id) do
+          - if @season.id != @championship.seasons.last.id
+            = link_to sport_championship_season_days_path(season_id: @season.id + 1, championship_id: @championship.id, sport_id: @sport.id) do
               = image_tag "right.png", size: "100x100"
       .columns
         .column.is-6.is-offset-3
@@ -50,11 +50,10 @@ section#parallax-football
               th 4
               th Игроков
               th Игр
-            - @days.each do |day|
+            - @days.eager_load(:games, :day_players).each do |day|
               tr
                 - g = day.games.to_a
-                td = link_to l(day.date), sport_championship_season_day_path(day.id, season_id: day.season.id, championship_id: day.season.championship.id, sport_id: day.season.championship.sport.id)
-                / td = link_to day.date.strftime('%d.%m.%Y %A'), day_path(day)
+                td = link_to l(day.date), sport_championship_season_day_path(day.id, season_id: @season.id, championship_id: @championship.id, sport_id: @sport.id)
                 - array = [day.first_place, day.second_place, day.third_place]
                 - array.each do |place|
                   td
@@ -62,17 +61,19 @@ section#parallax-football
                       = image_tag "colors/#{Team.cached_by_id[place].code}.png", size: '20x25'
                       | &nbsp;
                       = g.select { |x| x.team_left_id == place || x.team_right_id == place }.count
-                - dp = day.day_players_by_season(day.season_id)
+                - dp = @days_day_players[day.id] #.select { |dpl| dpl.day.id == day.id } # day.day_players_by_season(day.season_id)
                 td
                   - if dp.group_by(&:team_id).count > 3
                     - (@teams.pluck(:id) - array).each do |t|
+                      - count = g.select { |x| x.team_left_id == t || x.team_right_id == t }.count
+                      - next if count.zero?
                       = image_tag "colors/#{Team.cached_by_id[t].code}.png", size: '20x25'
                       | &nbsp;
-                      = g.select { |x| x.team_left_id == t || x.team_right_id == t }.count
+                      = count
                 td = dp.count
                 td = g.size
 
-section#parallax-cars
+section#parallax-computers
   .hero-body
     .container
       .columns.is-mobile
@@ -84,7 +85,7 @@ section#parallax-cars
                 th Игрок
                 th
                   div = link_to 'Дней', sport_championship_season_days_path(sort: :days)
-                  - Team.all_cached.each do |team|
+                  - @teams.each do |team|
                     = link_to sport_championship_season_days_path(sport_id: 1, season_id: @season.id, sort: :days, team: team.code) do
                       = image_tag "colors/#{team.code}.png", size: "15x20"
                       | &nbsp
@@ -98,35 +99,13 @@ section#parallax-cars
                   = link_to '🦶', sport_championship_season_days_path(sort: :assists_day_count)
                   div
                     sup = ' в день '
-            - @arr_by_days.each do |arr|
-              - if arr.is_a? String
-                tr
-                  td.text-center colspan='12' = arr
-              - else
-                - arr.each_with_index do |player, i|
-                  - dp = player.day_players_by_season(@season.id)
-                  tr
-                    td = i + 1
-                    td = link_to player.short_name, player_path(player)
-                    td
-                      - player.dp_tally(dp).each do |team_id, count|
-                        | &nbsp;
-                        = image_tag "colors/#{Team.cached_by_id[team_id].code}.png", size: "15x20"
-                        sup
-                          | &nbsp;
-                          = count
-                    td.text-right = player.games
-                    td.text-right = player.stats_elo.to_i
-                    td.text-right = player.goals_count
-                    td.text-right = player.assists_count
-                    td.text-right
-                      = ((player.goals_day_count.to_f * 100).to_i / 100.0).to_s.ljust(4, '0')
-                      span
-                        | (
-                        = ((player.assists_day_count.to_f * 100).to_i / 100.0).to_s.ljust(4, '0')
-                        | )
+            tbody
+              = render 'players', arr: @arr_by_days_90
+              tr
+                td.text-center colspan='12' = "Посещаемость менее #{Stat::K_ATTENDANCE}%"
+              = render 'players', arr: @arr_by_days_10
 
-section#parallax-football
+section#parallax-cars
   .hero-body
     .container
       .columns.is-mobile

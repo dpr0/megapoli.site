@@ -8,12 +8,15 @@ class DaysController < ApplicationController
   before_action :authenticate_player!, only: :next
 
   def index
-    # @teams = Team.all_cached.sort
     @season = params[:season_id] ? Season.find(params[:season_id]) : Season.last
-    @days = Day.where(season_id: @season.id).joins(:day_players).eager_load!(:day_players).order(id: :desc)
+    @day_players = DayPlayer.where(season_id: @season.id).to_a
+    @days_day_players = @day_players.group_by(&:day_id)
+    @teams_day_players = @day_players.group_by(&:team_id)
+    @days = Day.where(season_id: @season.id).order(id: :desc)
+    @teams = Team.all_cached.select { |t| @day_players.map(&:team_id).uniq.include? t.id }.sort
+    @championship = Championship.find(@season.championship_id)
+    @sport = Sport.cached_by_id[@championship.sport_id]
     @places = @days.select(:first_place, :second_place, :third_place, :fourth_place, :season_id)
-    @players = Player.where(id: @season.day_players.map(&:player_id)).eager_load(:goals).sort_by(&:code)
-    @days_by_wday = Day.where(season_id: @season.id).group_by { |x| x.date.wday }
     players = Player
       .joins(:stats)
       .left_joins(:goals)
@@ -41,13 +44,12 @@ class DaysController < ApplicationController
     k = params[:k] || Stat::K_ATTENDANCE
     games_percent = @season.days.count * k.to_i / 100.0
     players = players.where("day_players.team_id = #{Team[params[:team]].id }") if params[:team]
-    @arr_by_days = [
-      players.select { |z| z.days && z.days >= games_percent },
-      "Посещаемость менее #{Stat::K_ATTENDANCE}%", players.select { |z| z.days && z.days < games_percent }
-    ]
+    @arr_by_days_90 = players.select { |z| z.days && z.days >= games_percent }
+    @arr_by_days_10 = players.select { |z| z.days && z.days < games_percent }
   end
 
   def show
+    @teams = Team.all_cached
     @breadcrumbs = { '' => root_path }
     @main_table = TeamStat.new(@games).data
 

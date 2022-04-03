@@ -15,11 +15,11 @@ megapolis  = sport.championships.create(code: 'megapolis',  name: 'Мегапо�
 sbermarket = sport.championships.create(code: 'sbermarket', name: 'Сбермаркет')
 
 load File.join(Rails.root, 'db', 'seeds', 'players.rb')
-s1 =  megapolis.seasons.create(code: 'megapolis1',  name: '2020/1')
-s2 =  megapolis.seasons.create(code: 'megapolis2',  name: '2020/2')
-s3 =  megapolis.seasons.create(code: 'megapolis3',  name: '2021/1')
-s4 =  megapolis.seasons.create(code: 'megapolis4',  name: '2021/2')
-s5 =  megapolis.seasons.create(code: 'megapolis5',  name: '2022/1')
+# s1 =  megapolis.seasons.create(code: 'megapolis1',  name: '2020/1')
+# s2 =  megapolis.seasons.create(code: 'megapolis2',  name: '2020/2')
+# s3 =  megapolis.seasons.create(code: 'megapolis3',  name: '2021/1')
+# s4 =  megapolis.seasons.create(code: 'megapolis4',  name: '2021/2')
+# s5 =  megapolis.seasons.create(code: 'megapolis5',  name: '2022/1')
 s6 = sbermarket.seasons.create(code: 'sbermarket1', name: '2022/1')
 
 Season.all.each do |season|

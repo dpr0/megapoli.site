@@ -43,10 +43,6 @@ class Player < ApplicationRecord
     day_players.where(season_id: season_id)
   end
 
-  def dp_tally(dp)
-    dp.map(&:team_id).group_by { |x| x }.transform_values(&:size)
-  end
-
   def text_phone
     phone ? "#{phone[0..1]}-#{phone[2..4]}-#{phone[5..7]}-#{phone[8..9]}-#{phone[10..11]}" : '-'
   end
@@ -86,8 +82,8 @@ class Player < ApplicationRecord
         games: day_games,
         win: win3 + win2 + win1,
         draw: draw,
-        lose: lose,
-        elo: day_team.last.last
+        lose: lose
+        # elo: day_team.last.last
       )
     end
   end

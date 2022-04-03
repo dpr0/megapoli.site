@@ -15,7 +15,6 @@ Rails.application.routes.draw do
   resources :sports, only: [:index, :show] do
     resources :championships, only: [:index, :show] do
       resources :seasons, only: [:index, :show] do
-        resources :stats, only: :index
         resources :days do
           get :next, on: :collection
           resources :day_players

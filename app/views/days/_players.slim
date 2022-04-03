@@ -1,0 +1,23 @@
+- arr.each_with_index do |player, i|
+  - dp = player.day_players_by_season(@season.id)
+  / - debugger # @day_players
+  tr
+    td = i + 1
+    td = link_to player.short_name, player_path(player)
+    td
+      - @day_players.to_a.select { |x| x.player_id == player.id }.map(&:team_id).tally.each do |team_id, count|
+        | &nbsp;
+        = image_tag "colors/#{Team.cached_by_id[team_id].code}.png", size: "15x20"
+        sup
+          | &nbsp;
+          = count
+    td.text-right = player.games
+    td.text-right = player.stats_elo.to_i
+    td.text-right = player.goals_count
+    td.text-right = player.assists_count
+    td.text-right
+      = ((player.goals_day_count.to_f * 100).to_i / 100.0).to_s.ljust(4, '0')
+      span
+        | (
+        = ((player.assists_day_count.to_f * 100).to_i / 100.0).to_s.ljust(4, '0')
+        | )

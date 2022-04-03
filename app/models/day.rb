@@ -14,7 +14,7 @@ class Day < ApplicationRecord
   end
 
   def day_rates!
-    places = Team.all_cached.map do |team|
+    places = day_players.map do |team|
       day_games = games.all.select { |x| [x[StatService::TL], x[StatService::TR]].include? team.id }
       next if day_games.blank?
 
@@ -42,6 +42,7 @@ class Day < ApplicationRecord
   end
 
   def create_stat!
-    day_players.each { |x| x.player.stats.find_or_initialize_by(season_id: season.id).save }
+    day_players.where(season_id: season_id)
+      .each { |x| x.player.stats.find_or_initialize_by(season_id: season.id).save }
   end
 end
