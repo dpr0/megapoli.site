@@ -14,14 +14,14 @@ class Day < ApplicationRecord
   end
 
   def day_rates!
-    places = day_players.map do |team|
-      day_games = games.all.select { |x| [x[StatService::TL], x[StatService::TR]].include? team.id }
+    places = day_players.map(&:team_id).uniq.map do |team_id|
+      day_games = games.all.select { |x| [x[StatService::TL], x[StatService::TR]].include? team_id }
       next if day_games.blank?
 
-      left_win  = day_games.select { |x| x[StatService::GL]  > x[StatService::GR] && x[StatService::TL] == team.id }
-      right_win = day_games.select { |x| x[StatService::GL]  < x[StatService::GR] && x[StatService::TR] == team.id }
+      left_win  = day_games.select { |x| x[StatService::GL]  > x[StatService::GR] && x[StatService::TL] == team_id }
+      right_win = day_games.select { |x| x[StatService::GL]  < x[StatService::GR] && x[StatService::TR] == team_id }
       draw      = day_games.select { |x| x[StatService::GL] == x[StatService::GR] }
-      [(((left_win + right_win).count * 3) + draw.count) / day_games.count.to_f, team.id]
+      [(((left_win + right_win).count * 3) + draw.count) / day_games.count.to_f, team_id]
     end.compact.sort.reverse.map(&:last)
     update(first_place: places[0], second_place: places[1], third_place: places[2], fourth_place: places[3])
     print((id % 10).zero? ? id : '.')
