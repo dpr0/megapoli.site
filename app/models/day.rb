@@ -27,19 +27,7 @@ class Day < ApplicationRecord
     print((id % 10).zero? ? id : '.')
   end
 
-  def next_and_last
-    last = Day.last.date
-    return unless last
-
-    next_day = (last + 2.days).wday == 3 ? (last + 2.days) : (last + 5.days)
-    [week_str(next_day), week_str(last)]
-  end
-
   private
-
-  def week_str(day)
-    "#{%w[Пн Вт Ср Чт Пт Сб Вс][day.wday - 1]} #{day.strftime('%e.%m.%Y')}"
-  end
 
   def create_stat!
     day_players.where(season_id: season_id)

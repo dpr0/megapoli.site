@@ -63,14 +63,14 @@ section#parallax-football
                       = g.select { |x| x.team_left_id == place || x.team_right_id == place }.count
                 - dp = @days_day_players[day.id] #.select { |dpl| dpl.day.id == day.id } # day.day_players_by_season(day.season_id)
                 td
-                  - if dp.group_by(&:team_id).count > 3
+                  - if dp && dp.group_by(&:team_id).count > 3
                     - (@teams.pluck(:id) - array).each do |t|
                       - count = g.select { |x| x.team_left_id == t || x.team_right_id == t }.count
                       - next if count.zero?
                       = image_tag "colors/#{Team.cached_by_id[t].code}.png", size: '20x25'
                       | &nbsp;
                       = count
-                td = dp.count
+                td = dp&.count
                 td = g.size
 
 section#parallax-computers
