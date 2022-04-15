@@ -83,4 +83,3 @@ ActiveRecord::Base.transaction do
 
   day.day_rates!
 end
-# Player.update_stats!(5)

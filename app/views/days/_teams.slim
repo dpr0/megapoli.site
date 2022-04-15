@@ -1,0 +1,21 @@
+.content
+  .table-container
+    table.table-profile
+      tr
+        th colspan="3"
+          h4.title.has-text-white
+            = image_tag "colors/#{Team.cached_by_id[team_id].code}.png", size: "25x30"
+            = day_players.map(&:elo).sum.to_i / day_players.count
+      - day_players.sort_by(&:elo).reverse.each do |day_player|
+        - player = @players.find { |p| p[:id] == day_player.player_id }
+        tr
+          td = day_player.elo.to_i
+          td = link_to player.name, player_path(player), class: 'has-text-white'
+          td
+            - if @player_goals[player.code]
+              - @player_goals[player.code].times do
+                | ⚽️
+            - if @player_assists[player.code]
+              p
+                - @player_assists[player.code].times do
+                  | 🦶

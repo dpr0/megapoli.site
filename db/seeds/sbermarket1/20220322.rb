@@ -12,8 +12,8 @@ ActiveRecord::Base.transaction do
   day.day_players.new(season_id: @season_id, team_id: 4, player_id: 69)
   day.day_players.new(season_id: @season_id, team_id: 4, player_id: 70)
   day.day_players.new(season_id: @season_id, team_id: 4, player_id: 71)
+  day.day_players.new(season_id: @season_id, team_id: 4, player_id: 89)
   day.day_players.new(season_id: @season_id, team_id: 4, player_id: 72)
-  day.day_players.new(season_id: @season_id, team_id: 4, player_id: 73)
   day.save
 
   g = day.games.create(team_left_id: 3, goals_left: 22, goals_right: 9, team_right_id: 4)
@@ -35,7 +35,7 @@ ActiveRecord::Base.transaction do
   g.goals.create(team_id: 3, player_id: 21, assist_player_id: nil)
   g.goals.create(team_id: 3, player_id: 76, assist_player_id: nil)
   g.goals.create(team_id: 4, player_id: 69, assist_player_id: nil)
-  g.goals.create(team_id: 4, player_id: 69, assist_player_id: 72)
+  g.goals.create(team_id: 4, player_id: 69, assist_player_id: 89)
   g.goals.create(team_id: 3, player_id: 21, assist_player_id: nil)
   g.goals.create(team_id: 4, player_id: 71, assist_player_id: 69)
   g.goals.create(team_id: 3, player_id: 13, assist_player_id: 74)
@@ -43,13 +43,12 @@ ActiveRecord::Base.transaction do
   g.goals.create(team_id: 3, player_id: 74, assist_player_id: 75)
   g.goals.create(team_id: 4, player_id: 70, assist_player_id: 71)
   g.goals.create(team_id: 3, player_id: 75, assist_player_id: 76)
-  g.goals.create(team_id: 4, player_id: 70, assist_player_id: 72)
+  g.goals.create(team_id: 4, player_id: 70, assist_player_id: 89)
   g.goals.create(team_id: 3, player_id: 21, assist_player_id: 76)
   g.goals.create(team_id: 4, player_id: 71, assist_player_id: 69)
-  g.goals.create(team_id: 4, player_id: 69, assist_player_id: 72)
+  g.goals.create(team_id: 4, player_id: 69, assist_player_id: 89)
   g.goals.create(team_id: 4, player_id: 69, assist_player_id: 71)
 
   day.day_rates!
   Day.last.update!(videos: 'yaM3h2lsQgU,grkvgZxr97A,DD4SjDDi6KU,up9sTiUz3sQ,REkvzooHt-U,FdVJDSwXbVU,yD-_SWt_r0Q')
 end
-# Player.update_stats!(season_id)
