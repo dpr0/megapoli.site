@@ -48,21 +48,21 @@ section#parallax-computers
   .hero-body
     .container
       - @player.day_players.group_by(&:season_id).sort.reverse.each do |season_id, rates|
-        - stat = @stat[season_id]
-        - next unless stat
-        .columns.is-mobile
-          h3.subtitle = "Сезон: #{Season.cached_by_id[season_id].name}"
-          p
-            - goals   = stat[:goals_count]  > 0 ? " ⚽#{stat[:goals_count]}"  : ''
-            - assists = stat[:assist_count] > 0 ? " 🦶#{stat[:assist_count]}" : ''
-            = text_field_tag '', "ELO: #{rates.last.elo.to_i}#{goals}#{assists}", class: 'input is-medium', disabled: true
-
-        .columns.is-mobile
-          - stat[:teams].each do |t|
-            .column.is-3
-              = "за #{Team.color_text(t[:team_id])} (дней: #{t[:team_days]}):"
-              - t[:vs].each do |vs|
-                div= "#{Team.color(vs[:team_id])} +#{vs[:win]} =#{vs[:draw]} -#{vs[:lose]}"
+        / - stat = @stat[season_id]
+        / - next unless stat
+        / .columns.is-mobile
+        /   h3.subtitle = "Сезон: #{Season.cached_by_id[season_id].name}"
+        /   p
+        /     - goals   = stat[:goals_count]  > 0 ? " ⚽#{stat[:goals_count]}"  : ''
+        /     - assists = stat[:assist_count] > 0 ? " 🦶#{stat[:assist_count]}" : ''
+        /     = text_field_tag '', "ELO: #{rates.last.elo.to_i}#{goals}#{assists}", class: 'input is-medium', disabled: true
+        /
+        / .columns.is-mobile
+        /   - stat[:teams].each do |t|
+        /     .column.is-3
+        /       = "за #{Team.color_text(t[:team_id])} (дней: #{t[:team_days]}):"
+        /       - t[:vs].each do |vs|
+        /         div= "#{Team.color(vs[:team_id])} +#{vs[:win]} =#{vs[:draw]} -#{vs[:lose]}"
         .columns.is-mobile
           .column.is-12
-            = area_chart rates.map { |dp| [dp.day_id, dp.elo] }, width: "93%", min: 800, max: 2800, xmin: 1, download: {background: "#ffffff"}, dataset: {borderWidth: 3}
+            = area_chart rates.map { |dp| [dp.day_id, dp.elo.to_i] }, width: "93%", min: 800, max: 2800, xmin: rates.first.day_id, download: {background: "#ffffff"}, dataset: {borderWidth: 3}

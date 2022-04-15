@@ -8,8 +8,7 @@ ActiveRecord::Base.transaction do
     4 => [70,90,85,89,77,87],
     5 => [88,79,75,91,92],
   }.each do |key, val|
-    val.map { |x| {team_id: key, player_id: x, season_id: day.season_id} }
-       .each { |attrs| day.day_players.new(attrs) }
+    val.each { |x| day.day_players.new(team_id: key, player_id: x, season_id: day.season_id) }
   end
   day.save
 

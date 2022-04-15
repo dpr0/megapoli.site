@@ -15,6 +15,6 @@ class DayPlayer < ApplicationRecord
   private
 
   def day_elo
-    self.elo = stat.elo if stat
+    self.elo ||= stat.elo if stat
   end
 end
