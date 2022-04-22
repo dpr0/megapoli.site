@@ -7,6 +7,6 @@ class SportsController < ApplicationController
 
   def show
     @sport = Sport.find(params[:id])
-    @championships = @sport.championships.sort_by(&:id)
+    @championships = @sport.championships.sort
   end
 end

@@ -9,5 +9,5 @@ section#parallax-football
           .message-body
             h4.subtitle
               = link_to @season.name, sport_championship_season_path(@season.id, championship_id: championship.id, sport_id: sport.id)
-            - @season.days.each do |day|
+            - @days.each do |day|
               = link_to day.date, sport_championship_season_day_path(day.id, season_id: @season.id, championship_id: championship.id, sport_id: sport.id), class: "button is-link is-outlined"
