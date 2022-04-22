@@ -83,7 +83,6 @@ class Player < ApplicationRecord
         win: win3 + win2 + win1,
         draw: draw,
         lose: lose
-        # elo: day_team.last.last
       )
     end
   end

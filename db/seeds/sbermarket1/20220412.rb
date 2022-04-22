@@ -5,8 +5,8 @@ ActiveRecord::Base.transaction do
   day.videos = 'IsiuPeDC2gw,9URzANAJTyE,TJgQt6K8g0c,IdFd-PeFohQ,O9mcZ1K2Vjo,3FtVo0s44RI,MvZzyBCQNSk'
   {
     3 => [13,21,71,76,83],
-    4 => [70,90,85,89,77,87],
-    5 => [88,79,75,91,92],
+    4 => [88,79,75,91,92],
+    5 => [70,90,85,89,77,87],
   }.each do |key, val|
     val.each { |x| day.day_players.new(team_id: key, player_id: x, season_id: day.season_id) }
   end
