@@ -4,7 +4,7 @@ ActiveRecord::Base.transaction do
   day = Day.new(season_id: @season_id, date: '13.04.2022'.to_date)
   day.videos = 'v-Q_dMveAbI,Ka4sqazu1s4,pc5AOc2feIc,89dVfw8F2n0,64wrjZZAyx0,QL2tUmt0ehk,k6CpJfRlKK8,6omZfaqmoec,T5DpS4bdfS8'
   {
-    1 => [ 5, 25,  6, 38, 29, 18],
+    1 => [ 5, 25, 38, 29, 18],
     2 => [ 4, 10, 12, 54, 23, 68],
     3 => [21, 17, 42, 44, 57, 48],
     4 => [35,  1,  9, 61, 14]

@@ -50,8 +50,9 @@ section#parallax-computers
       - @player.day_players.group_by(&:season_id).sort.reverse.each do |season_id, rates|
         / - stat = @stat[season_id]
         / - next unless stat
-        / .columns.is-mobile
-        /   h3.subtitle = "Сезон: #{Season.cached_by_id[season_id].name}"
+        .columns.is-mobile
+          .column.is-12
+            h3.subtitle = "Сезон: #{Season.cached_by_id[season_id].name}"
         /   p
         /     - goals   = stat[:goals_count]  > 0 ? " ⚽#{stat[:goals_count]}"  : ''
         /     - assists = stat[:assist_count] > 0 ? " 🦶#{stat[:assist_count]}" : ''
