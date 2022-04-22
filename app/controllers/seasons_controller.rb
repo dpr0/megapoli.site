@@ -7,6 +7,6 @@ class SeasonsController < ApplicationController
 
   def show
     @season = Season.find(params[:id])
-    @days = @season.days.sort
+    @days = @season.days.sort_by(&:id)
   end
 end
