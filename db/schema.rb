@@ -147,8 +147,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_28_000000) do
     t.string "token"
     t.string "email", default: ""
     t.integer "code"
-    t.integer "height"
-    t.integer "weight"
     t.date "birthday"
     t.bigint "role_id"
     t.string "encrypted_password", default: ""

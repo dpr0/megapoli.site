@@ -9,12 +9,12 @@ class DayPlayer < ApplicationRecord
   after_initialize :day_elo
 
   def stat
-    Stat.find_by(season_id: season_id, player_id: player_id)
+    @stat ||= Stat.find_by(season_id: season_id, player_id: player_id)
   end
 
   private
 
   def day_elo
-    self.elo ||= stat.elo if stat
+    self.elo = stat ? stat.elo : self.elo
   end
 end

@@ -41,7 +41,7 @@ class Game < ApplicationRecord
     players(side1).each_with_index do |dp, _index|
       bonus = [Stat::K_ELO, Stat::K_ELO * 2, 0][goals_a <=> goals_b]
       new_player_elo = (new_team_elo_change * players(side1).size * (dp.stat.elo / players(side1).map(&:elo).sum)) + dp.stat.elo + bonus
-      dp.stat.update!(elo: new_player_elo + Stat::K_ELO)
+      dp.stat.update!(elo: ((new_player_elo + Stat::K_ELO)*100).to_i.to_f / 100)
     end
     new_team_elo_change
   end

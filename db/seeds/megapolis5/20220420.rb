@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 ActiveRecord::Base.transaction do
-  @season_id = 5
   day = Day.new(season_id: @season_id, date: '20.04.2022'.to_date)
   day.videos = 'B86it0HBYGQ,VtNQydRRTRs,d8KN2lV3lYI,YWnMunrbR70,1MUwayb5O-c,nnnKYwKhJqM,y0r0fYycffQ,_vsrpBEB8q4'
   {

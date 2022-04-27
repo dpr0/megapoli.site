@@ -13,8 +13,6 @@ class CreatePlayers < ActiveRecord::Migration[7.0]
       t.string :token
       t.string :email, null: true, default: ''
       t.integer :code
-      t.integer :height
-      t.integer :weight
       t.date :birthday
       t.references :role
       t.string :encrypted_password, null: true, default: ''
