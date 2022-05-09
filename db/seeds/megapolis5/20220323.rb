@@ -3,15 +3,12 @@
 ActiveRecord::Base.transaction do
   day = Day.new(season_id: @season_id, date: '23.03.2022'.to_date)
   day.videos = '1p7ugHBe7zc,X9d9Yu1BzPs,FJr8JJ_a_e0,eBxAuObb8BM,n7aH_qoy7gg,ZApcX-CbJXs'
-  {
+  day.add_players(
     1 => [ 2,  5,  6, 14, 18, 38],
     2 => [ 1,  4,  7, 11, 12, 62],
     3 => [17, 21, 42, 44, 48, 67],
     4 => [     8,  9, 23, 54, 58]
-  }.each do |key, val|
-    val.map { |x| {team_id: key, player_id: x, season_id: day.season_id} }
-       .each { |attrs| day.day_players.new(attrs) }
-  end
+  )
   day.save
 
   g = day.games.create(team_left_id: 2, goals_left: 0, goals_right: 2, team_right_id: 3)

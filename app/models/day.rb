@@ -27,10 +27,16 @@ class Day < ApplicationRecord
     print((id % 10).zero? ? id : '.')
   end
 
+  def add_players(hash)
+    hash.each do |team_id, player_ids|
+      player_ids.each { |player_id| day_players.new(team_id: team_id, player_id: player_id, season_id: season_id) }
+    end
+  end
+
   private
 
   def create_stat!
     day_players.where(season_id: season_id)
-      .each { |x| x.player.stats.find_or_initialize_by(season_id: season.id).save }
+      .each { |x| x.player.stats.find_or_initialize_by(season_id: season_id).save }
   end
 end

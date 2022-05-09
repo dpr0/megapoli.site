@@ -1,0 +1,73 @@
+# frozen_string_literal: true
+
+ActiveRecord::Base.transaction do
+  day = Day.new(season_id: @season_id, date: '04.05.2022'.to_date)
+  day.videos = 'eewRi9uCMX8,ram-jTnBac0,FYqdsjWxnGQ,JZ9wQHi06mo,xFVIX6wNyJw,8Vqx2hSG_-4,cDQQmthgTIo,e2Kyqyz5kwk,kqDV6okL0Wc'
+  day.add_players(
+    1 => [ 5,  4,  6, 12, 10, 54, 62],
+    3 => [21, 13, 11, 17, 57, 67],
+    4 => [ 3,  9,  8, 25, 14, 65]
+  )
+  day.save
+
+  g = day.games.create(team_left_id: 1, goals_left: 0, goals_right: 1, team_right_id: 3)
+  g.goals.create(team_id: 3, player_id: 11, assist_player_id: 17)
+  g = day.games.create(team_left_id: 4, goals_left: 1, goals_right: 2, team_right_id: 3)
+  g.goals.create(team_id: 4, player_id: 8, assist_player_id: nil)
+  g.goals.create(team_id: 3, player_id: 11, assist_player_id: nil)
+  g.goals.create(team_id: 3, player_id: 21, assist_player_id: 13)
+  g = day.games.create(team_left_id: 1, goals_left: 0, goals_right: 0, team_right_id: 3)
+  g = day.games.create(team_left_id: 1, goals_left: 1, goals_right: 1, team_right_id: 4)
+  g.goals.create(team_id: 1, player_id: 4, assist_player_id: nil)
+  g.goals.create(team_id: 4, player_id: 25, assist_player_id: 14)
+  g = day.games.create(team_left_id: 3, goals_left: 1, goals_right: 2, team_right_id: 4)
+  g.goals.create(team_id: 3, player_id: 57, assist_player_id: nil)
+  g.goals.create(team_id: 4, player_id: 25, assist_player_id: 14)
+  g.goals.create(team_id: 4, player_id: 65, assist_player_id: nil)
+  g = day.games.create(team_left_id: 1, goals_left: 2, goals_right: 1, team_right_id: 4)
+  g.goals.create(team_id: 1, player_id: 4, assist_player_id: 10)
+  g.goals.create(team_id: 1, player_id: 4, assist_player_id: 54)
+  g.goals.create(team_id: 4, player_id: 8, assist_player_id: nil)
+  g = day.games.create(team_left_id: 1, goals_left: 1, goals_right: 0, team_right_id: 3)
+  g.goals.create(team_id: 1, player_id: 54, assist_player_id: 6)
+  g = day.games.create(team_left_id: 1, goals_left: 0, goals_right: 1, team_right_id: 4)
+  g.goals.create(team_id: 4, player_id: 65, assist_player_id: 25)
+  g = day.games.create(team_left_id: 3, goals_left: 1, goals_right: 1, team_right_id: 4)
+  g.goals.create(team_id: 4, player_id: 8, assist_player_id: 9)
+  g.goals.create(team_id: 3, player_id: 11, assist_player_id: 21)
+  g = day.games.create(team_left_id: 3, goals_left: 2, goals_right: 0, team_right_id: 1)
+  g.goals.create(team_id: 3, player_id: 11, assist_player_id: 21)
+  g.goals.create(team_id: 3, player_id: 11, assist_player_id: nil)
+  g = day.games.create(team_left_id: 3, goals_left: 2, goals_right: 0, team_right_id: 4)
+  g.goals.create(team_id: 3, player_id: 17, assist_player_id: 11)
+  g.goals.create(team_id: 3, player_id: 11, assist_player_id: 57)
+  g = day.games.create(team_left_id: 3, goals_left: 2, goals_right: 0, team_right_id: 1)
+  g.goals.create(team_id: 3, player_id: 13, assist_player_id: nil)
+  g.goals.create(team_id: 3, player_id: 21, assist_player_id: 67)
+  g = day.games.create(team_left_id: 3, goals_left: 2, goals_right: 0, team_right_id: 4)
+  g.goals.create(team_id: 3, player_id: 21, assist_player_id: 57)
+  g.goals.create(team_id: 3, player_id: 57, assist_player_id: 67)
+  g = day.games.create(team_left_id: 3, goals_left: 2, goals_right: 1, team_right_id: 1)
+  g.goals.create(team_id: 3, player_id: 21, assist_player_id: 11)
+  g.goals.create(team_id: 3, player_id: 57, assist_player_id: nil)
+  g.goals.create(team_id: 1, player_id: 6, assist_player_id: 4)
+  g = day.games.create(team_left_id: 3, goals_left: 2, goals_right: 0, team_right_id: 4)
+  g.goals.create(team_id: 3, player_id: 13, assist_player_id: nil)
+  g.goals.create(team_id: 3, player_id: 13, assist_player_id: nil)
+  g = day.games.create(team_left_id: 3, goals_left: 1, goals_right: 1, team_right_id: 1)
+  g.goals.create(team_id: 3, player_id: 11, assist_player_id: 13)
+  g.goals.create(team_id: 1, player_id: 54, assist_player_id: 4)
+  g = day.games.create(team_left_id: 4, goals_left: 0, goals_right: 2, team_right_id: 1)
+  g.goals.create(team_id: 1, player_id: 6, assist_player_id: 10)
+  g.goals.create(team_id: 1, player_id: 4, assist_player_id: 10)
+  g = day.games.create(team_left_id: 3, goals_left: 0, goals_right: 1, team_right_id: 1)
+  g.goals.create(team_id: 1, player_id: 54, assist_player_id: 6)
+  g = day.games.create(team_left_id: 4, goals_left: 0, goals_right: 0, team_right_id: 1)
+  g = day.games.create(team_left_id: 4, goals_left: 1, goals_right: 1, team_right_id: 3)
+  g.goals.create(team_id: 4, player_id: 3, assist_player_id: nil)
+  g.goals.create(team_id: 3, player_id: 21, assist_player_id: 17)
+  g = day.games.create(team_left_id: 1, goals_left: 1, goals_right: 0, team_right_id: 3)
+  g.goals.create(team_id: 1, player_id: 10, assist_player_id: 6)
+
+  day.day_rates!
+end
