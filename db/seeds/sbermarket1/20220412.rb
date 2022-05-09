@@ -3,11 +3,11 @@
 ActiveRecord::Base.transaction do
   day = Day.new(season_id: @season_id, date: '12.04.2022'.to_date)
   day.videos = 'IsiuPeDC2gw,9URzANAJTyE,TJgQt6K8g0c,IdFd-PeFohQ,O9mcZ1K2Vjo,3FtVo0s44RI,MvZzyBCQNSk'
-  {
+  day.add_players(
     3 => [13,21,71,76,83],
     4 => [88,79,75,91,92],
     5 => [70,90,85,89,77,87],
-)
+  )
   day.save
 
   g = day.games.create(team_left_id: 3, goals_left: 2, goals_right: 0, team_right_id: 5)
