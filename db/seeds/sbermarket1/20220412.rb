@@ -22,7 +22,6 @@ ActiveRecord::Base.transaction do
   g = day.games.create(team_left_id: 4, goals_left: 0, goals_right: 2, team_right_id: 5)
   g.goals.create(team_id: 5, player_id: 70, assist_player_id: 90)
   g.goals.create(team_id: 5, player_id: 89, assist_player_id: 90)
-
   g = day.games.create(team_left_id: 3, goals_left: 2, goals_right: 1, team_right_id: 5)
   g.goals.create(team_id: 5, player_id: 70, assist_player_id: nil)
   g.goals.create(team_id: 3, player_id: 21, assist_player_id: 71)
@@ -32,7 +31,6 @@ ActiveRecord::Base.transaction do
   g = day.games.create(team_left_id: 3, goals_left: 0, goals_right: 2, team_right_id: 5)
   g.goals.create(team_id: 5, player_id: 89, assist_player_id: nil)
   g.goals.create(team_id: 5, player_id: 85, assist_player_id: 89)
-
   g = day.games.create(team_left_id: 4, goals_left: 1, goals_right: 1, team_right_id: 5)
   g.goals.create(team_id: 5, player_id: 89, assist_player_id: nil)
   g.goals.create(team_id: 4, player_id: 88, assist_player_id: 90)
@@ -42,7 +40,6 @@ ActiveRecord::Base.transaction do
   g = day.games.create(team_left_id: 5, goals_left: 2, goals_right: 0, team_right_id: 3)
   g.goals.create(team_id: 5, player_id: 89, assist_player_id: nil)
   g.goals.create(team_id: 5, player_id: 92, assist_player_id: 70)
-
   g = day.games.create(team_left_id: 5, goals_left: 1, goals_right: 2, team_right_id: 4)
   g.goals.create(team_id: 4, player_id: 75, assist_player_id: 88)
   g.goals.create(team_id: 4, player_id: 88, assist_player_id: 75)

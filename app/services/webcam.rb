@@ -15,10 +15,8 @@ class Webcam
       <style type='text/css'>body {background-color: black;}</style>
       <div class='container'>
         <div class='content'>
+          <iframe height='450' width='800' src='https://rtsp.me/embed/B8FiBadk/'></iframe>
           <iframe height='450' width='800' src='https://rtsp.me/embed/NwYjsHoc/'></iframe>
-          <video controls autoplay name='media' height='450' width='800'>
-            <source src='http://tl1.ru.rtsp.me/timelapse/NwYjsHoc.mp4' type='video/mp4'>
-          </video>
         </div>
       </div>
     "
