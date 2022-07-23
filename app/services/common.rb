@@ -1,3 +1,5 @@
+require 'json'
+
 class Common
   file = File.open(ENV['COMMON_LINKS'] || '/home/deploy/megapoli.site/current/app/services/sites.json')
   DATA = JSON.load file
