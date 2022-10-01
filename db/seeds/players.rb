@@ -44,7 +44,7 @@ players = [
   { code: 41, uid: '1154090326', lastname: '',            name: 'Мага',      middlename: '',               birthday: '',           phone: '+79261431513', role_id: 3, lfl: '' },
   { code: 42, uid: '395429223',  lastname: '',            name: 'Сергей',    middlename: '',               birthday: '19.12.1986', phone: '+79165725989', role_id: 3, lfl: '' },
   { code: 43, uid: '240264142',  lastname: '',            name: 'Павел',     middlename: '',               birthday: '',           phone: '+79264122149', role_id: 3, lfl: '' },
-  { code: 44, uid: '878850688',  lastname: 'Белых',       name: 'Валерий',   middlename: 'Геннадьевич',    birthday: '',           phone: '+79262491557', role_id: 3, lfl: '' },
+  { code: 44, uid: '878850688',  lastname: 'Белых',       name: 'Валерий',   middlename: 'Геннадьевич',    birthday: '08.07.1972', phone: '+79262491557', role_id: 3, lfl: '' },
   { code: 45, uid: '496296490',  lastname: 'Санин',       name: 'Александр', middlename: '',               birthday: '',           phone: '+79181111605', role_id: 3, lfl: '' },
   { code: 46, uid: '222198981',  lastname: 'Дружинин',    name: 'Денис',     middlename: '',               birthday: '',           phone: '+79296338890', role_id: 3, lfl: '' }, # del
   { code: 47, uid: '',           lastname: '',            name: 'Анна',      middlename: '',               birthday: '',           phone: nil,            role_id: 3, lfl: '' },

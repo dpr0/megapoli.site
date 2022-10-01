@@ -2,7 +2,8 @@
 
 lock '3.17.1'
 
-server 'megapoli.site', port: 2222, roles: %w(app db web), primary: true
+url = ['megapoli.site', '51.250.29.90']
+server url[1], port: 2222, roles: %w(app db web), primary: true
 
 # set :puma_threads,    [4, 16]
 # set :puma_workers,    0
@@ -17,7 +18,7 @@ server 'megapoli.site', port: 2222, roles: %w(app db web), primary: true
 # set :puma_worker_timeout, nil
 # set :puma_init_active_record, true
 
-set :rbenv_ruby,      '3.0.3'
+set :rbenv_ruby,      '3.0.4'
 set :application,     'megapoli.site'
 set :repo_url,        'git@github.com:dpr0/megapoli.site.git'
 set :deploy_user,     'deploy'

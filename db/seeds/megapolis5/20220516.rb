@@ -2,7 +2,7 @@
 
 ActiveRecord::Base.transaction do
   day = Day.new(season_id: @season_id, date: '16.05.2022'.to_date)
-  day.videos = ''
+  day.videos = 'qMCu9R8UYlw,ISPreLbTwuk,j-li44Vlv7c,diie6wN-5S4,RZcPYGtm-yI,JsWdC7I7q-I,lMxX0D-OgoA,yF4VPJdxa4M,8eqtSWXaYTQ'
   day.add_players(
     1 => [  2,  6, 18, 25, 29, 38, 62],
     3 => [ 11, 17, 21, 42, 44, 48, 57],
