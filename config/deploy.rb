@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-lock '3.17.2'
+lock '3.17.3'
 
 server 'krsz.ru', port: 2222, roles: %w(app db web), primary: true
 
@@ -17,7 +17,7 @@ server 'krsz.ru', port: 2222, roles: %w(app db web), primary: true
 # set :puma_worker_timeout, nil
 # set :puma_init_active_record, true
 
-set :rbenv_ruby,      '3.0.5'
+set :rbenv_ruby,      '3.2.1'
 set :application,     'megapoli.site'
 set :repo_url,        'git@github.com:dpr0/megapoli.site.git'
 set :deploy_user,     'deploy'
