@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '~> 3.0.5'
+ruby '3.2.1'
 gem 'bootsnap', require: false
 gem 'chartkick'
 gem 'cocoon'
@@ -23,7 +23,6 @@ gem 'slim-rails'
 gem 'stimulus-rails'
 gem 'telegram-bot', git: 'git@github.com:dpr0/telegram-bot.git'
 gem 'turbo-rails'
-gem 'byebug'
 
 # Use Sass to process CSS
 # gem 'sassc-rails'
