@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-lock '3.17.3'
+lock '3.18.0'
 
 server 'krsz.ru', port: 2222, roles: %w(app db web), primary: true
 
@@ -81,7 +81,7 @@ namespace :deploy do
     on primary fetch(:migration_role) do
       within release_path do
         with rails_env: fetch(:rails_env) do
-          execute :rake, 'telegram:bot:set_webhook'
+          execute :rake, 'telegram:bot:poller'
         end
       end
     end

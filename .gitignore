@@ -53,5 +53,6 @@ dump.rdb
 /config/credentials/development.key
 /config/credentials/production.key
 /yarn-error.log
-/config/cred.byebug_history
+/config/credentials.yml.enc
+.byebug_history
 entials.yml.enc
