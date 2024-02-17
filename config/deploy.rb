@@ -2,7 +2,7 @@
 
 lock '3.18.0'
 
-server 'krsz.ru', port: 2222, roles: %w(app db web), primary: true
+server 'pipiper.ru', port: 2222, roles: %w(app db web), primary: true
 
 # set :puma_threads,    [4, 16]
 # set :puma_workers,    0

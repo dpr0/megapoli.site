@@ -96,7 +96,7 @@ class Player < ApplicationRecord
   end
 
   def print_stat
-    full_name + ' ELO: ' + stats.find_by(season_id: Season.where(active: true)).elo.to_i.to_s + "\nhttps://football.krsz.ru/players/#{id}"
+    full_name + ' ELO: ' + stats.find_by(season_id: Season.where(active: true)).elo.to_i.to_s + "\nhttps://football.pipiper.ru/players/#{id}"
   end
 
   def get_stats_by_season(season_ids)
