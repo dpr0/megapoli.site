@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ActiveRecord::Base.transaction do
-  # day = Day.new(season_id: @season_id, date: 'dd.mm.2022'.to_date)
+  # day = Day.new(season_id: @season_id, date: 'dd.mm.2024'.to_date)
   # day.videos = ''
   # [
   #   {team_id: , player_id: },
