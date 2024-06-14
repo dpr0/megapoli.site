@@ -1,4 +1,4 @@
 require_relative 'webcam'
 require_relative 'common'
-use ::Rack::Reloader
+use Rack::Reloader
 run Webcam.new
