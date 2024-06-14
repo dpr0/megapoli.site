@@ -1,10 +1,10 @@
 {
-  "about.krsz.ru":   "fas fa-user-cog",
-  "famitree.ru":     "fas fa-users",
-  "football.krsz.ru":"fas fa-futbol",
-  "fractal.krsz.ru": "fab fa-js-square",
-  "pipiper.ru":      "fab fa-pied-piper-pp",
-  "podvoh.krsz.ru":  "fas fa-swimmer",
-  "webcam.krsz.ru":  "fas fa-video",
-  "zxn.ru":          "fas fa-desktop"
+  "about.pipiper.ru":   "fas fa-user-cog",
+  "famitree.ru":        "fas fa-users",
+  "football.pipiper.ru":"fas fa-futbol",
+  "fractal.pipiper.ru": "fab fa-js-square",
+  "pipiper.ru":         "fab fa-pied-piper-pp",
+  "podvoh.pipiper.ru":  "fas fa-swimmer",
+  "webcam.pipiper.ru":  "fas fa-video",
+  "zxasm.ru":           "fas fa-desktop"
 }
