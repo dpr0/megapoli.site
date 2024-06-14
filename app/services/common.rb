@@ -1,4 +1,5 @@
 require 'json'
+use ::Rack::Reloader
 
 class Common
   file = File.open(ENV['COMMON_LINKS'] || '/home/deploy/megapoli.site/current/app/services/sites.json')
