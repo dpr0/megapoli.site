@@ -33,7 +33,7 @@ players = [
   { code: 30, uid: '',           lastname: 'Рябов',       name: 'Николай',   middlename: 'Васильевич',     birthday: '08.05.1987', phone: '+79151182027', role_id: 3, lfl: '' },
   { code: 31, uid: '',           lastname: 'Панин',       name: 'Михаил',    middlename: '',               birthday: '',           phone: nil,            role_id: 3, lfl: '' },
   { code: 32, uid: '1150522355', lastname: 'Дёмин',       name: 'Игорь',     middlename: '',               birthday: '01.10.1990', phone: '+79645555005', role_id: 3, lfl: '' },
-  { code: 33, uid: '821814704',  lastname: 'Аникеев',     name: 'Максим',    middlename: 'Викторович',     birthday: '05.06.1984', phone: '+79030964991', role_id: 3, lfl: '9681' },
+  { code: 33, uid: '821814704',  lastname: 'Аникеев',     name: 'Максим',    middlename: 'Викторович',     birthday: '05.06.1985', phone: '+79030964991', role_id: 3, lfl: '9681' },
   { code: 34, uid: '',           lastname: 'Миротинцев',  name: 'Егор',      middlename: '',               birthday: '',           phone: '+79166945280', role_id: 3, lfl: '' },
   { code: 35, uid: '297658857',  lastname: '',            name: 'Юрий',      middlename: '',               birthday: '',           phone: '+79857685196', role_id: 3, lfl: '' }, # +79588225001
   { code: 36, uid: '',           lastname: '',            name: 'Акоп',      middlename: '',               birthday: '',           phone: '+79296089233', role_id: 3, lfl: '' },
