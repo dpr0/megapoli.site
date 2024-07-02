@@ -16,17 +16,12 @@ gem 'omniauth-telegram'
 gem 'pg'
 gem 'propshaft'
 gem 'puma', '4.3.12'
-gem 'rails'
+gem 'rails', '7.0.8'
 gem 'redis'
 gem 'slim-rails'
 gem 'stimulus-rails'
 gem 'telegram-bot', git: 'git@github.com:dpr0/telegram-bot.git'
 gem 'turbo-rails'
-
-# Use Sass to process CSS
-# gem 'sassc-rails'
-# Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-# gem 'image_processing', '~> 1.2'
 
 group :development do
   gem 'bcrypt_pbkdf'

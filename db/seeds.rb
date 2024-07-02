@@ -20,13 +20,13 @@ s2 =  megapolis.seasons.create(code: 'megapolis2',  name: '2020/2')
 s3 =  megapolis.seasons.create(code: 'megapolis3',  name: '2021/1')
 s4 =  megapolis.seasons.create(code: 'megapolis4',  name: '2021/2')
 s5 =  megapolis.seasons.create(code: 'megapolis5',  name: '2022/1')
-s6 =  megapolis.seasons.create(code: 'megapolis6',  name: '2024/1')
+s6 =  megapolis.seasons.create(code: 'megapolis6',  name: '2024/2')
 s6 = sbermarket.seasons.create(code: 'sbermarket1', name: '2022/1')
 
 Season.all.each do |season|
   puts "\n< #{season.code.capitalize}: #{season.name} > ==================================================="
   @season_id = season.id
   Dir[File.join(Rails.root, 'db', 'seeds', season.code, '*.rb')].each { |seed| load(seed) }
-  season.update(active: false) unless [5, 6].include? @season_id
+  season.update(active: false) unless [7].include? @season_id
   Player.update_stats!(season)
 end
