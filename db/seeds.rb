@@ -28,5 +28,5 @@ Season.all.each do |season|
   @season_id = season.id
   Dir[File.join(Rails.root, 'db', 'seeds', season.code, '*.rb')].each { |seed| load(seed) }
   season.update(active: false) unless [7].include? @season_id
-  Player.update_stats!(season)
+  season.update_stats!
 end
