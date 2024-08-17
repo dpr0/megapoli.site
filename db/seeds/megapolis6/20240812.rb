@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 ActiveRecord::Base.transaction do
-  season = Season.find 7 # @season_id
+  season = Season.find @season_id
   day = Day.new(season_id: season.id, date: '12.08.2024'.to_date)
   day.videos = ''
   day.add_players(
@@ -11,83 +11,29 @@ ActiveRecord::Base.transaction do
   )
   day.save
 
-  g = day.games.create(team_left_id: 3, goals_left: 2, goals_right: 1, team_right_id: 2)
-  g.goals.create(team_id: 3, player_id: 21, assist_player_id: 48)
-  g.goals.create(team_id: 2, player_id: 60, assist_player_id: 2)
-  g.goals.create(team_id: 3, player_id: 48, assist_player_id: 54)
-
-  g = day.games.create(team_left_id: 3, goals_left: 2, goals_right: 0, team_right_id: 1)
-  g.goals.create(team_id: 3, player_id: 21, assist_player_id: 95)
-  g.goals.create(team_id: 3, player_id: 48, assist_player_id: 30)
-
-  g = day.games.create(team_left_id: 3, goals_left: 1, goals_right: 0, team_right_id: 2)
-  g.goals.create(team_id: 3, player_id: 95, assist_player_id: 30)
-
-  g = day.games.create(team_left_id: 3, goals_left: 0, goals_right: 1, team_right_id: 1)
-  g.goals.create(team_id: 1, player_id: 96, assist_player_id: 6)
-
-  g = day.games.create(team_left_id: 2, goals_left: 2, goals_right: 0, team_right_id: 1)
-  g.goals.create(team_id: 2, player_id: 58, assist_player_id: 4)
-  g.goals.create(team_id: 2, player_id: 4, assist_player_id: 2)
-
-  g = day.games.create(team_left_id: 2, goals_left: 1, goals_right: 1, team_right_id: 3)
-  g.goals.create(team_id: 2, player_id: 2, assist_player_id: nil)
-  g.goals.create(team_id: 3, player_id: 17, assist_player_id: 48)
-
-  g = day.games.create(team_left_id: 1, goals_left: 2, goals_right: 0, team_right_id: 3)
-  g.goals.create(team_id: 1, player_id: 26, assist_player_id: 29)
-  g.goals.create(team_id: 1, player_id: 96, assist_player_id: 6)
-
-  g = day.games.create(team_left_id: 1, goals_left: 1, goals_right: 0, team_right_id: 2)
-  g.goals.create(team_id: 1, player_id: 6, assist_player_id: 29)
-
-  g = day.games.create(team_left_id: 1, goals_left: 2, goals_right: 1, team_right_id: 3)
-  g.goals.create(team_id: 3, player_id: 48, assist_player_id: 95)
-  g.goals.create(team_id: 1, player_id: 6, assist_player_id: 96)
-  g.goals.create(team_id: 1, player_id: 96, assist_player_id: 6)
-
-  g = day.games.create(team_left_id: 1, goals_left: 2, goals_right: 0, team_right_id: 2)
-  g.goals.create(team_id: 1, player_id: 9, assist_player_id: 6)
-  g.goals.create(team_id: 1, player_id: 96, assist_player_id: 6)
-
-  g = day.games.create(team_left_id: 1, goals_left: 2, goals_right: 1, team_right_id: 3)
-  g.goals.create(team_id: 3, player_id: 48, assist_player_id: 95)
-  g.goals.create(team_id: 1, player_id: 97, assist_player_id: 96)
-  g.goals.create(team_id: 1, player_id: 26, assist_player_id: 29)
-
-  g = day.games.create(team_left_id: 1, goals_left: 1, goals_right: 1, team_right_id: 2)
-  g.goals.create(team_id: 1, player_id: 6, assist_player_id: 96)
-  g.goals.create(team_id: 2, player_id: 4, assist_player_id: 58)
-
-  g = day.games.create(team_left_id: 3, goals_left: 2, goals_right: 1, team_right_id: 2)
-  g.goals.create(team_id: 3, player_id: 30, assist_player_id: 48)
-  g.goals.create(team_id: 3, player_id: 48, assist_player_id: 30)
-  g.goals.create(team_id: 2, player_id: 14, assist_player_id: 10)
-
-  g = day.games.create(team_left_id: 3, goals_left: 1, goals_right: 0, team_right_id: 1)
-  g.goals.create(team_id: 3, player_id: 21, assist_player_id: 3)
-
-  g = day.games.create(team_left_id: 3, goals_left: 0, goals_right: 0, team_right_id: 2)
-
-  g = day.games.create(team_left_id: 1, goals_left: 2, goals_right: 0, team_right_id: 2)
-  g.goals.create(team_id: 1, player_id: 96, assist_player_id: 29)
-  g.goals.create(team_id: 1, player_id: 29, assist_player_id: 96)
-
-  g = day.games.create(team_left_id: 1, goals_left: 2, goals_right: 1, team_right_id: 3)
-  g.goals.create(team_id: 3, player_id: 17, assist_player_id: 48)
-  g.goals.create(team_id: 1, player_id: 26, assist_player_id: 96)
-  g.goals.create(team_id: 1, player_id: 26, assist_player_id: nil)
-
-  g = day.games.create(team_left_id: 1, goals_left: 0, goals_right: 2, team_right_id: 2)
-  g.goals.create(team_id: 2, player_id: 60, assist_player_id: 4)
-  g.goals.create(team_id: 2, player_id: 60, assist_player_id: 2)
-
-  g = day.games.create(team_left_id: 3, goals_left: 0, goals_right: 2, team_right_id: 2)
-  g.goals.create(team_id: 2, player_id: 4, assist_player_id: 21)
+  day.games.create(team_left_id: 3, team_right_id: 2).add_goals '3 21 48,2 60 2,3 48 54'
+  day.games.create(team_left_id: 3, team_right_id: 1).add_goals '3 21 95,3 48 30'
+  day.games.create(team_left_id: 3, team_right_id: 2).add_goals '3 95 30'
+  day.games.create(team_left_id: 3, team_right_id: 1).add_goals '1 96 6'
+  day.games.create(team_left_id: 2, team_right_id: 1).add_goals '2 58 4,2 4 2'
+  day.games.create(team_left_id: 2, team_right_id: 3).add_goals '2 2,3 17 48'
+  day.games.create(team_left_id: 1, team_right_id: 3).add_goals '1 26 29,1 96 6'
+  day.games.create(team_left_id: 1, team_right_id: 2).add_goals '1 6 29'
+  day.games.create(team_left_id: 1, team_right_id: 3).add_goals '3 48 95,1 6 96,1 96 6'
+  day.games.create(team_left_id: 1, team_right_id: 2).add_goals '1 9 6,1 96 6'
+  day.games.create(team_left_id: 1, team_right_id: 3).add_goals '3 48 95,1 97 96,1 26 29'
+  day.games.create(team_left_id: 1, team_right_id: 2).add_goals '1 6 96,2 4 58'
+  day.games.create(team_left_id: 3, team_right_id: 2).add_goals '3 30 48,3 48 30,2 14 10'
+  day.games.create(team_left_id: 3, team_right_id: 1).add_goals '3 21 3'
+  day.games.create(team_left_id: 3, team_right_id: 2)
+  day.games.create(team_left_id: 1, team_right_id: 2).add_goals '1 96 29,1 29 96'
+  day.games.create(team_left_id: 1, team_right_id: 3).add_goals '3 17 48,1 26 96,1 26'
+  day.games.create(team_left_id: 1, team_right_id: 2).add_goals '2 60 4,2 60 2'
+  day.games.create(team_left_id: 3, team_right_id: 2).add_goals '2 4 21'
 
   day.day_rates!
-  season.update_stats!
-  Day.last.update(videos: '')
+  # season.update_stats!
+  # Day.last.update(videos: '')
 end
 
 

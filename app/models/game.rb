@@ -15,9 +15,14 @@ class Game < ApplicationRecord
     "has-text-#{%w[grey primary danger][attributes["#{side}_team_elo_change"] <=> 0]}"
   end
 
+  def add_goals(str)
+    str.split(',').each { |g| goals.add(g.split(' ')) if goals.size > 0 }
+  end
+
   private
 
   def rate!
+    puts :game_rate_begin
     @left_players    = players('left')
     @right_players   = players('right')
     @left_team_elo   = team_elo(@left_players)
@@ -28,6 +33,7 @@ class Game < ApplicationRecord
       left_team_elo_change:   calc_elo('left', 'right'),
       right_team_elo_change:  calc_elo('right', 'left')
     )
+    puts :game_rate_end
   end
 
   def calc_elo(side1, side2)
