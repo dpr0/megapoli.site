@@ -4,8 +4,6 @@ class Game < ApplicationRecord
   has_many :goals
   belongs_to :day
 
-  after_create :rate!
-
   def rated(side)
     r = attributes["#{side}_team_elo_change"]
     "#{'+' if r >= 0}#{r}"
@@ -16,25 +14,30 @@ class Game < ApplicationRecord
   end
 
   def add_goals(str)
-    str.split(',').each { |g| goals.add(g.split(' ')) if goals.size > 0 }
+    str.split(',').each do |a|
+      d = a.split(' ').map(&:to_i)
+      goals.create(team_id: d[0], player_id: d[1], assist_player_id: d[2], season_id: day.season_id)
+      if team_left_id == d[0]
+        update(goals_left: (goals_left || 0) + 1)
+      elsif team_right_id == d[0]
+        update(goals_right: (goals_right || 0) + 1)
+      end
+    end
+    self
   end
 
-  private
-
   def rate!
-    puts :game_rate_begin
-    @left_players    = players('left')
-    @right_players   = players('right')
-    @left_team_elo   = team_elo(@left_players)
-    @right_team_elo  = team_elo(@right_players)
+    @left_team_elo   = team_elo('left')
+    @right_team_elo  = team_elo('right')
     update(
       left_team_elo:          @left_team_elo,
       right_team_elo:         @right_team_elo,
       left_team_elo_change:   calc_elo('left', 'right'),
       right_team_elo_change:  calc_elo('right', 'left')
     )
-    puts :game_rate_end
   end
+
+  private
 
   def calc_elo(side1, side2)
     rate_a  = eval("@#{side1}_team_elo")
@@ -44,21 +47,25 @@ class Game < ApplicationRecord
     e = 1 / (1 + (10**((rate_b - rate_a) / 400.0)))
     s = [0.5, 1.0, 0.0][goals_a <=> goals_b]
     new_team_elo_change = calc_k(rate_a) * calc_g(goals_a, goals_b) * (s - e)
-    players(side1).each_with_index do |dp, _index|
+    d_p = dplayers(side1)
+    d_p.each do |dp|
+      stat = dp.stat
       bonus = [Stat::K_ELO, Stat::K_ELO * 2, 0][goals_a <=> goals_b]
-      new_player_elo = (new_team_elo_change * players(side1).size * (dp.stat.elo / players(side1).map(&:elo).sum)) + dp.stat.elo + bonus
-      dp.stat.update!(elo: ((new_player_elo + Stat::K_ELO)*100).to_i.to_f / 100)
+      new_player_elo = (new_team_elo_change * d_p.size * (stat.elo / d_p.map(&:elo).sum)) + stat.elo + bonus
+      stat.update!(elo: ((new_player_elo + Stat::K_ELO)*100).to_i.to_f / 100)
     end
     new_team_elo_change
   end
 
-  def players(a)
-    day.day_players.where(team_id: eval("team_#{a}_id"))
+  def dplayers(side)
+    DayPlayer.where(day_id: day.id, team_id: eval("team_#{side}_id"))
   end
 
-  def team_elo(players)
+  def team_elo(side)
+    players = dplayers(side)
+    stats = Stat.where(season_id: day.season_id, player_id: players.map(&:player_id))
     if ENV['AVG_NEW_PLAYER_ELO'] == 1
-      avg = players.map { |dp| dp.stat.elo }.sum(0.0) / players.count
+      avg = stats.map(&:elo).sum(0.0) / players.count
       players.map do |dp|
         if dp.player.day_players.count == 1
           dp.stat.update(elo: avg)
@@ -66,10 +73,10 @@ class Game < ApplicationRecord
         else
           dp.stat.elo
         end
-      end.sum(0.0) / players.count
+      end
     else
-      players.map { |dp| dp.stat.elo }.sum(0.0) / players.count
-    end
+      stats.map(&:elo)
+    end.sum(0.0) / players.count
   end
 
   def calc_k(rate)

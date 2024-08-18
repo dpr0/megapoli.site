@@ -6,7 +6,7 @@ class DayPlayer < ApplicationRecord
   belongs_to :player
   belongs_to :season
 
-  after_initialize :day_elo
+  # after_initialize :day_elo
 
   def stat
     @stat ||= Stat.find_by(season_id: season_id, player_id: player_id)

@@ -33,6 +33,7 @@ group :development do
   gem 'capistrano-rbenv',   require: false
   gem 'capistrano-yarn',    require: false
   gem 'debug'
+  gem 'byebug'
   gem 'ed25519'
   gem 'listen'
   gem 'rubocop'
