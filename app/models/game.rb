@@ -13,7 +13,7 @@ class Game < ApplicationRecord
     "has-text-#{%w[grey primary danger][attributes["#{side}_team_elo_change"] <=> 0]}"
   end
 
-  def add_goals(str)
+  def add_goals(str = '')
     str.split(',').each do |a|
       d = a.split(' ').map(&:to_i)
       goals.create(team_id: d[0], player_id: d[1], assist_player_id: d[2], season_id: day.season_id)
@@ -23,10 +23,7 @@ class Game < ApplicationRecord
         update(goals_right: (goals_right || 0) + 1)
       end
     end
-    self
-  end
 
-  def rate!
     @left_team_elo   = team_elo('left')
     @right_team_elo  = team_elo('right')
     update(

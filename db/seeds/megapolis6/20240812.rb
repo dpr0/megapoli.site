@@ -10,26 +10,26 @@ ActiveRecord::Base.transaction do
     3 => [21, 30, 17, 54, 48, 44, 95]
   )
   day.save
-
-  day.games.create(team_left_id: 3, team_right_id: 2).add_goals('3 21 48,2 60 2,3 48 54').rate!
-  day.games.create(team_left_id: 3, team_right_id: 1).add_goals('3 21 95,3 48 30').rate!
-  day.games.create(team_left_id: 3, team_right_id: 2).add_goals('3 95 30').rate!
-  day.games.create(team_left_id: 3, team_right_id: 1).add_goals('1 96 6').rate!
-  day.games.create(team_left_id: 2, team_right_id: 1).add_goals('2 58 4,2 4 2').rate!
-  day.games.create(team_left_id: 2, team_right_id: 3).add_goals('2 2,3 17 48').rate!
-  day.games.create(team_left_id: 1, team_right_id: 3).add_goals('1 26 29,1 96 6').rate!
-  day.games.create(team_left_id: 1, team_right_id: 2).add_goals('1 6 29').rate!
-  day.games.create(team_left_id: 1, team_right_id: 3).add_goals('3 48 95,1 6 96,1 96 6').rate!
-  day.games.create(team_left_id: 1, team_right_id: 2).add_goals('1 9 6,1 96 6').rate!
-  day.games.create(team_left_id: 1, team_right_id: 3).add_goals('3 48 95,1 97 96,1 26 29').rate!
-  day.games.create(team_left_id: 1, team_right_id: 2).add_goals('1 6 96,2 4 58').rate!
-  day.games.create(team_left_id: 3, team_right_id: 2).add_goals('3 30 48,3 48 30,2 14 10').rate!
-  day.games.create(team_left_id: 3, team_right_id: 1).add_goals('3 21 3').rate!
-  day.games.create(team_left_id: 3, team_right_id: 2).rate!
-  day.games.create(team_left_id: 1, team_right_id: 2).add_goals('1 96 29,1 29 96').rate!
-  day.games.create(team_left_id: 1, team_right_id: 3).add_goals('3 17 48,1 26 96,1 26').rate!
-  day.games.create(team_left_id: 1, team_right_id: 2).add_goals('2 60 4,2 60 2').rate!
-  day.games.create(team_left_id: 3, team_right_id: 2).add_goals('2 4 21').rate!
+  g = day.games
+  g.create(team_left_id: 3, team_right_id: 2).add_goals('3 21 48,2 60 2,3 48 54')
+  g.create(team_left_id: 3, team_right_id: 1).add_goals('3 21 95,3 48 30')
+  g.create(team_left_id: 3, team_right_id: 2).add_goals('3 95 30')
+  g.create(team_left_id: 3, team_right_id: 1).add_goals('1 96 6')
+  g.create(team_left_id: 2, team_right_id: 1).add_goals('2 58 4,2 4 2')
+  g.create(team_left_id: 2, team_right_id: 3).add_goals('2 2,3 17 48')
+  g.create(team_left_id: 1, team_right_id: 3).add_goals('1 26 29,1 96 6')
+  g.create(team_left_id: 1, team_right_id: 2).add_goals('1 6 29')
+  g.create(team_left_id: 1, team_right_id: 3).add_goals('3 48 95,1 6 96,1 96 6')
+  g.create(team_left_id: 1, team_right_id: 2).add_goals('1 9 6,1 96 6')
+  g.create(team_left_id: 1, team_right_id: 3).add_goals('3 48 95,1 97 96,1 26 29')
+  g.create(team_left_id: 1, team_right_id: 2).add_goals('1 6 96,2 4 58')
+  g.create(team_left_id: 3, team_right_id: 2).add_goals('3 30 48,3 48 30,2 14 10')
+  g.create(team_left_id: 3, team_right_id: 1).add_goals('3 21 3')
+  g.create(team_left_id: 3, team_right_id: 2).add_goals
+  g.create(team_left_id: 1, team_right_id: 2).add_goals('1 96 29,1 29 96')
+  g.create(team_left_id: 1, team_right_id: 3).add_goals('3 17 48,1 26 96,1 26')
+  g.create(team_left_id: 1, team_right_id: 2).add_goals('2 60 4,2 60 2')
+  g.create(team_left_id: 3, team_right_id: 2).add_goals('2 4 21')
 
   day.day_rates!
   season.update_stats!
