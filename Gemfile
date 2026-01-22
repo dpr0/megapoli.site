@@ -22,6 +22,7 @@ gem 'slim-rails'
 gem 'stimulus-rails'
 gem 'telegram-bot', git: 'git@github.com:dpr0/telegram-bot.git'
 gem 'turbo-rails'
+gem 'concurrent-ruby', '1.3.4'
 
 group :development do
   gem 'bcrypt_pbkdf'
