@@ -3,16 +3,16 @@
   "private": "true",
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
-    "@hotwired/turbo-rails": "^8.0.10",
+    "@hotwired/turbo-rails": "^8.0.21",
     "bulma": "^0.9.4",
     "bulma-extensions": "^6.2.7",
     "chart.js": "^4.4.4",
     "chartkick": "^5.0.1",
-    "esbuild": "^0.24.0",
+    "esbuild": "^0.27.2",
     "esbuild-plugin-import-glob": "^0.1.1",
     "esbuild-rails": "^1.0.7",
-    "jquery": "^3.7.1",
-    "sass": "^1.79.5"
+    "jquery": "^4.0.0",
+    "sass": "^1.97.3"
   },
   "scripts": {
     "build": "node esbuild.config.js",
