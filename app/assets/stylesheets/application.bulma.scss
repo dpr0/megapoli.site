@@ -9,13 +9,13 @@
 // $purple: #8A4D76;
 // $pink: #FA7C91;
 // $brown: #757763;
- $beige-light: #D0D1CD;
+$beige-light: #D0D1CD;
 // $beige-lighter: #EFF0EB;
 
 // Update Bulma's global variables
 // $family-sans-serif: "Nunito", sans-serif;
 // $grey-dark: $brown;
- $grey-light: $beige-light;
+$grey-light: $beige-light;
 // $primary: $purple;
 // $link: $pink;
 // $widescreen-enabled: false;
@@ -38,9 +38,9 @@
 // @import "bulma/sass/layout/hero.sass";
 // @import "bulma/sass/layout/section.sass";
 
-@use 'bulma/bulma';
-@use 'bulma-extensions/bulma-switch/src/sass/index';
-@use "./players";
-@use "./parallax";
-@use "./custom";
-@use "./fontawesome";
+@import 'bulma/bulma';
+@import 'bulma-extensions/bulma-switch/src/sass/index';
+@import "./players";
+@import "./parallax";
+@import "./custom";
+@import "./fontawesome";
