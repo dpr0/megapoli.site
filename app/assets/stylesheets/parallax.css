@@ -133,6 +133,12 @@ hr.content-divider {
     background-position: center;
     background-repeat: no-repeat;
 }
+.footballka-orange {
+    background: url(colors/orange.png);
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 .footballka-color1 {
     background: url(colors/color1.png);
     background-attachment: fixed;
