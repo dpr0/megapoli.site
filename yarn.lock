@@ -176,6 +176,61 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@oven/bun-darwin-aarch64@1.3.6":
+  version "1.3.6"
+  resolved "https://registry.yarnpkg.com/@oven/bun-darwin-aarch64/-/bun-darwin-aarch64-1.3.6.tgz#fa4e055a17386c39c63679014a423dc31ee56aab"
+  integrity sha512-27rypIapNkYboOSylkf1tD9UW9Ado2I+P1NBL46Qz29KmOjTL6WuJ7mHDC5O66CYxlOkF5r93NPDAC3lFHYBXw==
+
+"@oven/bun-darwin-x64-baseline@1.3.6":
+  version "1.3.6"
+  resolved "https://registry.yarnpkg.com/@oven/bun-darwin-x64-baseline/-/bun-darwin-x64-baseline-1.3.6.tgz#7cbb9bb1e59438421cc1d694da49771b4dd618df"
+  integrity sha512-nqtr+pTsHqusYpG2OZc6s+AmpWDB/FmBvstrK0y5zkti4OqnCuu7Ev2xNjS7uyb47NrAFF40pWqkpaio5XEd7w==
+
+"@oven/bun-darwin-x64@1.3.6":
+  version "1.3.6"
+  resolved "https://registry.yarnpkg.com/@oven/bun-darwin-x64/-/bun-darwin-x64-1.3.6.tgz#627756fabaa340c74bf512c3395a3d8c0aa3fcb9"
+  integrity sha512-I82xGzPkBxzBKgbl8DsA0RfMQCWTWjNmLjIEkW1ECiv3qK02kHGQ5FGUr/29L/SuvnGsULW4tBTRNZiMzL37nA==
+
+"@oven/bun-linux-aarch64-musl@1.3.6":
+  version "1.3.6"
+  resolved "https://registry.yarnpkg.com/@oven/bun-linux-aarch64-musl/-/bun-linux-aarch64-musl-1.3.6.tgz#68b8f51ef85bd0373f79771c211ae024d6fb9461"
+  integrity sha512-FR+iJt17rfFgYgpxL3M67AUwujOgjw52ZJzB9vElI5jQXNjTyOKf8eH4meSk4vjlYF3h/AjKYd6pmN0OIUlVKQ==
+
+"@oven/bun-linux-aarch64@1.3.6":
+  version "1.3.6"
+  resolved "https://registry.yarnpkg.com/@oven/bun-linux-aarch64/-/bun-linux-aarch64-1.3.6.tgz#36a7c504a94f1aa04a8666f819ae69a3ef0f6c4c"
+  integrity sha512-YaQEAYjBanoOOtpqk/c5GGcfZIyxIIkQ2m1TbHjedRmJNwxzWBhGinSARFkrRIc3F8pRIGAopXKvJ/2rjN1LzQ==
+
+"@oven/bun-linux-x64-baseline@1.3.6":
+  version "1.3.6"
+  resolved "https://registry.yarnpkg.com/@oven/bun-linux-x64-baseline/-/bun-linux-x64-baseline-1.3.6.tgz#805f1c998bf07dbb4b2dc537ad7e151ef407dad4"
+  integrity sha512-jRmnX18ak8WzqLrex3siw0PoVKyIeI5AiCv4wJLgSs7VKfOqrPycfHIWfIX2jdn7ngqbHFPzI09VBKANZ4Pckg==
+
+"@oven/bun-linux-x64-musl-baseline@1.3.6":
+  version "1.3.6"
+  resolved "https://registry.yarnpkg.com/@oven/bun-linux-x64-musl-baseline/-/bun-linux-x64-musl-baseline-1.3.6.tgz#3caba8f49dbb73028edf62d797985bfaec570fd8"
+  integrity sha512-7FjVnxnRTp/AgWqSQRT/Vt9TYmvnZ+4M+d9QOKh/Lf++wIFXFGSeAgD6bV1X/yr2UPVmZDk+xdhr2XkU7l2v3w==
+
+"@oven/bun-linux-x64-musl@1.3.6":
+  version "1.3.6"
+  resolved "https://registry.yarnpkg.com/@oven/bun-linux-x64-musl/-/bun-linux-x64-musl-1.3.6.tgz#dc4fc1873eb5a79fe93c46fe71b92ba4f8020601"
+  integrity sha512-YeXcJ9K6vJAt1zSkeA21J6pTe7PgDMLTHKGI3nQBiMYnYf7Ob3K+b/ChSCznrJG7No5PCPiQPg4zTgA+BOTmSA==
+
+"@oven/bun-linux-x64@1.3.6":
+  version "1.3.6"
+  resolved "https://registry.yarnpkg.com/@oven/bun-linux-x64/-/bun-linux-x64-1.3.6.tgz#d593c5585ce5ad87cf31f202fc4603c6e64994d0"
+  integrity sha512-egfngj0dfJ868cf30E7B+ye9KUWSebYxOG4l9YP5eWeMXCtenpenx0zdKtAn9qxJgEJym5AN6trtlk+J6x8Lig==
+
+"@oven/bun-windows-x64-baseline@1.3.6":
+  version "1.3.6"
+  resolved "https://registry.yarnpkg.com/@oven/bun-windows-x64-baseline/-/bun-windows-x64-baseline-1.3.6.tgz#a0feb1f4cc0d3271d22166e8bf29ad77a68d5b55"
+  integrity sha512-PFUa7JL4lGoyyppeS4zqfuoXXih+gSE0XxhDMrCPVEUev0yhGNd/tbWBvcdpYnUth80owENoGjc8s5Knopv9wA==
+
+"@oven/bun-windows-x64@1.3.6":
+  version "1.3.6"
+  resolved "https://registry.yarnpkg.com/@oven/bun-windows-x64/-/bun-windows-x64-1.3.6.tgz#62a21c92689403ec7528b27340bd78f8173ea0c4"
+  integrity sha512-Sr1KwUcbB0SEpnSPO22tNJppku2khjFluEst+mTGhxHzAGQTQncNeJxDnt3F15n+p9Q+mlcorxehd68n1siikQ==
+
 "@parcel/watcher-android-arm64@2.4.1":
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/@parcel/watcher-android-arm64/-/watcher-android-arm64-2.4.1.tgz#c2c19a3c442313ff007d2d7a9c2c1dd3e1c9ca84"
@@ -287,6 +342,23 @@ bulma@^0.9.4:
   version "0.9.4"
   resolved "https://registry.yarnpkg.com/bulma/-/bulma-0.9.4.tgz#0ca8aeb1847a34264768dba26a064c8be72674a1"
   integrity sha512-86FlT5+1GrsgKbPLRRY7cGDg8fsJiP/jzTqXXVqiUZZ2aZT8uemEOHlU1CDU+TxklPEZ11HZNNWclRBBecP4CQ==
+
+bun@^1.3.6:
+  version "1.3.6"
+  resolved "https://registry.yarnpkg.com/bun/-/bun-1.3.6.tgz#d8c19f8f65de10c0104530ba33aafc8e55d516c2"
+  integrity sha512-Tn98GlZVN2WM7+lg/uGn5DzUao37Yc0PUz7yzYHdeF5hd+SmHQGbCUIKE4Sspdgtxn49LunK3mDNBC2Qn6GJjw==
+  optionalDependencies:
+    "@oven/bun-darwin-aarch64" "1.3.6"
+    "@oven/bun-darwin-x64" "1.3.6"
+    "@oven/bun-darwin-x64-baseline" "1.3.6"
+    "@oven/bun-linux-aarch64" "1.3.6"
+    "@oven/bun-linux-aarch64-musl" "1.3.6"
+    "@oven/bun-linux-x64" "1.3.6"
+    "@oven/bun-linux-x64-baseline" "1.3.6"
+    "@oven/bun-linux-x64-musl" "1.3.6"
+    "@oven/bun-linux-x64-musl-baseline" "1.3.6"
+    "@oven/bun-windows-x64" "1.3.6"
+    "@oven/bun-windows-x64-baseline" "1.3.6"
 
 chart.js@4:
   version "4.2.0"
