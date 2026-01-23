@@ -23,7 +23,7 @@ s4 =  megapolis.seasons.create(code: 'megapolis4',  name: '2021/2')
 s5 =  megapolis.seasons.create(code: 'megapolis5',  name: '2022/1')
 s6 =  megapolis.seasons.create(code: 'megapolis6',  name: '2024/2')
 s6 = sbermarket.seasons.create(code: 'sbermarket1', name: '2022/1')
-s7 =  megapolis.seasons.create(code: 'megapolis6',  name: '2026/1')
+s7 =  megapolis.seasons.create(code: 'megapolis7',  name: '2026/1')
 
 Season.all.each do |season|
   puts "\n< #{season.code.capitalize}: #{season.name} > ==================================================="

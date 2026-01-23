@@ -104,7 +104,7 @@ section#parallax-computers
               - @games.each_with_index do |game, i|
                 - z = game.goals.map(&:player_id).map do |player_id|
                   - next unless player_id
-                  - @players.find { |pl| pl.id == player_id }.name
+                  - @players.find { |pl| pl.id == player_id }&.name
                 tr
                   td.text-left
                     = i + 1
