@@ -1,12 +1,3 @@
-GIT
-  remote: git@github.com:dpr0/telegram-bot.git
-  revision: c8306dba0c327a2620bac6abbb468ab799d9e992
-  specs:
-    telegram-bot (0.15.4)
-      actionpack
-      activesupport
-      httpclient (~> 2.7)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -315,6 +306,10 @@ GEM
     stimulus-rails (1.3.4)
       railties (>= 6.0.0)
     stringio (3.2.0)
+    telegram-bot (0.16.7)
+      actionpack (>= 4.0, < 8.1)
+      activesupport (>= 4.0, < 8.1)
+      httpclient (~> 2.7)
     temple (0.10.4)
     thor (1.5.0)
     tilt (2.7.0)
@@ -380,7 +375,7 @@ DEPENDENCIES
   rubocop
   slim-rails
   stimulus-rails
-  telegram-bot!
+  telegram-bot
   turbo-rails
   web-console
 
