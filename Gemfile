@@ -20,7 +20,7 @@ gem 'rails', '7.0.8'
 gem 'redis'
 gem 'slim-rails'
 gem 'stimulus-rails'
-gem 'telegram-bot'#, git: 'git@github.com:dpr0/telegram-bot.git'
+gem 'telegram-bot'
 gem 'turbo-rails'
 gem 'concurrent-ruby', '1.3.4'
 gem 'whenever', require: false
