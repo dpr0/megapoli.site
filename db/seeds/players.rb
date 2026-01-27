@@ -77,11 +77,12 @@ players = [
   { code: 97, uid: '',           lastname: 'Филимонов',   name: 'Александр', middlename: 'Анатольевич',    birthday: '05.09.1967', phone: '+79255183269', role_id: 3, lfl: '' },
   { code: 98, uid: '',           lastname: 'Спиридонов',  name: 'Николай',   middlename: 'Андреевич',      birthday: '15.07.2008', phone: '+79163977963', role_id: 3, lfl: '' },
   { code: 99, uid: '',           lastname: 'Лыков',       name: 'Александр', middlename: 'Васильевич',     birthday: '14.06.1987', phone: '+79663171847', role_id: 3, lfl: '' },
-  { code: 100, uid: '',          lastname: '',            name: 'Игорь',     middlename: '',               birthday: '',           phone: '',             role_id: 3, lfl: '' },
+  { code: 100, uid: '',          lastname: 'Урлин',       name: 'Игорь',     middlename: 'Олегович',       birthday: '21.05.2010', phone: '+79777532580', role_id: 3, lfl: '' },
   { code: 101, uid: '',          lastname: 'Кушнарев',    name: 'Евгений',   middlename: 'Сергеевич',      birthday: '25.04.1992', phone: '+79854907552', role_id: 3, lfl: '' },
-  { code: 102, uid: 'узбек?',    lastname: '',            name: 'Александр', middlename: '',               birthday: '',           phone: '',             role_id: 3, lfl: '' },
+  { code: 102, uid: '',          lastname: 'Мин',         name: 'Александр', middlename: 'Пентенович',     birthday: '12.01.1985', phone: '+79114744677', role_id: 3, lfl: '' },
   { code: 103, uid: '',          lastname: 'Траб',        name: 'Денис',     middlename: 'Арутюнович',     birthday: '23.03.1983', phone: '+79258651315', role_id: 3, lfl: '' },
-  # { code: 104, uid: '',          lastname: '',  name: '',       middlename: '',               birthday: '04.12.1994',      phone: '+79645732923', role_id: 3, lfl: '' },
+  { code: 104, uid: '',          lastname: 'чернокожий',  name: 'парень',    middlename: '',               birthday: '', phone: '', role_id: 3, lfl: '' },
+  # { code: 105, uid: '',          lastname: '',  name: '',       middlename: '',               birthday: '04.12.1994',      phone: '+79645732923', role_id: 3, lfl: '' },
 ]
 players.each { |player| print "#{Player.create(player).id}." }
 puts '!'
