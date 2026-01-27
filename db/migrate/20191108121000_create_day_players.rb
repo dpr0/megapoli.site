@@ -7,7 +7,7 @@ class CreateDayPlayers < ActiveRecord::Migration[7.0]
       t.references :day
       t.references :player
       t.references :team
-      t.float :elo, default: 1500
+      t.float :elo
     end
   end
 end

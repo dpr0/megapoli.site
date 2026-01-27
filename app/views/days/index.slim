@@ -105,7 +105,7 @@ section#parallax-computers
                 td.text-center colspan='12' = "Посещаемость менее #{Stat::K_ATTENDANCE}%"
               = render 'players', arr: @arr_by_days_10
 
-section#parallax-cars
+section
   .hero-body
     .container
       .columns.is-mobile
@@ -121,7 +121,7 @@ section#parallax-cars
             tr
               td
                 .col-sm-3
-                  = image_tag "kk2.svg"
+                  = image_tag "kk2.svg", class: 'img-thumbnail'
                 .col-sm-9
                   div
                     | E
@@ -139,7 +139,7 @@ section#parallax-cars
               td
                 .col-sm-8 Новый рейтинг команды A рассчитывается по формуле:
                 .col-sm-4
-                  = image_tag "kk1.svg"
+                  = image_tag "kk1.svg", class: 'img-thumbnail'
             tr
               td
                 .col-sm-12

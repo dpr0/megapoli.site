@@ -7,8 +7,6 @@ class Day < ApplicationRecord
   accepts_nested_attributes_for :games,       reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :day_players, reject_if: :all_blank, allow_destroy: true
 
-  after_create :create_stat! # create players stats for season
-
   def day_players_by_season(season_id)
     day_players.where(season_id: season_id)
   end
@@ -28,15 +26,16 @@ class Day < ApplicationRecord
   end
 
   def add_players(hash)
+    s_id = season_id
+    players_elo = {}
+    Player.where(id: hash.values.flatten).each { |pl| players_elo[pl.id] = pl.elo }
+    day_pl = []
+    stats = []
     hash.each do |team_id, player_ids|
-      player_ids.each { |player_id| day_players.new(team_id: team_id, player_id: player_id, season_id: season_id) }
+      day_pl += player_ids.map { |p_id| { day_id: id, team_id: team_id, player_id: p_id, season_id: s_id, elo: players_elo[p_id]} }
+      stats += player_ids.map { |p_id| { player_id: p_id, season_id: s_id, elo: players_elo[p_id] } }
     end
-  end
-
-  private
-
-  def create_stat!
-    day_players.where(season_id: season_id)
-      .each { |x| x.player.stats.find_or_initialize_by(season_id: season_id).save }
+    DayPlayer.insert_all(day_pl)
+    Stat.insert_all(stats)
   end
 end

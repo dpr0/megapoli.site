@@ -14,9 +14,10 @@ class Game < ApplicationRecord
   end
 
   def add_goals(str = '')
+    s_id = day.season_id
     str.split(',').each do |a|
       d = a.split(' ').map(&:to_i)
-      goals.create(team_id: d[0], player_id: d[1], assist_player_id: d[2], season_id: day.season_id)
+      goals.create(team_id: d[0], player_id: d[1], assist_player_id: d[2], season_id: s_id)
       if team_left_id == d[0]
         update(goals_left: (goals_left || 0) + 1)
       elsif team_right_id == d[0]
@@ -61,19 +62,7 @@ class Game < ApplicationRecord
   def team_elo(side)
     players = dplayers(side)
     stats = Stat.where(season_id: day.season_id, player_id: players.map(&:player_id))
-    if ENV['AVG_NEW_PLAYER_ELO'] == 1
-      avg = stats.map(&:elo).sum(0.0) / players.count
-      players.map do |dp|
-        if dp.player.day_players.count == 1
-          dp.stat.update(elo: avg)
-          avg
-        else
-          dp.stat.elo
-        end
-      end
-    else
-      stats.map(&:elo)
-    end.sum(0.0) / players.count
+    stats.map(&:elo).sum(0.0) / players.count
   end
 
   def calc_k(rate)
@@ -87,14 +76,28 @@ class Game < ApplicationRecord
     # when 1600..1649 then 35
     # when 1550..1599 then 40
     # when 1500..1549 then 45
-    when 1900..2999 then 5
-    when 1800..1899 then 10
-    when 1700..1799 then 20
-    when 1600..1699 then 30
-    when 1500..1599 then 40
-    when 1400..1499 then 50
-    when 1300..1399 then 60
-    else 70
+
+    # when 1900..2999 then 5
+    # when 1800..1899 then 10
+    # when 1700..1799 then 20
+    # when 1600..1699 then 30
+    # when 1500..1599 then 40
+    # when 1400..1499 then 50
+    # when 1300..1399 then 60
+    # else 70
+    # end
+    #
+    when 1200..1299 then 5
+    when 1100..1199 then 10
+    when 1000..1099 then 20
+    when  900..999  then 30
+    when  800..899  then 40
+    when  700..799  then 50
+    when  600..699  then 60
+    when  500..599  then 70
+    when  400..499  then 80
+    when  300..399  then 90
+    else  100
     end
   end
 

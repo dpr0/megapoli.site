@@ -10,7 +10,7 @@
         - player = @players.find { |p| p[:id] == day_player.player_id }
         tr
           td = day_player.elo.to_i
-          td = link_to player.name, player_path(player), class: 'has-text-white'
+          td = link_to player.full_name, player_path(player), class: 'has-text-white'
           td
             - if @player_goals[player.code]
               - @player_goals[player.code].times do
