@@ -4,7 +4,6 @@ class MessageService
   attr_reader :message
 
   def initialize(message)
-    byebug
     msg_file_params = message['video'] || message['document']
     msg_file_params ||= message['photo'].max_by { |x| x['width'] } if message['photo']
     msg_file_params.delete('thumb') if msg_file_params&.dig('thumb')
