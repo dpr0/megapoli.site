@@ -7,6 +7,8 @@
     "bulma": "^0.9.4",
     "bulma-extensions": "^6.2.7",
     "cocoon-js": "^0.0.5",
+    "chart.js": "^4.4.4",
+    "chartkick": "^5.0.1",
     "esbuild": "^0.16.15",
     "esbuild-plugin-import-glob": "^0.1.1",
     "esbuild-rails": "^1.0.7",
