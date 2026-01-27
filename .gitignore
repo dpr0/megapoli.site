@@ -56,3 +56,4 @@ dump.rdb
 /config/credentials.yml.enc
 .byebug_history
 entials.yml.enc
+bun.lockb
