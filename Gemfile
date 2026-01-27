@@ -2,7 +2,6 @@
 
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
-Jsbundling::Tasks.install_command
 
 gem 'bootsnap', require: false
 gem 'chartkick'
