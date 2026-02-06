@@ -8,8 +8,10 @@ class Player < ApplicationRecord
   has_many   :goals
   has_many   :messages, foreign_key: :uid, primary_key: :uid
   has_many   :day_players
-  has_many   :stats
   has_one    :role
+
+  K_ELO = 0.2
+  K_ATTENDANCE = 10 # процент посещаемости
 
   def email_required?
     false
@@ -72,7 +74,7 @@ class Player < ApplicationRecord
   end
 
   def print_stat
-    full_name + ' ELO: ' + stats.find_by(season_id: Season.where(active: true)).elo.to_i.to_s + "\nhttps://football.pipiper.ru/players/#{id}"
+    full_name + ' ELO: ' + day_players.find_by(season_id: Season.where(active: true)).new_elo.to_i.to_s + "\nhttps://football.pipiper.ru/players/#{id}"
   end
 
   def get_stats_by_season(season_ids)

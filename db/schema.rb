@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_01_28_000000) do
+ActiveRecord::Schema[7.0].define(version: 2026_02_06_090000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -66,6 +66,12 @@ ActiveRecord::Schema[7.0].define(version: 2026_01_28_000000) do
     t.bigint "player_id"
     t.bigint "team_id"
     t.float "elo", default: 1500.0
+    t.float "new_elo"
+    t.integer "days"
+    t.integer "games"
+    t.integer "win"
+    t.integer "draw"
+    t.integer "lose"
     t.index ["day_id"], name: "index_day_players_on_day_id"
     t.index ["player_id"], name: "index_day_players_on_player_id"
     t.index ["season_id"], name: "index_day_players_on_season_id"

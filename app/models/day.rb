@@ -28,14 +28,19 @@ class Day < ApplicationRecord
   def add_players(hash)
     s_id = season_id
     players_elo = {}
-    Player.where(id: hash.values.flatten).each { |pl| players_elo[pl.id] = pl.elo }
+    players = Player.where(id: hash.values.flatten)
+    if season.day_players.present?
+      players.each do |pl|
+        dpls = season.day_players.select { |x| x.player_id == pl.id }
+        players_elo[pl.id] = dpls.present? ? dpls.max_by(&:day_id).new_elo : pl.elo
+      end
+    else
+      players.each { |pl| players_elo[pl.id] = pl.elo }
+    end
     day_pl = []
-    stats = []
     hash.each do |team_id, player_ids|
       day_pl += player_ids.map { |p_id| { day_id: id, team_id: team_id, player_id: p_id, season_id: s_id, elo: players_elo[p_id]} }
-      stats += player_ids.map { |p_id| { player_id: p_id, season_id: s_id, elo: players_elo[p_id] } }
     end
     DayPlayer.insert_all(day_pl)
-    Stat.insert_all(stats)
   end
 end

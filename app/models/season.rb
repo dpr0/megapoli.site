@@ -5,7 +5,6 @@ class Season < ApplicationRecord
 
   has_many :days
   has_many :goals
-  has_many :stats
   has_many :day_players
   belongs_to :championship
 
@@ -28,7 +27,7 @@ class Season < ApplicationRecord
         lose += stat.lose
       end
 
-      player.stats.find_by(season_id: id).update(
+      player.day_players.where(season_id: id).order(id: :desc).first.update(
         days: day_team.count,
         games: day_games,
         win: win3 + win2 + win1,

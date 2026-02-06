@@ -102,7 +102,7 @@ section#parallax-computers
             tbody
               = render 'players', arr: @arr_by_days_90
               tr
-                td.text-center colspan='12' = "Посещаемость менее #{Stat::K_ATTENDANCE}%"
+                td.text-center colspan='12' = "Посещаемость менее #{Player::K_ATTENDANCE}%"
               = render 'players', arr: @arr_by_days_10
 
 section

@@ -17,11 +17,24 @@ class Game < ApplicationRecord
     s_id = day.season_id
     str.split(',').each do |a|
       d = a.split(' ').map(&:to_i)
-      goals.create(team_id: d[0], player_id: d[1], assist_player_id: d[2], season_id: s_id)
+      Goal.create(team_id: d[0], player_id: d[1], assist_player_id: d[2], season_id: s_id, game_id: id)
+
+      if d[1].to_i > 0 && d[2].to_i > 0
+        stat = DayPlayer.find_by(season_id: s_id, player_id: d[1])
+        stat.update(elo: stat.elo + Player::K_ELO) if stat
+        stat = DayPlayer.find_by(season_id: s_id, player_id: d[2])
+        stat.update(elo: stat.elo + Player::K_ELO) if stat
+      elsif d[1].to_i > 0 || d[2].to_i > 0
+        stat = DayPlayer.find_by(season_id: s_id, player_id: d[1].to_i > 0 ? d[1] : d[2])
+        stat.update(elo: Player::K_ELO * 2 + stat.elo) if stat
+      end
+
       if team_left_id == d[0]
         update(goals_left: (goals_left || 0) + 1)
       elsif team_right_id == d[0]
         update(goals_right: (goals_right || 0) + 1)
+      else
+        byebug
       end
     end
 
@@ -46,22 +59,30 @@ class Game < ApplicationRecord
     s = [0.5, 1.0, 0.0][goals_a <=> goals_b]
     new_team_elo_change = calc_k(rate_a) * calc_g(goals_a, goals_b) * (s - e)
     d_p = dplayers(side1)
-    d_p.each do |dp|
-      stat = dp.stat
-      bonus = [Stat::K_ELO, Stat::K_ELO * 2, 0][goals_a <=> goals_b]
-      new_player_elo = (new_team_elo_change * d_p.size * (stat.elo / d_p.map(&:elo).sum)) + stat.elo + bonus
-      stat.update!(elo: ((new_player_elo + Stat::K_ELO)*100).to_i.to_f / 100)
+    array = d_p.map do |dp|
+      bonus = [Player::K_ELO, Player::K_ELO * 2, 0][goals_a <=> goals_b]
+      new_player_elo = (new_team_elo_change * d_p.size * (dp.elo / d_p.sum(&:elo))) + dp.elo + bonus
+      {id: dp.id, new_elo: ((new_player_elo + Player::K_ELO)*100).to_i.to_f / 100 }
     end
+    DayPlayer.upsert_all(array)
     new_team_elo_change
   end
 
   def dplayers(side)
-    DayPlayer.where(day_id: day.id, team_id: eval("team_#{side}_id"))
+    all_day_players.select { |x| x.team_id = eval("team_#{side}_id") }
+  end
+
+  def all_day_players
+    @all_day_players ||= DayPlayer.where(day_id: day.id).to_a
+  end
+
+  def all_stats
+    @stats ||= DayPlayer.where(season_id: day.season_id).to_a
   end
 
   def team_elo(side)
     players = dplayers(side)
-    stats = Stat.where(season_id: day.season_id, player_id: players.map(&:player_id))
+    stats = all_stats.select { |x| players.map(&:player_id).include? x.player_id }
     stats.map(&:elo).sum(0.0) / players.count
   end
 
@@ -87,17 +108,22 @@ class Game < ApplicationRecord
     # else 70
     # end
     #
-    when 1200..1299 then 5
-    when 1100..1199 then 10
-    when 1000..1099 then 20
-    when  900..999  then 30
-    when  800..899  then 40
-    when  700..799  then 50
-    when  600..699  then 60
-    when  500..599  then 70
-    when  400..499  then 80
-    when  300..399  then 90
-    else  100
+    when 1000..2000 then 1
+    when 950..999 then 4
+    when 900..949 then 7
+    when 850..899 then 10
+    when 800..849 then 13
+    when 750..799 then 16
+    when 700..749 then 19
+    when 650..699 then 22
+    when 600..649 then 25
+    when 550..599 then 28
+    when 500..549 then 31
+    when 450..499 then 34
+    when 400..449 then 37
+    when 350..399 then 40
+    when 300..349 then 43
+    else 46
     end
   end
 

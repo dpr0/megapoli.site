@@ -18,7 +18,6 @@ class DaysController < ApplicationController
     @sport = Sport.cached_by_id[@championship.sport_id]
     @places = @days.select(:first_place, :second_place, :third_place, :fourth_place, :season_id)
     players = Player
-      .joins(:stats)
       .left_joins(:goals)
       .left_joins(:day_players)
       .select("
@@ -26,22 +25,23 @@ class DaysController < ApplicationController
         players.name,
         players.lastname,
         players.middlename,
-        stats.days as days,
-        stats.games as games,
-        stats.win as win,
-        stats.draw as draw,
-        stats.lose as lose,
-        stats.elo as stats_elo,
+        players.elo as player_elo,
+        day_players.days as days,
+        day_players.games as games,
+        day_players.win as win,
+        day_players.draw as draw,
+        day_players.lose as lose,
+        day_players.elo as elo,
+        day_players.new_elo as new_elo,
         (select count(*) from goals where goals.season_id = #{params[:season_id]} and goals.player_id = players.id) as goals_count,
         (select count(*) from goals where goals.season_id = #{params[:season_id]} and goals.assist_player_id = players.id) as assists_count,
-        (select (1.0 * count(goals)/ NULLIF(stats.days, 0)) from goals where goals.season_id = #{params[:season_id]} and goals.player_id = players.id) as goals_day_count,
-        (select (1.0 * count(goals)/ NULLIF(stats.days, 0)) from goals where goals.season_id = #{params[:season_id]} and goals.assist_player_id = players.id) as assists_day_count
+        (select (1.0 * count(goals)/ NULLIF(day_players.days, 0)) from goals where goals.season_id = #{params[:season_id]} and goals.player_id = players.id) as goals_day_count,
+        (select (1.0 * count(goals)/ NULLIF(day_players.days, 0)) from goals where goals.season_id = #{params[:season_id]} and goals.assist_player_id = players.id) as assists_day_count
       ")
-      .where("stats.season_id = #{params[:season_id]}")
       .where("day_players.player_id = players.id and day_players.season_id = #{params[:season_id]}")
-      .group(:id, :days, :games, :win, :draw, :lose, :stats_elo)
+      .group(:id, :days, :games, :win, :draw, :lose, 'day_players.elo', :new_elo)
       .order("#{ordering} DESC")
-    k = params[:k] || Stat::K_ATTENDANCE
+    k = params[:k] || Player::K_ATTENDANCE
     games_percent = @season.days.count * k.to_i / 100.0
     players = players.where("day_players.team_id = #{Team[params[:team]].id }") if params[:team]
     @arr_by_days_90 = players.select { |z| z.days && z.days >= games_percent }
@@ -49,9 +49,10 @@ class DaysController < ApplicationController
   end
 
   def show
+    @season = params[:season_id] ? Season.find(params[:season_id]) : Season.last
     @teams = Team.all_cached
     @breadcrumbs = { '' => root_path }
-    @main_table = TeamStat.new(@games).data
+    @main_table = TeamStat.new(@games, @day).data
 
     @goals = Goal.where(game_id: @games.ids)
     @player_goals = sorted_hash(@goals.group_by(&:player_id))
@@ -117,6 +118,6 @@ class DaysController < ApplicationController
   end
 
   def ordering
-    params[:sort].in?(%w[stats_elo days games win draw lose goals_count assists_count goals_day_count assists_day_count]) ? params[:sort] : 'stats_elo' # 'goals_day_count'
+    params[:sort].in?(%w[new_elo days games win draw lose goals_count assists_count goals_day_count assists_day_count]) ? params[:sort] : 'new_elo' # 'goals_day_count'
   end
 end

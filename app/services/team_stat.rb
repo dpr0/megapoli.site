@@ -1,12 +1,14 @@
 class TeamStat
 
-  def initialize(games)
+  def initialize(games, day)
+    @day = day
     @games = games
     @gl = StatService::GL
     @gr = StatService::GR
   end
 
   def data
+    @day_players = @day.day_players_by_season(@day.season.id).group_by(&:team_id).sort.to_h
     @teams = @games.map { |x| [x['team_left_id'], x['team_right_id']] }.flatten.uniq.sort.map { |team_id| Team.cached_by_id[team_id] }
     @teams.map do |team|
       games = @games.select { |x| [x['team_left_id'], x['team_right_id']].include? team.id }
@@ -27,6 +29,7 @@ class TeamStat
     goals1             =     left_games.map { |x| x[@gl] }.sum + right_games.map { |x| x[@gr] }.sum
     goals2             =     left_games.map { |x| x[@gr] }.sum + right_games.map { |x| x[@gl] }.sum
     win_count          = left_win.count + right_win.count
+    day_players = @day_players[team.id]
     {
       games_count: games.count,
       opps_win:    opps_map(left_win, right_win).group_by(&:itself),
@@ -37,7 +40,9 @@ class TeamStat
       lose_count:  left_lose.count + right_lose.count,
       goals:       "#{goals1} : #{goals2}",
       ppg:         (((win_count * 3 + draw.count * 1).to_f / games.count) * 100).to_i.to_f / 100,
-      team_code:   team.code
+      team_code:   team.code,
+      elo: day_players.map(&:elo).sum.to_i / day_players.count,
+      day_players: day_players
     }
   end
 
