@@ -13,39 +13,13 @@ class DaysController < ApplicationController
     @days_day_players = @day_players.group_by(&:day_id)
     @teams_day_players = @day_players.group_by(&:team_id)
     @days = Day.where(season_id: @season.id).order(id: :desc)
+    @goals = Goal.where(season_id: @season.id).order(id: :desc)
+    @games = Game.where(day_id: @days.ids).to_a
     @teams = Team.all_cached.select { |t| @day_players.map(&:team_id).uniq.include? t.id }.sort
     @championship = Championship.find(@season.championship_id)
     @sport = Sport.cached_by_id[@championship.sport_id]
     @places = @days.select(:first_place, :second_place, :third_place, :fourth_place, :season_id)
-    players = Player
-      .left_joins(:goals)
-      .left_joins(:day_players)
-      .select("
-        players.id,
-        players.name,
-        players.lastname,
-        players.middlename,
-        players.elo as player_elo,
-        day_players.days as days,
-        day_players.games as games,
-        day_players.win as win,
-        day_players.draw as draw,
-        day_players.lose as lose,
-        day_players.elo as elo,
-        day_players.new_elo as new_elo,
-        (select count(*) from goals where goals.season_id = #{params[:season_id]} and goals.player_id = players.id) as goals_count,
-        (select count(*) from goals where goals.season_id = #{params[:season_id]} and goals.assist_player_id = players.id) as assists_count,
-        (select (1.0 * count(goals)/ NULLIF(day_players.days, 0)) from goals where goals.season_id = #{params[:season_id]} and goals.player_id = players.id) as goals_day_count,
-        (select (1.0 * count(goals)/ NULLIF(day_players.days, 0)) from goals where goals.season_id = #{params[:season_id]} and goals.assist_player_id = players.id) as assists_day_count
-      ")
-      .where("day_players.player_id = players.id and day_players.season_id = #{params[:season_id]}")
-      .group(:id, :days, :games, :win, :draw, :lose, 'day_players.elo', :new_elo)
-      .order("#{ordering} DESC")
-    k = params[:k] || Player::K_ATTENDANCE
-    games_percent = @season.days.count * k.to_i / 100.0
-    players = players.where("day_players.team_id = #{Team[params[:team]].id }") if params[:team]
-    @arr_by_days_90 = players.select { |z| z.days && z.days >= games_percent }
-    @arr_by_days_10 = players.select { |z| z.days && z.days < games_percent }
+    @players = Player.where.not(elo: nil).order(elo: :desc)
   end
 
   def show

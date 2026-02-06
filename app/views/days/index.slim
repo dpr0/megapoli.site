@@ -83,6 +83,8 @@ section#parallax-computers
               tr.has-text-white
                 th
                 th Игрок
+                th Start ELO
+                th = link_to 'New ELO',  sport_championship_season_days_path(sort: :elo)
                 th
                   div = link_to 'Дней', sport_championship_season_days_path(sort: :days)
                   - @teams.each do |team|
@@ -90,7 +92,6 @@ section#parallax-computers
                       = image_tag "colors/#{team.code}.png", size: "15x20"
                       | &nbsp
                 th = link_to 'Игр',  sport_championship_season_days_path(sort: :games)
-                th = link_to 'ELO',  sport_championship_season_days_path(sort: :elo)
                 th = link_to '⚽️', sport_championship_season_days_path(sort: :goals_count)
                 th = link_to '🦶', sport_championship_season_days_path(sort: :assists_count)
                 th
@@ -100,10 +101,10 @@ section#parallax-computers
                   div
                     sup = ' в день '
             tbody
-              = render 'players', arr: @arr_by_days_90
-              tr
-                td.text-center colspan='12' = "Посещаемость менее #{Player::K_ATTENDANCE}%"
-              = render 'players', arr: @arr_by_days_10
+              = render 'players'
+              / tr
+              /   td.text-center colspan='12' = "Посещаемость менее #{Player::K_ATTENDANCE}%"
+              / = render 'players', arr: @arr_by_days_10
 
 section
   .hero-body

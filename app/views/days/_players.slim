@@ -1,23 +1,27 @@
-- arr.each_with_index do |player, i|
-  - dp = player.day_players_by_season(@season.id)
-  / - debugger # @day_players
+- @players.each_with_index do |player, i|
+  - dps = @day_players.select { |x| x.player_id == player.id }
+  - goals = @goals.select { |x| x.player_id == player.id }
+  - assists = @goals.select { |x| x.assist_player_id == player.id }
+  - dp = dps.max_by(&:id)
   tr
     td = i + 1
     td = link_to player.short_name, player_path(player)
+    td = player.elo
+    td.text-right class="has-text-#{%w[grey primary danger][dp&.new_elo.to_i <=> player.elo]}" = dp&.new_elo&.to_i
     td
-      - @day_players.to_a.select { |x| x.player_id == player.id }.map(&:team_id).tally.each do |team_id, count|
+      - dps.map(&:team_id).tally.each do |team_id, count|
         | &nbsp;
         = image_tag "colors/#{Team.cached_by_id[team_id].code}.png", size: "15x20"
         sup
           | &nbsp;
           = count
-    td.text-right = player.games
-    td.text-right = player.new_elo.to_i
-    td.text-right = player.goals_count
-    td.text-right = player.assists_count
+    td.text-right = dp&.games
+    td.text-right = goals.size
+    td.text-right = assists.size
     td.text-right
-      = ((player.goals_day_count.to_f * 100).to_i / 100.0).to_s.ljust(4, '0')
-      span
-        | (
-        = ((player.assists_day_count.to_f * 100).to_i / 100.0).to_s.ljust(4, '0')
-        | )
+      - if dp
+        = ((goals.size.to_f / dp.days * 100).to_i / 100.0).to_s.ljust(4, '0')
+        span
+          | (
+          = ((assists.size.to_f / dp.days * 100).to_i / 100.0).to_s.ljust(4, '0')
+          | )

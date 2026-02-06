@@ -34,7 +34,7 @@ class Game < ApplicationRecord
       elsif team_right_id == d[0]
         update(goals_right: (goals_right || 0) + 1)
       else
-        byebug
+        # byebug
       end
     end
 
