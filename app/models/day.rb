@@ -3,7 +3,7 @@
 class Day < ApplicationRecord
   has_many :games,       dependent: :destroy
   has_many :day_players, dependent: :destroy
-  belongs_to :season
+  belongs_to :season, optional: true
   accepts_nested_attributes_for :games,       reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :day_players, reject_if: :all_blank, allow_destroy: true
 

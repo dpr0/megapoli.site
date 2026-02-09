@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
 class Message < ApplicationRecord
-  belongs_to :player, foreign_key: :uid, primary_key: :uid
+  belongs_to :player, foreign_key: :uid, primary_key: :uid, optional: true
   has_one_attached :message_file
 end

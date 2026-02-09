@@ -6,7 +6,7 @@ class Season < ApplicationRecord
   has_many :days
   has_many :goals
   has_many :day_players
-  belongs_to :championship
+  belongs_to :championship, optional: true
 
   def self.days_by_season_id(season_id)
     cached_by_id[season_id].days.map(&:id)

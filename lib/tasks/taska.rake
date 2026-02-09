@@ -32,6 +32,6 @@ task :sort_commands, [:id] => [:environment] do |_, args|
 
   teams.each_with_index do |t1, i|
     puts "Команда #{i + 1} - ELO: #{t1.sum { |player| player.elo } / t1.size}"
-    t1.each { |player| puts "  #{player.lastname} #{player.name} (#{player.elo})" }
+    t1.each { |player| puts ":  #{player.id} - #{player.lastname} #{player.name} (#{player.elo})" }
   end
 end
