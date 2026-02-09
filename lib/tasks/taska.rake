@@ -13,6 +13,7 @@ task :delete_season, [:id] => [:environment] do |_, args|
   load 'db/seeds/megapolis7/20260128.rb'
   load 'db/seeds/megapolis7/20260202.rb'
   load 'db/seeds/megapolis7/20260204.rb'
+  load 'db/seeds/megapolis7/20260209.rb'
 end
 
 task :sort_commands, [:id] => [:environment] do |_, args|
