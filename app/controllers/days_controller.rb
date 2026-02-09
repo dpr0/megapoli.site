@@ -12,7 +12,6 @@ class DaysController < ApplicationController
     @championship = Championship.find(@season.championship_id)
     @days = Day.where(season_id: @season.id).order(id: :desc)
     @places = @days.select(:first_place, :second_place, :third_place, :fourth_place, :season_id)
-
     @day_players = DayPlayer.where(season_id: @season.id).to_a
     @days_day_players = @day_players.group_by(&:day_id)
     @teams = Team.all_cached.select { |t| @day_players.map(&:team_id).uniq.include? t.id }.sort
