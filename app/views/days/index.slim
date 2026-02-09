@@ -54,8 +54,7 @@ section#parallax-football
               tr
                 - g = day.games.to_a
                 td = link_to l(day.date), sport_championship_season_day_path(day.id, season_id: @season.id, championship_id: @championship.id, sport_id: @sport.id)
-                - array = [day.first_place, day.second_place, day.third_place]
-                - array.each do |place|
+                - [day.first_place, day.second_place, day.third_place].each do |place|
                   td
                     - if place.present?
                       = image_tag "colors/#{Team.cached_by_id[place].code}.png", size: '20x25'

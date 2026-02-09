@@ -13,20 +13,30 @@ class Game < ApplicationRecord
     "has-text-#{%w[grey primary danger][attributes["#{side}_team_elo_change"] <=> 0]}"
   end
 
-  def add_goals(str = '')
-    s_id = day.season_id
+  def add_goals(z = [], str = '')
+    s_id = z.first
+    dps = z.last
     str.split(',').each do |a|
       d = a.split(' ').map(&:to_i)
       Goal.create(team_id: d[0], player_id: d[1], assist_player_id: d[2], season_id: s_id, game_id: id)
 
       if d[1].to_i > 0 && d[2].to_i > 0
-        stat = DayPlayer.find_by(season_id: s_id, player_id: d[1])
-        stat.update(elo: stat.elo + Player::K_ELO) if stat
-        stat = DayPlayer.find_by(season_id: s_id, player_id: d[2])
-        stat.update(elo: stat.elo + Player::K_ELO) if stat
+        stat = dps.find { |x| x.player_id == d[1] }
+        if stat
+          stat.elo = stat.elo + Player::K_ELO
+          stat.save(validate: false)
+        end
+        stat = dps.find { |x| x.player_id == d[2] }
+        if stat
+          stat.elo = stat.elo + Player::K_ELO
+          stat.save(validate: false)
+        end
       elsif d[1].to_i > 0 || d[2].to_i > 0
-        stat = DayPlayer.find_by(season_id: s_id, player_id: d[1].to_i > 0 ? d[1] : d[2])
-        stat.update(elo: Player::K_ELO * 2 + stat.elo) if stat
+        stat = dps.find { |x| x.player_id == d[1].to_i > 0 ? d[1] : d[2] }
+        if stat
+          stat.elo = stat.elo + Player::K_ELO * 2
+          stat.save(validate: false)
+        end
       end
 
       if team_left_id == d[0]
@@ -87,6 +97,8 @@ class Game < ApplicationRecord
   end
 
   def calc_k(rate)
+    return (1000-rate) / 50.0 * 4
+
     case rate
     # when 1900..2999 then 5
     # when 1850..1899 then 10
@@ -107,7 +119,6 @@ class Game < ApplicationRecord
     # when 1300..1399 then 60
     # else 70
     # end
-    #
     when 1000..2000 then 1
     when 950..999 then 4
     when 900..949 then 7

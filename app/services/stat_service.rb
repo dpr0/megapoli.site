@@ -1,40 +1,37 @@
 class StatService
   attr_reader :day_games, :win3, :win2, :win1, :draw, :lose
 
-  GL = 'goals_left'.freeze
-  GR = 'goals_right'.freeze
-  TL = 'team_left_id'.freeze
-  TR = 'team_right_id'.freeze
-
-  def initialize(day_id, team_id)
+  def initialize(team_id, games)
     @team_id = team_id
-    @games = Game.where(day_id: day_id)
+    @games = games
   end
 
   def day_games
-    @day_games ||= @games.where("#{TL} = ? OR #{TR} = ?", @team_id, @team_id).count
+    @day_games = @games.count { |x| x.team_left_id == @team_id || x.team_right_id == @team_id }
   end
 
   def win3
-    @win3 ||= @games.where("(#{TL} = ? and #{GL} >= 2 and #{GR} = 0) OR (#{TR} = ? and #{GL} = 0 and #{GR} <= 2)", @team_id, @team_id).count
+    @win3 = @games.count { |x| (x.team_left_id == @team_id && x.goals_left >= 2 && x.goals_right == 0) || (x.team_right_id == @team_id && x.goals_left == 0 && x.goals_right >= 2) }
   end
 
   def win2
-    @win2 ||= @games.where("
-      ((#{TL} = ? and #{GL} >= 2 and #{GR} = 1) OR (#{TR} = ? and #{GL} = 1 and #{GR} >= 2)) OR
-      ((#{TL} = ? and #{GL} >= 2 and #{GR} < #{GL} and #{GR} != 0) OR (#{TR} = ? and #{GL} < #{GR} and #{GR} >= 2 and #{GL} != 0))
-    ", @team_id, @team_id, @team_id, @team_id).count
+    @win2 = @games.count do |x|
+      ((x.team_left_id  == @team_id && x.goals_left >= 2 && x.goals_right == 1) ||
+       (x.team_right_id == @team_id && x.goals_left == 1 && x.goals_right >= 2)) ||
+      ((x.team_left_id  == @team_id && x.goals_left >= 2 && x.goals_right < x.goals_left && x.goals_right > 0) ||
+       (x.team_right_id == @team_id && x.goals_left < x.goals_right && x.goals_right >= 2 && x.goals_left > 0))
+    end
   end
 
   def win1
-    @win1 ||= @games.where("(#{TL} = ? and #{GL} = 1 and #{GR} = 0) OR (#{TR} = ? and #{GL} = 0 and #{GR} = 1)", @team_id, @team_id).count
+    @win1 = @games.count { |x| (x.team_left_id == @team_id && x.goals_left == 1 && x.goals_right == 0) || (x.team_right_id == @team_id && x.goals_left == 0 && x.goals_right == 1) }
   end
 
   def draw
-    @draw ||= @games.where("(#{TL} = ? and #{GL} = #{GR}) OR (#{TR} = ? and #{GL} = #{GR})", @team_id, @team_id).count
+    @draw = @games.count { |x| (x.team_left_id == @team_id && x.goals_left == x.goals_right ) || (x.team_right_id == @team_id && x.goals_left == x.goals_right) }
   end
 
   def lose
-    @lose ||= @games.where("(#{TL} = ? and #{GL} < #{GR}) OR (#{TR} = ? and #{GL} > #{GR})", @team_id, @team_id).count
+    @lose = @games.count { |x| (x.team_left_id == @team_id && x.goals_left < x.goals_right) || (x.team_right_id == @team_id && x.goals_left > x.goals_right) }
   end
 end

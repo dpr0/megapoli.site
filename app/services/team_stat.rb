@@ -3,8 +3,8 @@ class TeamStat
   def initialize(games, day)
     @day = day
     @games = games
-    @gl = StatService::GL
-    @gr = StatService::GR
+    @gl = Day::GL
+    @gr = Day::GR
   end
 
   def data

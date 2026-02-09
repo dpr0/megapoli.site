@@ -7,18 +7,23 @@ class Day < ApplicationRecord
   accepts_nested_attributes_for :games,       reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :day_players, reject_if: :all_blank, allow_destroy: true
 
+  GL = 'goals_left'.freeze
+  GR = 'goals_right'.freeze
+  TL = 'team_left_id'.freeze
+  TR = 'team_right_id'.freeze
+
   def day_players_by_season(season_id)
     day_players.where(season_id: season_id)
   end
 
-  def day_rates!
-    places = day_players.map(&:team_id).uniq.map do |team_id|
-      day_games = games.all.select { |x| [x[StatService::TL], x[StatService::TR]].include? team_id }
+  def day_rates!(dps)
+    places = dps.map(&:team_id).uniq.map do |team_id|
+      day_games = games.all.select { |x| [x[TL], x[TR]].include? team_id }
       next if day_games.blank?
 
-      left_win  = day_games.select { |x| x[StatService::GL]  > x[StatService::GR] && x[StatService::TL] == team_id }
-      right_win = day_games.select { |x| x[StatService::GL]  < x[StatService::GR] && x[StatService::TR] == team_id }
-      draw      = day_games.select { |x| x[StatService::GL] == x[StatService::GR] }
+      left_win  = day_games.select { |x| x[GL]  > x[GR] && x[TL] == team_id }
+      right_win = day_games.select { |x| x[GL]  < x[GR] && x[TR] == team_id }
+      draw      = day_games.select { |x| x[GL] == x[GR] }
       [(((left_win + right_win).count * 3) + draw.count) / day_games.count.to_f, team_id]
     end.compact.sort.reverse.map(&:last)
     update(first_place: places[0], second_place: places[1], third_place: places[2], fourth_place: places[3])
