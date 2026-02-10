@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Game < ApplicationRecord
-  has_many :goals
+  has_many :goals, dependent: :destroy
   belongs_to :day, optional: true
 
   def rated(side)
@@ -18,8 +18,7 @@ class Game < ApplicationRecord
     dps = z.last
     str.split(',').each do |a|
       d = a.split(' ').map(&:to_i)
-      Goal.create(team_id: d[0], player_id: d[1], assist_player_id: d[2], season_id: s_id, game_id: id)
-
+      g = Goal.create(team_id: d[0], player_id: d[1], assist_player_id: d[2], season_id: s_id, game_id: id)
       if d[1].to_i > 0 && d[2].to_i > 0
         stat = dps.find { |x| x.player_id == d[1] }
         if stat
@@ -45,13 +44,15 @@ class Game < ApplicationRecord
       end
     end
 
-    @left_team_elo   = team_elo(dps, 'left')
-    @right_team_elo  = team_elo(dps, 'right')
+    @left_team_elo        = team_elo(dps, 'left')
+    @right_team_elo       = team_elo(dps, 'right')
+    left_team_elo_change  = calc_elo(dps, 'left', 'right')
+    right_team_elo_change = calc_elo(dps, 'right', 'left')
     update(
       left_team_elo:          @left_team_elo,
       right_team_elo:         @right_team_elo,
-      left_team_elo_change:   calc_elo(dps, 'left', 'right'),
-      right_team_elo_change:  calc_elo(dps, 'right', 'left')
+      left_team_elo_change:   left_team_elo_change,
+      right_team_elo_change:  right_team_elo_change
     )
   end
 
@@ -65,10 +66,11 @@ class Game < ApplicationRecord
     e = 1 / (1 + (10**((rate_b - rate_a) / 400.0)))
     s = [0.5, 1.0, 0.0][goals_a <=> goals_b]
     new_team_elo_change = calc_k(rate_a) * calc_g(goals_a, goals_b) * (s - e)
-    d_p = dps.select { |x| x.team_id == eval("team_#{side1}_id") }
+    d_p = dps.reload.select { |x| x.team_id == eval("team_#{side1}_id") }
     array = d_p.map do |dp|
       bonus = [Player::K_ELO, Player::K_ELO * 2, 0][goals_a <=> goals_b]
-      new_player_elo = (new_team_elo_change * d_p.size * (dp.elo / d_p.sum(&:elo))) + dp.elo + bonus
+      elo = dp.new_elo || dp.elo
+      new_player_elo = (new_team_elo_change * d_p.size * (elo / d_p.sum { |x| x.new_elo || x.elo })) + elo + bonus
       {id: dp.id, new_elo: ((new_player_elo + Player::K_ELO)*100).to_i.to_f / 100 }
     end
     DayPlayer.upsert_all(array)
@@ -76,8 +78,8 @@ class Game < ApplicationRecord
   end
 
   def team_elo(dps, side)
-    players = dps.select { |x| x.team_id == eval("team_#{side}_id") }
-    players.sum(&:elo).to_i / players.count
+    players = dps.reload.select { |x| x.team_id == eval("team_#{side}_id") }
+    players.sum { |x| x.new_elo || x.elo } / players.count
   end
 
   def calc_k(rate)

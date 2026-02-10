@@ -10,7 +10,7 @@ ActiveRecord::Base.transaction do
     6 => [18, 93, 54, 7, 9, 14],
   )
   g = day.games
-  dps = day.day_players.to_a
+  dps = day.day_players
   z = [s.id, dps]
   g.create(team_left_id: 6, team_right_id: 2).add_goals(z, '')
   g.create(team_left_id: 3, team_right_id: 1).add_goals(z, '3 95 104')

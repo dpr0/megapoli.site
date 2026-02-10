@@ -41,7 +41,8 @@ class TeamStat
       goals:       "#{goals1} : #{goals2}",
       ppg:         (((win_count * 3 + draw.count * 1).to_f / games.count) * 100).to_i.to_f / 100,
       team_code:   team.code,
-      elo: day_players.map(&:elo).sum.to_i / day_players.count,
+      before_elo: day_players.map(&:elo).sum.to_i / day_players.count,
+      after_elo:  day_players.map(&:new_elo).sum.to_i / day_players.count,
       day_players: day_players
     }
   end

@@ -16,7 +16,7 @@ section#parallax-football
               .field
                 label.label Номер
                 .control
-                  = text_field_tag '', @player.code, class: 'input is-medium', disabled: true
+                  = text_field_tag '', @player.id, class: 'input is-medium', disabled: true
               - stat = @player.day_players.last
               .field
                 label.label = "ELO: (#{stat.season_id})"

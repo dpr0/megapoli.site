@@ -12,10 +12,10 @@
           td = day_player.elo.to_i
           td = link_to player.full_name, player_path(player), class: 'has-text-white'
           td
-            - if @player_goals[player.code]
-              - @player_goals[player.code].times do
+            - if @player_goals[player.id]
+              - @player_goals[player.id].times do
                 | ⚽️
-            - if @player_assists[player.code]
+            - if @player_assists[player.id]
               p
-                - @player_assists[player.code].times do
+                - @player_assists[player.id].times do
                   | 🦶

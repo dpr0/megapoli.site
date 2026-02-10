@@ -9,14 +9,14 @@
             = player.birthday&.strftime("%d.%m.%Y")
         .card-body
           = image_tag player.jpg, class: 'profile', height: '50%'
-          h5.card-title.text-center        = player.code
+          h5.card-title.text-center        = player.id
           .card-text.text-center.text-dark = player.lastname.present?   ? player.lastname   : '-'
           .card-text.text-center.text-dark = player.name.present?       ? player.name       : '-'
           .card-text.text-center.text-dark = player.middlename.present? ? player.middlename : '-'
           .card-text.text-center.text-dark = current_player ? player.text_phone : player.text_xxx_phone
           .icon-block.text-center
             a href="#"
-              i = player.code
+              i = player.id
             a href="#"
               i &#9917;
             a href="#"

@@ -2,7 +2,7 @@
 
 class PlayersController < ApplicationController
   def index
-    @players = Player.eager_load(:goals).sort_by(&:code)
+    @players = Player.eager_load(:goals).sort_by(&:id)
   end
 
   def show

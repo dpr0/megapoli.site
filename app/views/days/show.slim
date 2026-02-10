@@ -24,7 +24,8 @@ section id="parallax-#{@day.season.championship.code}"
               th.text-center Поражение
               th.text-center Голов
               th.text-center points per game
-              th.text-center elo
+              th.text-center before elo
+              th.text-center after elo
               th.text-center players
             - @main_table.sort_by { |x| x[:ppg] }.reverse.each do |table|
               - next if table[:games_count].zero?
@@ -60,17 +61,18 @@ section id="parallax-#{@day.season.championship.code}"
                             | &nbsp;
                 td.text-center = table[:goals]
                 td.text-center = table[:ppg]
-                td.text-center = table[:elo]
+                td.text-center = table[:before_elo]
+                td.text-center = table[:after_elo]
                 td.text-center
                   - table[:day_players].sort_by(&:elo).reverse.each do |day_player|
                     - player = @players.find { |p| p[:id] == day_player.player_id }
                     div
                       = link_to "#{day_player.elo.to_i} #{player.full_name} ", player_path(player), class: 'has-text-white'
-                      - if @player_goals[player.code]
-                        - @player_goals[player.code].times do
+                      - if @player_goals[player.id]
+                        - @player_goals[player.id].times do
                           | ⚽️
-                      - if @player_assists[player.code]
-                        - @player_assists[player.code].times do
+                      - if @player_assists[player.id]
+                        - @player_assists[player.id].times do
                           | 🦶
 
 

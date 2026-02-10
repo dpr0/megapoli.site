@@ -70,7 +70,7 @@ class Player < ApplicationRecord
   end
 
   def jpg
-    "players/#{photo_nums.include?(code) ? code : 'anonim'}.jpg"
+    "players/#{photo_nums.include?(id) ? id : 'anonim'}.jpg"
   end
 
   def print_stat

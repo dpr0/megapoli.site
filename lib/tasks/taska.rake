@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 task :delete_season, [:id] => [:environment] do |_, args|
-  season = Season.find args[:id]
-  days = season.days
-  days.each { |day| day.games.each(&:delete) }
-  days.each(&:delete)
-  DayPlayer.where(season: season).each(&:delete)
-  Goal.where(season: season).each(&:delete)
+  s = Season.find args[:id]
+  days = s.days
+  days.each { |day| day.games.delete_all }
+  days.delete_all
+  DayPlayer.where(season: s).delete_all
+  Goal.where(season: s).delete_all
 
   load 'db/seeds/megapolis7/20260121.rb'
   load 'db/seeds/megapolis7/20260126.rb'

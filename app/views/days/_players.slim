@@ -19,7 +19,7 @@
     td.text-right = goals.size
     td.text-right = assists.size
     td.text-right
-      - if dp
+      - if dp&.days
         = ((goals.size.to_f / dp.days * 100).to_i / 100.0).to_s.ljust(4, '0')
         span
           | (
