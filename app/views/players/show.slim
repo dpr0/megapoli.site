@@ -17,11 +17,15 @@ section#parallax-football
                 label.label Номер
                 .control
                   = text_field_tag '', @player.code, class: 'input is-medium', disabled: true
-              - @player.day_players.where(season_id: Season.where(active: true)).each do |stat|
-                .field
-                  label.label = "ELO: (#{stat.season_id})"
-                  .control
-                    = text_field_tag '', stat.elo.to_i, class: 'input is-medium', disabled: true
+              - stat = @player.day_players.last
+              .field
+                label.label = "ELO: (#{stat.season_id})"
+                .control
+                  = text_field_tag '', @player.elo.to_i, class: 'input is-medium', disabled: true
+              .field
+                label.label = "Last ELO: (#{stat.season_id})"
+                .control
+                  = text_field_tag '', stat.elo.to_i, class: 'input is-medium', disabled: true
               .field
                 label.label ФИО
                 .control
@@ -48,6 +52,7 @@ section#parallax-computers
   .hero-body
     .container
       - @player.day_players.group_by(&:season_id).sort.reverse.each do |season_id, rates|
+        - rates = rates.sort_by(&:id)
         / - stat = @stat[season_id]
         / - next unless stat
         .columns.is-mobile
@@ -67,5 +72,5 @@ section#parallax-computers
         .columns.is-mobile
           .column.is-12
             - min, max = [800, 2000]
-            - min, max = [0, 1200] if season_id >= 8
-            = area_chart rates.map { |dp| [dp.day_id, dp.new_elo.to_i] }, width: "93%", min: min, max: max, xmin: rates.first.day_id, download: {background: "#ffffff"}, dataset: {borderWidth: 3}
+            - min, max = [400, 1000] if season_id >= 8
+            = area_chart rates.map { |dp| [dp.day_id, dp.elo.to_i] } + [[rates.last.day_id+1, rates.last.new_elo.to_i]], width: "93%", min: min, max: max, xmin: rates.first.day_id, download: {background: "#ffffff"}, dataset: {borderWidth: 3}
