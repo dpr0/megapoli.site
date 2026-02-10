@@ -73,4 +73,6 @@ section#parallax-computers
           .column.is-12
             - min, max = [800, 2000]
             - min, max = [400, 1000] if season_id >= 8
-            = area_chart rates.map { |dp| [dp.day_id, dp.elo.to_i] } + [[rates.last.day_id+1, rates.last.new_elo.to_i]], width: "93%", min: min, max: max, xmin: rates.first.day_id, download: {background: "#ffffff"}, dataset: {borderWidth: 3}
+            - array = rates.map { |dp| [dp.day_id, dp.elo.to_i] }
+            - array = array + [[rates.last.day_id+1, rates.last.new_elo.to_i]] if season_id >= 8
+            = area_chart array, width: "93%", min: min, max: max, xmin: rates.first.day_id, download: {background: "#ffffff"}, dataset: {borderWidth: 3}
