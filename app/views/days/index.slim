@@ -83,8 +83,8 @@ section#parallax-computers
               tr.has-text-white
                 th
                 th Игрок
-                th Start ELO
-                th = link_to 'New ELO',  sport_championship_season_days_path(sort: :elo)
+                th = link_to 'Start ELO', sport_championship_season_days_path(sort: :elo)
+                th = link_to 'New ELO', sport_championship_season_days_path(sort: :new_elo)
                 th
                   div = link_to 'Дней', sport_championship_season_days_path(sort: :days)
                   - @teams.each do |team|

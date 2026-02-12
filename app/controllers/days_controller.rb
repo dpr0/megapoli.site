@@ -15,10 +15,41 @@ class DaysController < ApplicationController
     @day_players = DayPlayer.where(season_id: @season.id).to_a
     @days_day_players = @day_players.group_by(&:day_id)
     @teams = Team.all_cached.select { |t| @day_players.map(&:team_id).uniq.include? t.id }.sort
-    @goals = Goal.where(season_id: @season.id).order(id: :desc)
+    @goals = Goal.where(season_id: @season.id).order(id: :desc).to_a
     @games = Game.where(day_id: @days.ids).to_a
     @sport = Sport.cached_by_id[@championship.sport_id]
-    @players = Player.where.not(elo: nil).order(elo: :desc)
+    @players = Player.where.not(elo: nil).order(elo: :desc).to_a
+    @player_dps = []
+    @day_players.group_by(&:player_id).each do |player_id, day_players|
+      player = @players.find { |p| p.id == player_id }
+      dp = day_players.max_by(&:day_id)
+      goals = @goals.count { |x| x.player_id == player.id }
+      assists = @goals.count { |x| x.assist_player_id == player.id }
+      @player_dps << {
+        id: player.id,
+        short_name: player.short_name,
+        elo: player.elo,
+        new_elo: dp&.new_elo&.to_i,
+        team_id_counts: day_players.map(&:team_id).tally,
+        games: day_players.sum(&:games),
+        goals: goals,
+        assists: assists,
+        days: day_players.size,
+      }
+    end
+    @player_dps.sort_by! do |x|
+      case params[:sort]
+      when 'goals_day_count' then (x[:goals].to_f / x[:days] * 100).to_i / 100.0
+      when 'assists_day_count' then (x[:assists].to_f / x[:days] * 100).to_i / 100.0
+      when 'goals_count' then x[:goals]
+      when 'assists_count' then x[:assists]
+      when 'games' then x[:games]
+      when 'days' then  x[:days]
+      when 'elo' then x[:elo]
+      when 'new_elo' then x[:new_elo]
+      else x[:new_elo]
+      end
+    end.reverse!
   end
 
   def show
