@@ -39,7 +39,7 @@ class DaysController < ApplicationController
     end
     @player_dps.sort_by! do |x|
       case params[:sort]
-      when 'goals_assists_count' then ((x[:goals].to_f + x[:goals].to_f) / x[:days] * 100).to_i / 100.0
+      when 'goals_assists_count' then ((x[:goals].to_f + x[:assists].to_f) / x[:days] * 100).to_i / 100.0
       when 'goals_day_count' then (x[:goals].to_f / x[:days] * 100).to_i / 100.0
       when 'assists_day_count' then (x[:assists].to_f / x[:days] * 100).to_i / 100.0
       when 'goals_count' then x[:goals]
