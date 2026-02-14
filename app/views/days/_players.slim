@@ -21,3 +21,6 @@
           | (
           = ((player[:assists].to_f / player[:days] * 100).to_i / 100.0).to_s.ljust(4, '0')
           | )
+    td.text-right
+      - if player[:days]
+        = (((player[:goals].to_f+player[:assists].to_f) / player[:days] * 100).to_i / 100.0).to_s.ljust(4, '0')

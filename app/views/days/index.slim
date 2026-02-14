@@ -100,6 +100,10 @@ section#parallax-computers
                   = link_to '🦶', sport_championship_season_days_path(sort: :assists_day_count)
                   div
                     sup = ' в день '
+                th
+                  = link_to '⚽+🦶', sport_championship_season_days_path(sort: :goals_assists_count)
+                  div
+                    sup = ' в день '
             tbody
               = render 'players'
               / tr

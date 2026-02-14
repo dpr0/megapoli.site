@@ -18,7 +18,7 @@ class DaysController < ApplicationController
     @goals = Goal.where(season_id: @season.id).order(id: :desc).to_a
     @games = Game.where(day_id: @days.ids).to_a
     @sport = Sport.cached_by_id[@championship.sport_id]
-    @players = Player.where.not(elo: nil).order(elo: :desc).to_a
+    @players = Player.all.order(elo: :desc).to_a
     @player_dps = []
     @day_players.group_by(&:player_id).each do |player_id, day_players|
       player = @players.find { |p| p.id == player_id }
@@ -39,6 +39,7 @@ class DaysController < ApplicationController
     end
     @player_dps.sort_by! do |x|
       case params[:sort]
+      when 'goals_assists_count' then ((x[:goals].to_f + x[:goals].to_f) / x[:days] * 100).to_i / 100.0
       when 'goals_day_count' then (x[:goals].to_f / x[:days] * 100).to_i / 100.0
       when 'assists_day_count' then (x[:assists].to_f / x[:days] * 100).to_i / 100.0
       when 'goals_count' then x[:goals]
@@ -122,6 +123,6 @@ class DaysController < ApplicationController
   end
 
   def ordering
-    params[:sort].in?(%w[new_elo days games win draw lose goals_count assists_count goals_day_count assists_day_count]) ? params[:sort] : 'new_elo' # 'goals_day_count'
+    params[:sort].in?(%w[new_elo days games win draw lose goals_count assists_count goals_day_count assists_day_count goals_assists_count]) ? params[:sort] : 'new_elo' # 'goals_day_count'
   end
 end
