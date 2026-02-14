@@ -22,6 +22,7 @@ gem 'slim-rails'
 gem 'stimulus-rails'
 gem 'telegram-bot'
 gem 'turbo-rails'
+gem 'rest-client'
 gem 'concurrent-ruby', '1.3.4'
 gem 'whenever', require: false
 

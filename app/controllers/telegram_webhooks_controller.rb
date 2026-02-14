@@ -1,5 +1,5 @@
 class TelegramWebhooksController < Telegram::Bot::UpdatesController
-  include Telegram::Bot::UpdatesController::MessageContext
+  # include Telegram::Bot::UpdatesController::MessageContext
 
   # def start!(*)
   #   respond_with :message, { text: t('.start.content') }
@@ -21,6 +21,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   #   }
   # end
 
+  # /telegram/7MnLUI8k13BLJx1ZSO89DjsOnXA
   def message(message)
     resp = MessageService.new(message).start
     respond_with resp[:type], resp[:data] if resp[:type]
