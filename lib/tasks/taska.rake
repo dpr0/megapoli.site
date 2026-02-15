@@ -41,3 +41,17 @@ task :sort_commands, [:id] => [:environment] do |_, args|
   end
   puts ar2
 end
+
+task :calc_elo, [:id] => [:environment] do |_, args|
+  players = Player.where.not(elo: nil).order(elo: :desc)
+  {
+    1 => [18, 13, 4, 103, 97],
+    2 => [93, 54, 105, 10, 14],
+    3 => [6, 21, 7, 42],
+    4 => [1, 19, 50, 3, 58],
+  }.each do |team_id, players_ids|
+    t1 = players.where(id: players_ids)
+    puts "Команда #{team_id} - ELO: #{t1.sum { |player| player.elo } / t1.size}"
+    t1.each { |player| puts "- #{player.lastname} #{player.name} (#{player.elo})" }
+  end
+end

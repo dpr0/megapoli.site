@@ -10,7 +10,7 @@
     .direct-chat-text
       - if message.reply_message_id
         span.direct-chat-msg.direct-chat-text.text-secondary
-          = @messages.find { |m| m.message_id == message.reply_message_id }&.text
+          = @messages&.find { |m| m.message_id == message.reply_message_id }&.text
       - if message.message_file.attached?
         = image_tag message.message_file, width: 80
         br
