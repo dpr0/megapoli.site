@@ -15,15 +15,19 @@ task :delete_season, [:id] => [:environment] do |_, args|
   load 'db/seeds/megapolis7/20260204.rb'
   load 'db/seeds/megapolis7/20260209.rb'
   load 'db/seeds/megapolis7/20260211.rb'
+  load 'db/seeds/megapolis7/20260216.rb'
+  load 'db/seeds/megapolis7/20260218.rb'
+  load 'db/seeds/megapolis7/20260223.rb'
 end
 
 task :sort_commands, [:id] => [:environment] do |_, args|
   players = Player.where.not(elo: nil).order(elo: :desc)
   players = players.where(id: args[:id].split(' ')) if args[:id]
   teams_count = 4
+  day_players = DayPlayer.where(season_id: 8).group_by(&:player_id)
   teams = Array.new(teams_count) { [] }
   players.each do |x|
-    x.elo = x.day_players.where(season_id: 8).order(id: :desc).first.new_elo
+    x.elo = day_players[x.id].max_by(&:day_id).new_elo
   rescue
   end
   players.sort_by { |x| x.elo }.reverse.each_with_index do |player, index|
@@ -45,10 +49,10 @@ end
 task :calc_elo, [:id] => [:environment] do |_, args|
   players = Player.where.not(elo: nil).order(elo: :desc)
   {
-    1 => [18, 13, 4, 103, 97],
-    2 => [93, 54, 105, 10, 14],
-    3 => [6, 21, 7, 42],
-    4 => [1, 19, 50, 3, 58],
+    1 => [18, 13, 21, 103, 108, 97, 5],
+    2 => [93, 104, 19, 50, 3, 99, 58],
+    3 => [6, 54, 105, 4, 60, 109, 100],
+    4 => [95, 1, 7, 110, 62, 24, 44],
   }.each do |team_id, players_ids|
     t1 = players.where(id: players_ids)
     puts "Команда #{team_id} - ELO: #{t1.sum { |player| player.elo } / t1.size}"
