@@ -92,6 +92,7 @@ section#parallax-computers
                       = image_tag "colors/#{team.code}.png", size: "15x20"
                       | &nbsp
                 th = link_to 'Игр',  sport_championship_season_days_path(sort: :games)
+                th = link_to 'Игр/в день',  sport_championship_season_days_path(sort: :games_days)
                 th = link_to '⚽️', sport_championship_season_days_path(sort: :goals_count)
                 th = link_to '🦶', sport_championship_season_days_path(sort: :assists_count)
                 th

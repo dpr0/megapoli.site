@@ -35,20 +35,22 @@ class DaysController < ApplicationController
         goals: goals,
         assists: assists,
         days: day_players.size,
+        games_days: (day_players.sum(&:games).to_f / day_players.size * 100).to_i / 100.0
       }
     end
     @player_dps.sort_by! do |x|
       case params[:sort]
       when 'goals_assists_count' then ((x[:goals].to_f + x[:assists].to_f) / x[:days] * 100).to_i / 100.0
-      when 'goals_day_count' then (x[:goals].to_f / x[:days] * 100).to_i / 100.0
-      when 'assists_day_count' then (x[:assists].to_f / x[:days] * 100).to_i / 100.0
-      when 'goals_count' then x[:goals]
-      when 'assists_count' then x[:assists]
-      when 'games' then x[:games]
-      when 'days' then  x[:days]
-      when 'elo' then x[:elo]
-      when 'new_elo' then x[:new_elo]
-      else x[:new_elo]
+      when 'goals_day_count'     then (x[:goals].to_f / x[:days] * 100).to_i / 100.0
+      when 'assists_day_count'   then (x[:assists].to_f / x[:days] * 100).to_i / 100.0
+      when 'goals_count'         then x[:goals]
+      when 'assists_count'       then x[:assists]
+      when 'games'               then x[:games]
+      when 'games_days'          then (x[:games].to_f / x[:days] * 100).to_i / 100.0
+      when 'days'                then x[:days]
+      when 'elo'                 then x[:elo]
+      when 'new_elo'             then x[:new_elo]
+      else                            x[:new_elo]
       end
     end.reverse!
   end
