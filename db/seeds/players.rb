@@ -87,8 +87,8 @@ players = [
   { code: 107, uid: '',          lastname: '',            name: 'новенький', middlename: '',               birthday: '',           phone: '',             role_id: 3, lfl: '' },
   { code: 108, uid: '',          lastname: 'сын',         name: 'Тиграна',   middlename: '',               birthday: '',           phone: '',             role_id: 3, lfl: '' },
   { code: 109, uid: '',          lastname: 'Коло',        name: 'Ахмад',     middlename: 'Данджума',       birthday: '13.12.2000', phone: '+79003068859', role_id: 3, lfl: '' },
-  { code: 110, uid: '',          lastname: 'Саргсян',     name: 'Давид',     middlename: 'Тигранович',     birthday: '2009-11-18', phone: '+79629310999', role_id: 3, lfl: '' },
-  { code: 111, uid: '',          lastname: 'Удалов',      name: 'Сергей',    middlename: 'Олегович',       birthday: '1985-05-05', phone: '',             role_id: 3, lfl: '' },
+  { code: 110, uid: '',          lastname: 'Саргсян',     name: 'Давид',     middlename: 'Тигранович',     birthday: '18.11.2009', phone: '+79629310999', role_id: 3, lfl: '' },
+  { code: 111, uid: '',          lastname: 'Удалов',      name: 'Сергей',    middlename: 'Олегович',       birthday: '05.05.1985', phone: '',             role_id: 3, lfl: '' },
   { code: 112, uid: '',          lastname: 'Аканду',      name: 'Дэниэл',    middlename: '',               birthday: '11.04.1992', phone: '',             role_id: 3, lfl: '' },
   # { code: , uid: '',          lastname: '',  name: '',       middlename: '',               birthday: '04.12.1994',      phone: '+79645732923', role_id: 3, lfl: '' },
 ]

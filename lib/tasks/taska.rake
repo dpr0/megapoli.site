@@ -18,27 +18,46 @@ task :delete_season, [:id] => [:environment] do |_, args|
   load 'db/seeds/megapolis7/20260216.rb'
   load 'db/seeds/megapolis7/20260218.rb'
   load 'db/seeds/megapolis7/20260223.rb'
+  load 'db/seeds/megapolis7/20260225.rb'
+  load 'db/seeds/megapolis7/20260302.rb'
+  load 'db/seeds/megapolis7/20260304.rb'
 end
 
 task :sort_commands, [:id] => [:environment] do |_, args|
   players = Player.where.not(elo: nil).order(elo: :desc)
+
   players = players.where(id: args[:id].split(' ')) if args[:id]
   teams_count = 4
+  players_per_team = 6
+
   day_players = DayPlayer.where(season_id: 8).group_by(&:player_id)
-  teams = Array.new(teams_count) { [] }
+  teams2 = Array.new(teams_count) { [] }
+  teams = Array.new(teams_count) { { players: [], total_elo: 0 } }
+
   players.each do |x|
     x.elo = day_players[x.id].max_by(&:day_id).new_elo
-  rescue
+  rescue Exception => e
+  end
+  avg = players.sum(&:elo)/players.size
+  puts "Average ELO: #{avg}"
+  sorted_players = players.sort_by { |player| -player[:elo] }
+  sorted_players.each_with_index do |player, index|
+    team_index = index / teams_count
+    team_index = index % teams_count if team_index.even?
+    team_index = teams_count - 1 - (index % teams_count) if team_index.odd?
+    teams[team_index][:players] << player[:id]
+    teams[team_index][:total_elo] += player[:elo]
   end
   players.sort_by { |x| x.elo }.reverse.each_with_index do |player, index|
     team_index = index / teams_count
     idx = team_index.even? ? (index % teams_count) : (teams_count - 1 - (index % teams_count))
     # idx = index % teams_count
-    teams[idx] << player
+    teams2[idx] << player
   end
+  # byebug
 
   ar2 = []
-  teams.each_with_index do |t1, i|
+  teams2.each_with_index do |t1, i|
     puts "Команда #{i + 1} - ELO: #{t1.sum { |player| player.elo } / t1.size}"
     ar2 << "#{i+1} => [#{t1.map { |pl| pl.id }.join(', ')}],"
     t1.each { |player| puts "- #{player.lastname} #{player.name} (#{player.elo})" }
@@ -47,14 +66,19 @@ task :sort_commands, [:id] => [:environment] do |_, args|
 end
 
 task :calc_elo, [:id] => [:environment] do |_, args|
-  players = Player.where.not(elo: nil).order(elo: :desc)
+  players = Player.where.not(elo: nil).order(elo: :desc).to_a
+  day_players = DayPlayer.where(season_id: 8).group_by(&:player_id)
+  players.each do |x|
+    x.elo = day_players[x.id].max_by(&:day_id).new_elo
+  rescue Exception => e
+  end
   {
-    1 => [18, 13, 21, 103, 108, 97, 5],
-    2 => [93, 104, 19, 50, 3, 99, 58],
-    3 => [6, 54, 105, 4, 60, 109, 100],
-    4 => [95, 1, 7, 110, 62, 24, 44],
+    1 => [18, 2, 5, 6, 14, 29, 96, 99],
+    2 => [4, 13, 3, 10, 12, 1, 7, 24, 58, 60, 62],
+    3 => [21, 19, 17, 42, 48, 50, 93, 95],
+    4 => [54, 9, 97, 100, 102, 103, 44],
   }.each do |team_id, players_ids|
-    t1 = players.where(id: players_ids)
+    t1 = players.select { |x| players_ids.include? x.id }.sort_by { |player| -player[:elo] }
     puts "Команда #{team_id} - ELO: #{t1.sum { |player| player.elo } / t1.size}"
     t1.each { |player| puts "- #{player.lastname} #{player.name} (#{player.elo})" }
   end
