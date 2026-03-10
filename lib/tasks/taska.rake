@@ -1,5 +1,13 @@
 # frozen_string_literal: true
 
+task :delete_day, [:id] => [:environment] do |_, args|
+  day = Day.find_by(id: args[:id])
+  day.games.each { |game| game.goals.delete_all }
+  day.day_players.delete_all
+  day.games.delete_all
+  day.destroy
+end
+
 task :delete_season, [:id] => [:environment] do |_, args|
   s = Season.find args[:id]
   days = s.days
@@ -21,6 +29,7 @@ task :delete_season, [:id] => [:environment] do |_, args|
   load 'db/seeds/megapolis7/20260225.rb'
   load 'db/seeds/megapolis7/20260302.rb'
   load 'db/seeds/megapolis7/20260304.rb'
+  load 'db/seeds/megapolis7/20260309.rb'
 end
 
 task :sort_commands, [:id] => [:environment] do |_, args|
@@ -73,10 +82,10 @@ task :calc_elo, [:id] => [:environment] do |_, args|
   rescue Exception => e
   end
   {
-    1 => [18, 2, 5, 6, 14, 29, 96, 99],
-    2 => [4, 13, 3, 10, 12, 1, 7, 24, 58, 60, 62],
-    3 => [21, 19, 17, 42, 48, 50, 93, 95],
-    4 => [54, 9, 97, 100, 102, 103, 44],
+    1 => [94, 2, 5, 50, 1, 29],
+    2 => [13, 105, 110, 58, 7, 10],
+    3 => [48, 93, 42, 109, 14, 21],
+    4 => [104, 54, 12, 62, 19, 44],
   }.each do |team_id, players_ids|
     t1 = players.select { |x| players_ids.include? x.id }.sort_by { |player| -player[:elo] }
     puts "Команда #{team_id} - ELO: #{t1.sum { |player| player.elo } / t1.size}"
