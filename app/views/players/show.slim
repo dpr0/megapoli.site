@@ -23,7 +23,7 @@ section#parallax-football
                 .control
                   = text_field_tag '', @player.elo.to_i, class: 'input is-medium', disabled: true
               .field
-                label.label = "Last ELO: (#{stat.season_id})"
+                label.label = "Last ELO: (Сезон #{stat.season_id})"
                 .control
                   = text_field_tag '', stat.elo.to_i, class: 'input is-medium', disabled: true
               .field

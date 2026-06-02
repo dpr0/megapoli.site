@@ -8,7 +8,7 @@ players = [
   { code: 5,  uid: '192551204',  lastname: 'Абдулаев',    name: 'Алихан',    middlename: 'Лечиевич',       birthday: '01.09.1966', phone: '+79257720113', role_id: 3, lfl: '132939' }, # 878850688
   { code: 6,  uid: '',           lastname: 'Саргсян',     name: 'Тигран',    middlename: 'Арамович',       birthday: '04.02.1980', phone: '+79859983970', role_id: 3, lfl: '' },
   { code: 7,  uid: '271409321',  lastname: 'Никурадзе',   name: 'Сандро',    middlename: 'Нодарович',      birthday: '07.03.1988', phone: '+79263947752', role_id: 3, lfl: '' },
-  { code: 8,  uid: '407496802',  lastname: 'Пятницкий',   name: 'Дмитрий',   middlename: 'Борисович',      birthday: '07.07.1990', phone: '+79851857742', role_id: 3, lfl: '50202' },
+  { code: 8,  uid: '407496802',  lastname: 'Пятницкий',   name: 'Дмитрий',   middlename: 'Борисович',      birthday: '07.07.1990', phone: '+/', role_id: 3, lfl: '50202' },
   { code: 9,  uid: '687701548',  lastname: 'Федунов',     name: 'Владимир',  middlename: 'Владимирович',   birthday: '09.04.1972', phone: '+79250109502', role_id: 3, lfl: '' },
   { code: 10, uid: '',           lastname: 'Притулин',    name: 'Виталий',   middlename: 'Владимирович',   birthday: '01.02.1964', phone: '+79265033756', role_id: 3, lfl: '', provider: 'phone' },
   { code: 11, uid: '548364717',  lastname: 'Бобылёв',     name: 'Александр', middlename: 'Александрович',  birthday: '01.10.1983', phone: '+79154379667', role_id: 3, lfl: '149676' },
@@ -52,7 +52,7 @@ players = [
   { code: 49, uid: '857168798',  lastname: 'Захаров',     name: 'Егор',      middlename: '',               birthday: '',           phone: nil,            role_id: 3, lfl: '' },
   { code: 50, uid: '1377376857', lastname: 'Красочкин',   name: 'Михаил',    middlename: 'Александрович',  birthday: '24.07.1987', phone: '+79160519685', role_id: 3, lfl: '' },
   { code: 51, uid: '',           lastname: 'Ормоцадзе',   name: 'Гиорги',    middlename: '',               birthday: '11.06.1995', phone: '+79998072915', role_id: 3, lfl: '' },
-  { code: 52, uid: '',           lastname: 'Черных',      name: 'Дмитрий',   middlename: 'Евгеньевич',     birthday: '15.02.1995', phone: '+79152496965', role_id: 3, lfl: '64022' },
+  { code: 52, uid: '1216885996', lastname: 'Черных',      name: 'Дмитрий',   middlename: 'Евгеньевич',     birthday: '15.02.1995', phone: '+79152496965', role_id: 3, lfl: '64022' },
   { code: 53, uid: '1619799992', lastname: 'Хайруллаев',  name: 'Асирбек',   middlename: 'Собир угли',     birthday: '01.01.2001', phone: '+79917277092', role_id: 3, lfl: '' },
   { code: 54, uid: '',           lastname: 'Тарасов',     name: 'Александр', middlename: 'Николаевич',     birthday: '26.04.1976', phone: '+79026164995', role_id: 3, lfl: '' },
   { code: 55, uid: '',           lastname: 'Хушвактов',   name: 'Рустам',    middlename: 'Гайрат угли',    birthday: '18.08.2001', phone: '+79773553088', role_id: 3, lfl: '' },
@@ -61,7 +61,7 @@ players = [
   { code: 58, uid: '',           lastname: 'Кишинев',     name: 'Роман',     middlename: 'Александрович',  birthday: '20.07.1983', phone: '+79104576689', role_id: 3, lfl: '' },
   { code: 59, uid: '',           lastname: 'Шарапов',     name: 'Санджар',   middlename: 'Алимович',       birthday: '27.10.1989', phone: '+79154772891', role_id: 3, lfl: '' },
   { code: 60, uid: '',           lastname: 'Ярошевич',    name: 'Алексей',   middlename: 'Леонидович',     birthday: '15.08.1983', phone: '+79031296150', role_id: 3, lfl: '' },
-  { code: 61, uid: '',           lastname: 'Судаков',     name: 'Николай',   middlename: 'Алексеевич',     birthday: '24.04.1999', phone: '+79095242503', role_id: 3, lfl: '' },
+  { code: 61, uid: '906401749',  lastname: 'Судаков',     name: 'Николай',   middlename: 'Алексеевич',     birthday: '24.04.1999', phone: '+79095242503', role_id: 3, lfl: '' },
   { code: 62, uid: '',           lastname: 'Костенко',    name: 'Владимир',  middlename: 'Вячеславович',   birthday: '03.02.1987', phone: '+79288250105', role_id: 3, lfl: '' },
   { code: 63, uid: '',           lastname: 'Токаев',      name: 'Валерий',   middlename: 'Казбекович',     birthday: '12.07.1991', phone: '+79267227431', role_id: 3, lfl: '' },
   { code: 64, uid: '',           lastname: 'Кузнецов',    name: 'Иван',      middlename: 'Юрьевич',        birthday: '22.08.1990', phone: '+79776020336', role_id: 3, lfl: '' },
@@ -88,16 +88,12 @@ players = [
   { code: 108, uid: '',          lastname: 'сын',         name: 'Тиграна',   middlename: '',               birthday: '',           phone: '',             role_id: 3, lfl: '' },
   { code: 109, uid: '',          lastname: 'Коло',        name: 'Ахмад',     middlename: 'Данджума',       birthday: '13.12.2000', phone: '+79003068859', role_id: 3, lfl: '' },
   { code: 110, uid: '',          lastname: 'Саргсян',     name: 'Давид',     middlename: 'Тигранович',     birthday: '18.11.2009', phone: '+79629310999', role_id: 3, lfl: '' },
-  { code: 111, uid: '',          lastname: 'Удалов',      name: 'Сергей',    middlename: 'Олегович',       birthday: '05.05.1985', phone: '',             role_id: 3, lfl: '' },
+  { code: 111, uid: '',          lastname: 'Удалов',      name: 'Сергей',    middlename: 'Олегович',       birthday: '05.05.1985', phone: '+79166272658', role_id: 3, lfl: '' },
   { code: 112, uid: '',          lastname: 'Аканду',      name: 'Дэниэл',    middlename: '',               birthday: '11.04.1992', phone: '',             role_id: 3, lfl: '' },
   # { code: , uid: '',          lastname: '',  name: '',       middlename: '',               birthday: '04.12.1994',      phone: '+79645732923', role_id: 3, lfl: '' },
 ]
 players.each { |player| print "#{Player.create(player).id}." }
 puts '!'
-
-# 171092027
-# 1216885996
-# 906401749
 
 #   { code: 69, uid: '',           lastname: 'Шеджем',      name: 'Жираслан',  middlename: '',               birthday: '',           phone: '+79996672979', role_id: 3, lfl: '' },
 #   { code: 70, uid: '',           lastname: 'Харитонов',   name: 'Станислав', middlename: '',               birthday: '',           phone: '+79771036410', role_id: 3, lfl: '' },

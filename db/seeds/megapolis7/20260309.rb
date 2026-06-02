@@ -14,7 +14,7 @@ ActiveRecord::Base.transaction do
   z = [s.id, dps]
   g.create(team_left_id: 1, team_right_id: 7).add_goals(z, '1 1 94,7 104')
   g.create(team_left_id: 2, team_right_id: 3).add_goals(z, '2 58 104')
-  g.create(team_left_id: 2, team_right_id: 1).add_goals(z, '2 113 58,2 113 58,1 1 2')
+  g.create(team_left_id: 2, team_right_id: 1).add_goals(z, '2 113 58,2 58 113,1 1 2')
   g.create(team_left_id: 2, team_right_id: 7).add_goals(z, '2 13 7,2 10 13')
   g.create(team_left_id: 2, team_right_id: 3).add_goals(z, '3 21,3 21 105')
   g.create(team_left_id: 1, team_right_id: 3).add_goals(z, '')
