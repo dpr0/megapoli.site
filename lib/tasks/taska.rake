@@ -43,6 +43,12 @@ task :delete_season, [:id] => [:environment] do |_, args|
   load 'db/seeds/megapolis7/20260513.rb'
   load 'db/seeds/megapolis7/20260518.rb'
   load 'db/seeds/megapolis7/20260601.rb'
+  load 'db/seeds/megapolis7/20260603.rb'
+  load 'db/seeds/megapolis7/20260622.rb'
+  load 'db/seeds/megapolis7/20260629.rb'
+  load 'db/seeds/megapolis7/20260701.rb'
+  load 'db/seeds/megapolis7/20260706.rb'
+  load 'db/seeds/megapolis7/20260708.rb'
 end
 
 task :sort_commands, [:id] => [:environment] do |_, args|
@@ -95,18 +101,49 @@ task :calc_elo, [:id] => [:environment] do |_, args|
   rescue Exception => e
   end
   {
-    1 => [2, 5, 94, 18, 29, 14, 115],
-    2 => [13, 4, 6, 110, 7, 58, 10],
-    3 => [21, 19, 93, 95, 44, 50],
-    4 => [109, 104, 112, 54, 60, 62],
-
-    # 1 => [18, 19, 93, 62, 115, 112, 44],
-    # 2 => [13, 110, 95, 5, 60, 50, 14],
-    # 3 => [54, 4, 6, 94, 58, 7],
-    # 4 => [2, 29, 104, 10, 21, 109],
+    3 => [93, 19, 21, 95, 44, 116, 103],
+    1 => [2, 13, 29, 5, 6, 110, 9],
+    2 => [18, 114, 10, 4, 105, 58, 14],
+    4 => [104, 1, 115, 7, 54, 12, 97],
   }.each do |team_id, players_ids|
     t1 = players.select { |x| players_ids.include? x.id }.sort_by { |player| -player[:elo] }
     puts "Команда #{team_id} - ELO: #{t1.sum { |player| player.elo } / t1.size}"
     t1.each { |player| puts "#{player.id} - #{player.lastname} #{player.name} (#{player.elo})" }
+  end
+end
+
+task :make_str, [:id] => [:environment] do |_, args|
+"1:7 0-1
+4:7 0-0
+1:3 2-0
+1:4 2-1
+1:7 0-2
+3:7 0-1
+4:7 1-2
+1:7 1-2
+3:7 0-2
+4:7 0-2
+1:7 0-2
+3:7 2-1
+3:4 0-1
+1:4 2-0
+1:7 2-0
+1:3 0-1
+4:3 0-2
+7:3 0-2
+1:3 0-1
+4:3 1-2
+7:3 0-2
+1:3 2-0
+4:3 2-0
+4:7 2-1".split("\n").each do |x|
+    str = x.split(' ')
+    t = str[0].split(':')
+    goals = []
+    str[1].split('-').each_with_index do |g, i|
+      next if g == '0'
+      g.to_i.times { goals << "#{t[i]} 0" }
+    end
+    puts "  g.create(team_left_id: #{t[0]}, team_right_id: #{t[1]}).add_goals(z, '#{goals.join(',')}')"
   end
 end

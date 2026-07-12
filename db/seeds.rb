@@ -6,6 +6,7 @@ Team.create(code: 'white',  name: 'Белые',      num: 3)
 Team.create(code: 'color1', name: 'Цветные1',   num: 4)
 Team.create(code: 'black',  name: 'Черные',     num: 5)
 Team.create(code: 'orange', name: 'Оранжевые',  num: 6)
+Team.create(code: 'pink',   name: 'Розовые',    num: 7)
 
 Role.create(code: 'admin',   name: 'Администратор')
 Role.create(code: 'captain', name: 'Капитан команды')
@@ -24,6 +25,7 @@ s5 =  megapolis.seasons.create(code: 'megapolis5',  name: '2022/1')
 s6 =  megapolis.seasons.create(code: 'megapolis6',  name: '2024/2')
 s6 = sbermarket.seasons.create(code: 'sbermarket1', name: '2022/1')
 s7 =  megapolis.seasons.create(code: 'megapolis7',  name: '2026/1')
+s8 =  megapolis.seasons.create(code: 'megapolis8',  name: '2026/2')
 
 Season.all.each do |season|
   puts "\n< #{season.code.capitalize}: #{season.name} > ==================================================="

@@ -65,7 +65,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_06_090000) do
     t.bigint "day_id"
     t.bigint "player_id"
     t.bigint "team_id"
-    t.float "elo", default: 1500.0
+    t.float "elo"
     t.float "new_elo"
     t.integer "days"
     t.integer "games"
@@ -198,7 +198,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_02_06_090000) do
     t.integer "win"
     t.integer "draw"
     t.integer "lose"
-    t.float "elo", default: 1500.0
+    t.float "elo"
   end
 
   create_table "teams", force: :cascade do |t|
