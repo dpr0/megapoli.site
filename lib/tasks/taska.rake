@@ -2,6 +2,7 @@
 
 task :delete_day, [:id] => [:environment] do |_, args|
   day = Day.find_by(id: args[:id])
+  # day ||= Day.last
   day.games.each { |game| game.goals.delete_all }
   day.day_players.delete_all
   day.games.delete_all
@@ -112,7 +113,7 @@ task :calc_elo, [:id] => [:environment] do |_, args|
   end
 end
 
-task :make_str, [:id] => [:environment] do |_, args|
+task :goals_to_str, [:id] => [:environment] do |_, args|
 "1:7 0-1
 4:7 0-0
 1:3 2-0
@@ -145,5 +146,65 @@ task :make_str, [:id] => [:environment] do |_, args|
       g.to_i.times { goals << "#{t[i]} 0" }
     end
     puts "  g.create(team_left_id: #{t[0]}, team_right_id: #{t[1]}).add_goals(z, '#{goals.join(',')}')"
+  end
+end
+
+task :str_to_goals, [:id] => [:environment] do |_, args|
+  array = "
+g.create(team_left_id: 1, team_right_id: 4).add_goals(z, '')
+g.create(team_left_id: 3, team_right_id: 6).add_goals(z, '')
+g.create(team_left_id: 1, team_right_id: 4).add_goals(z, '1 0,4 0')
+g.create(team_left_id: 3, team_right_id: 6).add_goals(z, '')
+g.create(team_left_id: 1, team_right_id: 4).add_goals(z, '4 0')
+g.create(team_left_id: 6, team_right_id: 4).add_goals(z, '6 0,6 0')
+g.create(team_left_id: 6, team_right_id: 3).add_goals(z, '6 0,6 0,3 0')
+g.create(team_left_id: 6, team_right_id: 1).add_goals(z, '6 0,6 0')
+g.create(team_left_id: 6, team_right_id: 4).add_goals(z, '6 0,4 0,4 0')
+g.create(team_left_id: 3, team_right_id: 4).add_goals(z, '3 0,3 0')
+g.create(team_left_id: 3, team_right_id: 1).add_goals(z, '3 0,3 0')
+g.create(team_left_id: 3, team_right_id: 6).add_goals(z, '6 0')
+g.create(team_left_id: 4, team_right_id: 6).add_goals(z, '4 0,6 0,6 0')
+g.create(team_left_id: 1, team_right_id: 6).add_goals(z, '6 0,6 0')
+g.create(team_left_id: 3, team_right_id: 6).add_goals(z, '6 0,6 0')
+g.create(team_left_id: 3, team_right_id: 4).add_goals(z, '3 0,4 0,4 0')
+g.create(team_left_id: 1, team_right_id: 4).add_goals(z, '1 0,1 0')
+g.create(team_left_id: 1, team_right_id: 6).add_goals(z, '1 0,6 0')
+g.create(team_left_id: 3, team_right_id: 4).add_goals(z, '3 0,3 0')
+g.create(team_left_id: 3, team_right_id: 6).add_goals(z, '6 0,6 0')
+g.create(team_left_id: 1, team_right_id: 6).add_goals(z, '6 0,6 0')
+g.create(team_left_id: 4, team_right_id: 6).add_goals(z, '6 0,6 0')
+g.create(team_left_id: 3, team_right_id: 6).add_goals(z, '3 0')
+g.create(team_left_id: 3, team_right_id: 1).add_goals(z, '3 0,3 0,1 0')
+g.create(team_left_id: 3, team_right_id: 4).add_goals(z, '3 0,3 0')
+
+"
+  array.split("\n").select(&:present?).each do |x|
+    teams, str2 = x.split(').add_goals(z, \'')
+    teams.sub!('g.create(team_left_id: ', '')
+    teams.sub!(', team_right_id: ', ':')
+    str2.sub!('\')', '')
+    l_id, r_id = teams.split(':')
+    count = ''
+    goals_arr = []
+    if str2 == ''
+      count = '0-0' if str2 == ''
+    else
+      goals = str2.split(',')
+
+      l_goals = 0
+      r_goals = 0
+      goals.each do |g|
+        t_id, g_id, a_id = g.split(' ')
+        if l_id == t_id
+          l_goals += 1
+        elsif r_id == t_id
+          r_goals += 1
+        end
+
+        goals_arr << "#{t_id}/#{g_id || '0'}/#{a_id || '0'}"
+      end
+      count = "#{l_goals}-#{r_goals}"
+    end
+    puts "#{teams} #{count} #{goals_arr.join(',')}"
   end
 end

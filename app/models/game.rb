@@ -33,7 +33,7 @@ class Game < ApplicationRecord
       elsif d[1].to_i > 0 || d[2].to_i > 0
         stat = dps.find { |x| x.player_id == d[1].to_i > 0 ? d[1] : d[2] }
         if stat
-          stat.elo = stat.elo + Player::K_ELO * 2
+          stat.elo = stat.elo + (Player::K_ELO * 2)
           stat.save(validate: false)
         end
       end
@@ -83,7 +83,26 @@ class Game < ApplicationRecord
   end
 
   def calc_k(rate)
-    (1000-rate) / 50.0 * 4
+    return (1000-rate) / 12.5
+
+    # case rate
+    # when 1000..2000 then 1
+    # when 950..999 then 4
+    # when 900..949 then 7
+    # when 850..899 then 10
+    # when 800..849 then 13
+    # when 750..799 then 16
+    # when 700..749 then 19
+    # when 650..699 then 22
+    # when 600..649 then 25
+    # when 550..599 then 28
+    # when 500..549 then 31
+    # when 450..499 then 34
+    # when 400..449 then 37
+    # when 350..399 then 40
+    # when 300..349 then 43
+    # else 46
+    # end
   end
 
   def calc_g(a, b)

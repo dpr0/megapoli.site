@@ -14,7 +14,7 @@ class Season < ApplicationRecord
   end
 
   def update_stats!(dps, games)
-    dps.each do |dp|
+    arr = dps.map do |dp|
       win1, win2, win3, draw, lose, day_games = Array.new(6, 0)
       stat = StatService.new(dp.team_id, games)
       day_games += stat.day_games
@@ -23,13 +23,15 @@ class Season < ApplicationRecord
       win1 += stat.win1
       draw += stat.draw
       lose += stat.lose
-      dp.days = dps.size
-      dp.games = day_games
-      dp.win = win3 + win2 + win1
-      dp.draw = draw
-      dp.lose = lose
-      dp.save
+      # dp.days = dps.size
+      # dp.games = day_games
+      # dp.win = win3 + win2 + win1
+      # dp.draw = draw
+      # dp.lose = lose
+      # dp.save
+      { id: dp.id, days: dps.size, games: day_games, win: (win3 + win2 + win1), draw: draw, lose: lose }
     end
+    DayPlayer.upsert_all(arr)
     # Player.where(id: dps.map(&:player_id)).each do |player|
     #   byebug
     #   day_team = player.day_players_by_season(id).map { |dp| [dp.day_id, dp.team_id, dp.elo] }

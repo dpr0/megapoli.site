@@ -1,42 +1,32 @@
-# frozen_string_literal: true
-
-ActiveRecord::Base.transaction do
-  s = Season.last
-  day = Day.create(season_id: s.id, date: '09.03.2026'.to_date)
-  day.add_players(
-    1 => [94, 2, 5, 50, 1],
-    2 => [13, 110, 58, 7, 10, 113],
-    3 => [48, 93, 42, 108, 21, 105],
-    7 => [104, 54, 12, 62, 19, 44],
-  )
-  g = day.games
-  dps = day.day_players
-  z = [s.id, dps]
-  g.create(team_left_id: 1, team_right_id: 7).add_goals(z, '1 1 94,7 104')
-  g.create(team_left_id: 2, team_right_id: 3).add_goals(z, '2 58 104')
-  g.create(team_left_id: 2, team_right_id: 1).add_goals(z, '2 113 58,2 58 113,1 1 2')
-  g.create(team_left_id: 2, team_right_id: 7).add_goals(z, '2 13 7,2 10 13')
-  g.create(team_left_id: 2, team_right_id: 3).add_goals(z, '3 21,3 21 105')
-  g.create(team_left_id: 1, team_right_id: 3).add_goals(z, '')
-  g.create(team_left_id: 2, team_right_id: 7).add_goals(z, '7 104,2 13')
-  g.create(team_left_id: 1, team_right_id: 3).add_goals(z, '1 1,1 1 50')
-  g.create(team_left_id: 1, team_right_id: 7).add_goals(z, '1 2 48')
-  g.create(team_left_id: 1, team_right_id: 2).add_goals(z, '2 13,1 94 2')
-  g.create(team_left_id: 3, team_right_id: 7).add_goals(z, '7 54 62')
-  g.create(team_left_id: 2, team_right_id: 7).add_goals(z, '2 113 110,7 44')
-  g.create(team_left_id: 1, team_right_id: 3).add_goals(z, '3 108 105')
-  g.create(team_left_id: 2, team_right_id: 3).add_goals(z, '3 93 108,2 13')
-  g.create(team_left_id: 1, team_right_id: 7).add_goals(z, '7 62 12')
-  g.create(team_left_id: 2, team_right_id: 7).add_goals(z, '7 12 19')
-  g.create(team_left_id: 3, team_right_id: 7).add_goals(z, '7 19 54,7 54 44')
-  g.create(team_left_id: 1, team_right_id: 7).add_goals(z, '1 1 94,1 50 94')
-  g.create(team_left_id: 1, team_right_id: 2).add_goals(z, '2 0 7,1 2')
-  g.create(team_left_id: 3, team_right_id: 7).add_goals(z, '3 93 108,3 105')
-  g.create(team_left_id: 2, team_right_id: 3).add_goals(z, '3 108,2 13,2 58 110')
-  g.create(team_left_id: 1, team_right_id: 2).add_goals(z, '')
-  g.create(team_left_id: 3, team_right_id: 7).add_goals(z, '7 54 62,7 62 104')
-
-  day.day_rates!(dps)
-  s.update_stats!(dps, day.games)
-end
-
+commands = {
+  1 => [94, 2, 5, 50, 1],
+  2 => [13, 110, 58, 7, 10, 113],
+  3 => [48, 93, 42, 108, 21, 105],
+  7 => [104, 54, 12, 62, 19, 44],
+}
+results = '
+1:7 1-1 1/1/94,7/104/0
+2:3 1-0 2/58/104
+2:1 2-1 2/113/58,2/58/113,1/1/2
+2:7 2-0 2/13/7,2/10/13
+2:3 0-2 3/21/0,3/21/105
+1:3 0-0
+2:7 1-1 7/104/0,2/13/0
+1:3 2-0 1/1/0,1/1/50
+1:7 1-0 1/2/48
+1:2 1-1 2/13/0,1/94/2
+3:7 0-1 7/54/62
+2:7 1-1 2/113/110,7/44/0
+1:3 0-1 3/108/105
+2:3 1-1 3/93/108,2/13/0
+1:7 0-1 7/62/12
+2:7 0-1 7/12/19
+3:7 0-2 7/19/54,7/54/44
+1:7 2-0 1/1/94,1/50/94
+1:2 1-1 2/0/7,1/2/0
+3:7 2-0 3/93/108,3/105/0
+2:3 2-1 3/108/0,2/13/0,2/58/110
+1:2 0-0
+3:7 0-2 7/54/62,7/62/104
+'
+Day.after_game(8, '09.03.2026', commands, results)

@@ -48,4 +48,29 @@ class Day < ApplicationRecord
     end
     DayPlayer.insert_all(day_pl)
   end
+
+  def self.after_game(season_id, date, commands, results)
+    ActiveRecord::Base.transaction do
+      s = Season.find(season_id)
+      day = create(season_id: s.id, date: date.to_date)
+      day.add_players(commands)
+      g = day.games
+      dps = day.day_players
+      z = [s.id, dps]
+      results.split("\n").select(&:present?).each do |x|
+        str = x.split(' ')
+        t = str[0].split(':')
+        goals = []
+        if str[2].present?
+          goals << str[2].split('/').join(' ')
+        else
+          str[1].split('-').each_with_index { |g, _| g.to_i.times { goals << "#{t[i]} 0" } if g != '0' }
+        end
+        eval "g.create(team_left_id: #{t[0]}, team_right_id: #{t[1]}).add_goals(z, '#{goals.join(',')}')"
+      end
+      day.day_rates!(dps)
+      s.update_stats!(dps, day.games)
+      puts 'end!'
+    end
+  end
 end

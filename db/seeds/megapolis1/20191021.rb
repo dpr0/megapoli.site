@@ -1,29 +1,17 @@
 # frozen_string_literal: true
 
+commands = {
+  1 => %i[2 5 6 8 11 14 18 23],
+  2 => %i[4 10 12 13 16 20],
+  3 => %i[1 7 9 17 19 21 22],
+}
+results = '
+3:2 0-1
+
+'
+Day.after_game(8, '21.10.2019', commands, results)
+
 d1 = Day.new(season_id: @season_id, date: '21.10.2019'.to_date)
-d1t1p1 = d1.day_players.new(season_id: @season_id, team_id: 1, player_id: 2)
-d1t1p2 = d1.day_players.new(season_id: @season_id, team_id: 1, player_id: 5)
-d1t1p3 = d1.day_players.new(season_id: @season_id, team_id: 1, player_id: 6)
-d1t1p4 = d1.day_players.new(season_id: @season_id, team_id: 1, player_id: 8)
-d1t1p5 = d1.day_players.new(season_id: @season_id, team_id: 1, player_id: 11)
-d1t1p5 = d1.day_players.new(season_id: @season_id, team_id: 1, player_id: 14)
-d1t1p6 = d1.day_players.new(season_id: @season_id, team_id: 1, player_id: 18)
-d1t1p7 = d1.day_players.new(season_id: @season_id, team_id: 1, player_id: 23)
-d1t2p1 = d1.day_players.new(season_id: @season_id, team_id: 2, player_id: 4)
-d1t2p2 = d1.day_players.new(season_id: @season_id, team_id: 2, player_id: 10)
-d1t2p3 = d1.day_players.new(season_id: @season_id, team_id: 2, player_id: 12)
-d1t2p4 = d1.day_players.new(season_id: @season_id, team_id: 2, player_id: 13)
-d1t2p5 = d1.day_players.new(season_id: @season_id, team_id: 2, player_id: 12)
-d1t2p5 = d1.day_players.new(season_id: @season_id, team_id: 2, player_id: 16)
-d1t2p6 = d1.day_players.new(season_id: @season_id, team_id: 2, player_id: 20)
-d1t3p1 = d1.day_players.new(season_id: @season_id, team_id: 3, player_id: 1)
-d1t3p2 = d1.day_players.new(season_id: @season_id, team_id: 3, player_id: 7)
-d1t3p2 = d1.day_players.new(season_id: @season_id, team_id: 3, player_id: 17)
-d1t3p3 = d1.day_players.new(season_id: @season_id, team_id: 3, player_id: 9)
-d1t3p4 = d1.day_players.new(season_id: @season_id, team_id: 3, player_id: 19)
-d1t3p5 = d1.day_players.new(season_id: @season_id, team_id: 3, player_id: 21)
-d1t3p6 = d1.day_players.new(season_id: @season_id, team_id: 3, player_id: 22)
-d1.save
 
 g1 = Game.create(day_id: d1.id, team_left_id: 3, goals_left: 0, goals_right: 1, team_right_id: 2)
 g2 = Game.create(day_id: d1.id, team_left_id: 1, goals_left: 1, goals_right: 0, team_right_id: 2)
@@ -79,4 +67,3 @@ g22 = Game.create(day_id: d1.id, team_left_id: 3, goals_left: 2, goals_right: 1,
 g22.goals.create(team_id: 1, player_id: 18)
 g22.goals.create(team_id: 3, player_id: 7)
 g22.goals.create(team_id: 3, player_id: 19)
-d1.day_rates!

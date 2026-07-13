@@ -11,6 +11,7 @@ Team.create(code: 'pink',   name: 'Розовые',    num: 7)
 Role.create(code: 'admin',   name: 'Администратор')
 Role.create(code: 'captain', name: 'Капитан команды')
 Role.create(code: 'player',  name: 'Игрок')
+Role.create(code: 'exit',    name: 'выбыл')
 
 sport      = Sport.create(code: 'football', name: 'Футбол')
 megapolis  = sport.championships.create(code: 'megapolis',  name: 'Мегаполис')

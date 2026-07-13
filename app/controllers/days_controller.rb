@@ -8,7 +8,7 @@ class DaysController < ApplicationController
   before_action :authenticate_player!, only: :next
 
   def index
-    @season = params[:season_id] ? Season.find(params[:season_id]) : Season.last
+    @season = Season.find_by(id: params[:season_id]) || Season.last
     @championship = Championship.find(@season.championship_id)
     @days = Day.where(season_id: @season.id).order(id: :desc)
     @places = @days.select(:first_place, :second_place, :third_place, :fourth_place, :season_id)
@@ -18,10 +18,12 @@ class DaysController < ApplicationController
     @goals = Goal.where(season_id: @season.id).order(id: :desc).to_a
     @games = Game.where(day_id: @days.ids).to_a
     @sport = Sport.cached_by_id[@championship.sport_id]
-    @players = Player.all.order(elo: :desc).to_a
+    @players = Player.where.not(role_id: 4).order(elo: :desc).to_a
     @player_dps = []
     @day_players.group_by(&:player_id).each do |player_id, day_players|
       player = @players.find { |p| p.id == player_id }
+      next unless player
+
       dp = day_players.max_by(&:day_id)
       goals = @goals.count { |x| x.player_id == player.id }
       assists = @goals.count { |x| x.assist_player_id == player.id }
@@ -56,7 +58,7 @@ class DaysController < ApplicationController
   end
 
   def show
-    @season = params[:season_id] ? Season.find(params[:season_id]) : Season.last
+    @season = Season.find_by(id: params[:season_id]) || Season.last
     @teams = Team.all_cached
     @breadcrumbs = { '' => root_path }
     @main_table = TeamStat.new(@games, @day).data
