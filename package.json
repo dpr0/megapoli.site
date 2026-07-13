@@ -3,17 +3,17 @@
   "private": "true",
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
-    "@hotwired/turbo-rails": "^8.0.12",
+    "@hotwired/turbo-rails": "^8.0.23",
     "bulma": "^0.9.4",
     "bulma-extensions": "^6.2.7",
-    "cocoon-js": "^0.0.5",
     "chart.js": "^4.4.4",
     "chartkick": "^5.0.1",
-    "esbuild": "^0.16.15",
+    "cocoon-js": "^0.0.5",
+    "esbuild": "^0.28.1",
     "esbuild-plugin-import-glob": "^0.1.1",
     "esbuild-rails": "^1.0.7",
-    "jquery": "^3.7.1",
-    "jquery-ui": "^1.14.0",
+    "jquery": "^4.0.0",
+    "jquery-ui": "^1.14.2",
     "sass": "^1.80.3"
   },
   "scripts": {
